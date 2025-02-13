@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Header.css";
 
 function Header() {
@@ -14,21 +15,21 @@ function Header() {
           </button>
           {menuOpen && (
             <ul className="dropdown-menu">
-              <li><a href="#">Hem</a></li>
-              <li><a href="#">Portfolio</a></li>
-              <li><a href="#">Kontakt</a></li>
-              <li><a href="#">Kundgalleri</a></li>
+              <li><Link to="/" onClick={() => setMenuOpen(false)}>Hem</Link></li>
+              <li><Link to="/portfolio" onClick={() => setMenuOpen(false)}>Portfolio</Link></li>
+              <li><Link to="/kontakt" onClick={() => setMenuOpen(false)}>Kontakt</Link></li>
+              <li><Link to="/kundgalleri" onClick={() => setMenuOpen(false)}>Kundgalleri</Link></li>
             </ul>
           )}
         </div>
 
         {/* Full meny (visas från 640px) */}
         <ul className="nav-links">
-          <li><a href="#">Hem</a></li>
-          <li><a href="#">Portfolio</a></li>
-          <li><a href="#">Kontakt</a></li>
+          <li><Link to="/">Hem</Link></li>
+          <li><Link to="/portfolio">Portfolio</Link></li>
+          <li><Link to="/kontakt">Kontakt</Link></li>
           <li className="dropdown">
-            <a href="#">Kundgalleri ▼</a>
+            <span>Kundgalleri ▼</span>
             <ul className="dropdown-menu">
               <li><a href="#">Luisa och Muslim</a></li>
               <li><a href="#">Jesper och Nicole</a></li>

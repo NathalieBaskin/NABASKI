@@ -1,0 +1,46 @@
+.image-links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    margin: 40px auto;
+  }
+  
+  @media (min-width: 640px) {
+    .image-links-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .image-link {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    display: block;
+    border-radius: 10px;
+  }
+  
+  .image-link img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .image-link:hover img {
+    transform: scale(1.05);
+  }
+  
+  .image-text {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    color: rgb(3, 0, 0);
+    text-transform: uppercase;
+    padding: 5px 10px;
+
+    font-size: 16px;
+  }
+  
