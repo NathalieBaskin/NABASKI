@@ -4,7 +4,7 @@ import ImageCarousel from "../components/ImageCarousel";
 
 function Portfolio() {
   const categories = [
-    { name: "Bröllop", image: "/images/Bröllop.jpg", link: "/brollop" },
+    { name: "Bröllop", image: "/images/Bröllop.jpg", alt: "bröllop", link: "/brollop" },
     { name: "Förlovning", image: "/images/Förlovning.jpg", link: "/forlovning" },
     { name: "Familj", image: "/images/Familj.jpg", link: "/familj" },
     { name: "Barn", image: "/images/Barn.jpg", link: "/barn" },

@@ -5,112 +5,84 @@
     display: flex;
     justify-content: center;
     border-bottom: 2px solid black;
-  }
-  
-  .nav {
+}
+
+.nav {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;
-  }
-  
-  /* Menyknapp (mobil) */
-  .menu {
-    position: relative;
-  }
-  
-  .menu-button {
-    background: white;
-    border: 2px solid black;
-    border-radius: 20px;
-    padding: 5px 15px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  /* Dropdown-meny */
-  .dropdown-menu {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    width: 150px;
-    background: white;
-    border: 2px solid black;
-    list-style: none;
-    padding: 0;
-    display: none;
-  }
-  
-  .menu-button:focus + .dropdown-menu,
-  .dropdown:hover .dropdown-menu {
-    display: block;
-  }
-  
-  .dropdown-menu li {
-    padding: 10px;
-    text-align: left;
-  }
-  
-  .dropdown-menu a {
-    text-decoration: none;
-    color: black;
-    display: block;
-  }
-  
-  /* Dölj fulla menyn och ikoner på mobil */
-  .nav-links,
-  .social-icons {
-    display: none;
-  }
-  
-  /* Sökfält och varukorg */
-  .nav-right {
+    flex-direction: column; /* 🔥 Staplar allt i mobil */
+}
+
+/* 🔥 Sök + kundkorg ligger nu ovanför knapparna i mobil */
+.nav-right {
     display: flex;
+    justify-content: center;
     align-items: center;
-  }
-  
-  .search-bar {
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 10px; /* Mellanrum mellan sök/kundkorg och knappar */
+}
+
+/* 🔥 Sökfält + kundkorg är centrerade i mobil */
+.search-bar {
     border: 2px solid black;
     padding: 5px 10px;
     font-size: 16px;
-    margin-right: 10px;
     border-radius: 10px;
-  }
-  
-  .cart {
+    width: 70%;
+    max-width: 250px;
+}
+
+.cart {
     background: white;
     border: none;
     font-size: 18px;
     cursor: pointer;
-  }
-  
-  /* Från 640px: Visa full meny och ikoner */
-  @media (min-width: 640px) {
-    .menu {
-      display: none; /* Dölj menyknappen */
+}
+
+/* 🔥 Knapparna ligger på en rad i mobil */
+.nav-links {
+    display: flex;
+    flex-wrap: nowrap; /* 🔥 Hindrar knapparna från att staplas */
+    justify-content: center;
+    gap: 10px;
+    list-style: none;
+    width: 100%;
+}
+
+/* 🔥 Gör knapparna stilrena och ser till att texten håller sig på en rad */
+.nav-links a {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: center;
+    white-space: nowrap; /* 🔥 Håller texten på en rad */
+}
+
+/* 🔥 Från 640px: Flytta tillbaka sök + kundkorg till höger */
+@media (min-width: 640px) {
+    .nav {
+        flex-direction: row; /* 🔥 Återställ till horisontell layout */
+        align-items: center;
     }
-  
+
+    .nav-right {
+        width: auto;
+        margin-bottom: 0;
+        justify-content: flex-end; /* 🔥 Flytta sök + kundkorg till höger */
+    }
+
     .nav-links {
-      display: flex;
-      gap: 15px;
-      list-style: none;
+        flex-wrap: nowrap; /* 🔥 Se till att knapparna ligger på rad */
+        gap: 15px;
     }
-  
+
     .nav-links a {
-      text-decoration: none;
-      color: black;
-      padding: 10px;
-      border: 2px solid black;
+        width: auto;
     }
-  
-    .social-icons {
-      display: flex;
-      gap: 10px;
-    }
-  
-    .search-bar {
-      display: block;
-    }
-  }
-  
+}
