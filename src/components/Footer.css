@@ -1,4 +1,8 @@
 /* Grundläggande styling */
+
+.body {
+  font-family: Arial, Helvetica, sans-serif;
+}
 .footer {
   background: #f8f8f8;
   padding: 20px;

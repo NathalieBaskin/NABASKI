@@ -5,7 +5,10 @@ import Video from "./components/Video";
 import Testimonials from "./components/Testimonials";
 import Portfolio from "./pages/Portfolio";
 import Brollop from "./pages/Brollop";
-import Bokning from "./pages/Bokning"; // ✅ Importera bokningssidan
+import Bokning from "./pages/Bokning";
+import Kontakt from "./pages/Kontakt"; // ✅ Kontrollera att denna fil finns
+import Kundgalleri from "./pages/Kundgalleri"; // ✅ Kontrollera att denna fil finns
+import Sok from "./pages/Sok"; // ✅ Importera söksidan
 
 function App() {
   return (
@@ -24,9 +27,10 @@ function App() {
           />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/brollop" element={<Brollop />} />
-          <Route path="/bokning" element={<Bokning />} /> {/* ✅ Lägg till bokningssidan */}
-          <Route path="/kontakt" element={<h1>Kontakt</h1>} />
-          <Route path="/kundgalleri" element={<h1>Kundgalleri</h1>} />
+          <Route path="/bokning" element={<Bokning />} />
+          <Route path="/kontakt" element={<Kontakt />} />
+          <Route path="/kundgalleri" element={<Kundgalleri />} /> {/* ✅ Kontrollera att denna fil finns */}
+          <Route path="/sok" element={<Sok />} /> {/* ✅ Nu är den inuti <Routes> */}
         </Routes>
         <Footer />
       </div>

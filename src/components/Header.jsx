@@ -1,13 +1,34 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 
 function Header() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  // Hantera sökning vid Enter-knapp
+  const handleSearch = (event) => {
+    event.preventDefault();
+    if (searchQuery.trim() !== "") {
+      navigate(`/sok?q=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery(""); // Rensa sökfältet efter sökning
+    }
+  };
+
   return (
     <header className="header">
       <nav className="nav">
-        {/* 🔥 Sökfält och kundkorg ligger nu ovanför knapparna i mobil */}
+        {/* 🔥 Sökfält och kundkorg ovanför knapparna i mobil */}
         <div className="nav-right">
-          <input type="text" placeholder="Sök..." className="search-bar" />
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Sök..."
+              className="search-bar"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </form>
           <button className="cart"><i className="fas fa-shopping-cart"></i></button>
         </div>
 
