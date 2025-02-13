@@ -1,0 +1,116 @@
+/* Grundläggande styling */
+.header {
+    background: white;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid black;
+  }
+  
+  .nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+  }
+  
+  /* Menyknapp (mobil) */
+  .menu {
+    position: relative;
+  }
+  
+  .menu-button {
+    background: white;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Dropdown-meny */
+  .dropdown-menu {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 150px;
+    background: white;
+    border: 2px solid black;
+    list-style: none;
+    padding: 0;
+    display: none;
+  }
+  
+  .menu-button:focus + .dropdown-menu,
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
+  .dropdown-menu li {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .dropdown-menu a {
+    text-decoration: none;
+    color: black;
+    display: block;
+  }
+  
+  /* Dölj fulla menyn och ikoner på mobil */
+  .nav-links,
+  .social-icons {
+    display: none;
+  }
+  
+  /* Sökfält och varukorg */
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-bar {
+    border: 2px solid black;
+    padding: 5px 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    border-radius: 10px;
+  }
+  
+  .cart {
+    background: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  /* Från 640px: Visa full meny och ikoner */
+  @media (min-width: 640px) {
+    .menu {
+      display: none; /* Dölj menyknappen */
+    }
+  
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+    }
+  
+    .nav-links a {
+      text-decoration: none;
+      color: black;
+      padding: 10px;
+      border: 2px solid black;
+    }
+  
+    .social-icons {
+      display: flex;
+      gap: 10px;
+    }
+  
+    .search-bar {
+      display: block;
+    }
+  }
+  
