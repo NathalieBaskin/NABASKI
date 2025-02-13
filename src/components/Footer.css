@@ -8,6 +8,7 @@
     position: fixed;  /* Fixerar footern */
     bottom: 0;  /* Lägger den längst ner */
     left: 0;
+    z-index: 1000;  /* Högre än alla andra element */
   }
   
   /* Footer-titeln */
