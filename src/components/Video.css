@@ -1,0 +1,12 @@
+.video-container {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  
+  .background-video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
