@@ -92,7 +92,16 @@ function Bokning() {
       <form className="booking-form" onSubmit={sendEmail}>
         <label>Datum</label>
         <input type="text" value={selectedDate ? format(selectedDate, "yyyy-MM-dd") : ''} readOnly />
-
+        <label>Välj fotografering</label>
+        <select>
+        <option>Välj typ av fotografering</option>
+          <option>Bröllop</option>
+          <option>Förlovning</option>
+          <option>Familj</option>
+          <option>Barn</option>
+          <option>Modell</option>
+          <option>Event</option>
+        </select>
         <label>Välj paket</label>
         <select onChange={handlePackageChange}>
           <option value="">Välj paket</option>
