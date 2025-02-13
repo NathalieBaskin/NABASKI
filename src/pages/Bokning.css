@@ -75,4 +75,9 @@
   .booking-form button:hover {
     background: gray;
   }
+  /* Lägg till röd bakgrund för bokade datum */
+.booked-date {
+    background-color: red !important;
+    color: white !important;
+  }
   
