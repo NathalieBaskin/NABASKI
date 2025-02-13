@@ -16,7 +16,7 @@ function Header() {
           {menuOpen && (
             <ul className="dropdown-menu">
               <li><Link to="/" onClick={() => setMenuOpen(false)}>Hem</Link></li>
-              <li><Link to="/portfolio" onClick={() => setMenuOpen(false)}>Portfolio</Link></li>
+              <li><Link to="/Portfolio" onClick={() => setMenuOpen(false)}>Portfolio</Link></li>
               <li><Link to="/kontakt" onClick={() => setMenuOpen(false)}>Kontakt</Link></li>
               <li><Link to="/kundgalleri" onClick={() => setMenuOpen(false)}>Kundgalleri</Link></li>
             </ul>
@@ -50,11 +50,7 @@ function Header() {
 
         {/* Ikoner, sökfält och varukorg */}
         <div className="nav-right">
-          <div className="social-icons">
-            <a href="#"><i className="fab fa-facebook"></i></a>
-            <a href="#"><i className="fab fa-instagram"></i></a>
-            <a href="#"><i className="fab fa-youtube"></i></a>
-          </div>
+
           <input type="text" placeholder="🔍 search" className="search-bar" />
           <button className="cart"><i className="fas fa-shopping-cart"></i></button>
         </div>

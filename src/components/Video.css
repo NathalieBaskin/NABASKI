@@ -1,8 +1,12 @@
 .video-container {
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-  }
+  width: 100vw; /* 🔹 Gör så att videon sträcker sig över hela skärmen */
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
   
   .background-video {
     width: 100%;

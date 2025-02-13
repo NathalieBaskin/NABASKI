@@ -38,13 +38,30 @@
   border-radius: 10px;
 }
 
+/* ✅ Säkertställer att vi styr rätt element */
 .portfolio-text {
   position: absolute;
-  bottom: 10px;
+  top: 55%;
   left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
+  transform: translate(-50%, -50%);
+
+  font-size: 20px;  /* 🔹 Stor text */
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+  
+  white-space: nowrap; /* 🔹 Gör att texten sticker ut på sidorna */
+  letter-spacing: 3px; /* 🔹 Ger mer mellanrum mellan bokstäverna */
+
+  background: none !important; /* 🔹 Tar bort bakgrundsfärg */
+  padding: 0 !important; /* 🔹 Säkerställer att ingen padding påverkar */
+  border-radius: 0 !important; /* 🔹 Tar bort avrundade kanter */
+
+  z-index: 5 !important; /* 🔹 Se till att texten ligger över bilden */
+}
+.video-fullwidth {
+  width: 100vw; /* 🔹 Tar upp hela bredden av skärmen */
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
 }

@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Video from "./components/Video";
 import Testimonials from "./components/Testimonials";
 import Portfolio from "./pages/Portfolio";
+import Brollop from "./pages/Brollop"; // ✅ Importerar bröllopssidan
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             }
           />
           <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/brollop" element={<Brollop />} /> {/* ✅ Lagt till bröllopssidan */}
           <Route path="/kontakt" element={<h1>Kontakt</h1>} />
           <Route path="/kundgalleri" element={<h1>Kundgalleri</h1>} />
         </Routes>
