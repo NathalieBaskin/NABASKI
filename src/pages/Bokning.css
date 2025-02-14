@@ -1,86 +1,52 @@
-.body {
-    font-family: Arial, Helvetica, sans-serif;
-}
 .bokning-page {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  /* 🔹 Kalender */
-  .calendar {
-    margin-bottom: 20px;
-  }
-  
-  .calendar h3 {
-    margin-bottom: 10px;
-  }
-  
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  .calendar-day {
-    padding: 10px;
-    border: 1px solid black;
-    text-align: center;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .available {
-    background: white;
-  }
-  
-  .booked {
-    background: red;
-    color: white;
-    cursor: not-allowed;
-  }
-  
-  .unavailable {
-    background: gray;
-    color: white;
-    cursor: not-allowed;
-  }
-  
-  /* 🔹 Bokningsformulär */
-  .booking-form {
-    max-width: 400px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .booking-form label {
-    font-weight: bold;
-  }
-  
-  .booking-form input, .booking-form select, .booking-form textarea {
-    padding: 8px;
-    width: 100%;
-    border: 1px solid black;
-  }
-  
-  .booking-form button {
-    padding: 10px;
-    background: black;
-    color: white;
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .booking-form button:hover {
-    background: gray;
-  }
-  /* Lägg till röd bakgrund för bokade datum */
+  text-align: center;
+  padding: 20px;
+}
+
+.calendar {
+  margin: 20px auto;
+  max-width: 400px;
+}
+
 .booked-date {
-    background-color: red !important;
-    color: white !important;
-  }
-  
+  background-color: red !important;
+  color: white !important;
+  text-decoration: line-through;
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.booking-form label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.booking-form button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.booking-form button:hover {
+  background: darkgray;
+}

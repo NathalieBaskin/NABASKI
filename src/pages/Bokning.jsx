@@ -1,14 +1,21 @@
-import  { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import DatePicker from "react-datepicker"; 
 import { format } from "date-fns"; 
 import "react-datepicker/dist/react-datepicker.css"; 
 import "./Bokning.css";
 
 function Bokning() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const initialType = searchParams.get("typ") || "";
+  const initialPackage = searchParams.get("paket") || "";
+  const initialPrice = searchParams.get("pris") || "";
+
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedType, setSelectedType] = useState(""); // För att hålla koll på valt fotograferingstyp
-  const [selectedPackage, setSelectedPackage] = useState(""); // För att hålla koll på valt paket
-  const [price, setPrice] = useState(""); // För att hålla koll på priset
+  const [selectedType, setSelectedType] = useState(initialType); // Fotograferingstyp
+  const [selectedPackage, setSelectedPackage] = useState(initialPackage); // Paket
+  const [price, setPrice] = useState(initialPrice); // Pris
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -16,7 +23,7 @@ function Bokning() {
     message: "",
   });
   
-  const [bookedDate, setBookedDate] = useState(null); // Håller koll på bokade datum
+  const [bookedDates, setBookedDates] = useState([]); // Håller koll på bokade datum
 
   const photographyTypes = [
     "Bröllop", "Förlovning", "Familj", "Barn", "Modell", "Event"
@@ -28,19 +35,17 @@ function Bokning() {
     "Exclusive": "20,000 SEK"
   };
 
+  // Uppdatera valda värden om de skickas via URL
+  useEffect(() => {
+    if (initialType) setSelectedType(initialType);
+    if (initialPackage) setSelectedPackage(initialPackage);
+    if (initialPrice) setPrice(initialPrice);
+  }, [initialType, initialPackage, initialPrice]);
+
   const handlePackageChange = (event) => {
     const selected = event.target.value;
     setSelectedPackage(selected);
-    // Dynamiskt uppdatera pris baserat på paket
-    if (selected === "Standard") {
-      setPrice("10,000 SEK");
-    } else if (selected === "Premium") {
-      setPrice("15,000 SEK");
-    } else if (selected === "Exclusive") {
-      setPrice("20,000 SEK");
-    } else {
-      setPrice("");
-    }
+    setPrice(packages[selected] || "");
   };
 
   const handleTypeChange = (event) => {
@@ -52,13 +57,20 @@ function Bokning() {
   };
 
   const handleBooking = () => {
-    setBookedDate(selectedDate); // Spara bokade datumet
-    setSelectedDate(null); // Rensa det valda datumet så det inte kan bokas
+    if (!selectedDate) {
+      alert("Välj ett datum innan du bokar.");
+      return;
+    }
+
+    const formattedDate = format(selectedDate, "yyyy-MM-dd");
+    setBookedDates([...bookedDates, formattedDate]); // Lägg till det bokade datumet
+    setSelectedDate(null); // Rensa valt datum
   };
 
-  // Inaktivera det bokade datumet i kalendern
+  // Inaktivera redan bokade datum
   const isDateBooked = (date) => {
-    return bookedDate && format(date, "yyyy-MM-dd") === format(bookedDate, "yyyy-MM-dd");
+    const formattedDate = format(date, "yyyy-MM-dd");
+    return bookedDates.includes(formattedDate);
   };
 
   return (
@@ -84,7 +96,7 @@ function Bokning() {
         <input type="text" value={selectedDate ? format(selectedDate, "yyyy-MM-dd") : 'Datum inte valt'} readOnly />
 
         <label>Välj fotograferingstyp</label>
-        <select value={selectedType} onChange={handleTypeChange}> {/* Värdet sätts här */}
+        <select value={selectedType} onChange={handleTypeChange}>
           <option value="">Välj typ av fotografering</option>
           {photographyTypes.map((type) => (
             <option key={type} value={type}>{type}</option>

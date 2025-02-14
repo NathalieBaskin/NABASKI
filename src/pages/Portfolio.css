@@ -8,11 +8,13 @@
 
 .portfolio h1 {
   font-size: 24px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .portfolio h3 {
   font-size: 18px;
   margin-bottom: 20px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Portfolio Grid */
@@ -47,7 +49,7 @@
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;  /* 🔹 Stor text */
   font-weight: bold;
   color: rgb(255, 255, 255);

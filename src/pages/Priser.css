@@ -1,0 +1,36 @@
+.priser-page {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .package-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .package {
+    width: 80%;
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    border: 2px solid black;
+    text-align: left;
+  }
+  
+  .package img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .bokning-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  

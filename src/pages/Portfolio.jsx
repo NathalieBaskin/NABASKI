@@ -3,7 +3,7 @@ import "./Portfolio.css";
 import ImageCarousel from "../components/ImageCarousel";
 
 const categories = [
-  { name: "Bröllop", image: "/images/Bröllop.jpg", alt: "Bröllop", link: "/brollop" },
+  { name: "Bröllop", image: "/images/Brollop.jpg", alt: "Bröllop", link: "/brollop" },
   { name: "Förlovning", image: "/images/Förlovning.jpg", alt: "Förlovning", link: "/forlovning" },
   { name: "Familj", image: "/images/Familj.jpg", alt: "Familj", link: "/familj" },
   { name: "Barn", image: "/images/Barn.jpg", alt: "Barn", link: "/barn" },

@@ -15,24 +15,28 @@ function Sok() {
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get("q")?.toLowerCase() || "";
 
-  const filteredImages = images.filter(img =>
+  const filteredImages = images.filter((img) =>
     img.alt.toLowerCase().includes(query)
   );
 
+  console.log("Sökquery:", query);
+  console.log("Filtrerade bilder:", filteredImages);
+
   return (
     <div className="sok-page">
-      <h1>Sökresultat för {query}</h1>
+      <h1>Sökresultat för "{query}"</h1>
       <div className="image-grid">
         {filteredImages.length > 0 ? (
           filteredImages.map((img, index) => (
-            <img key={index} src={img.image} alt={img.alt} />
+            <div key={index} className="image-item">
+              <img src={img.image} alt={img.alt} /> {/* 🚀 Ta bort process.env.PUBLIC_URL */}
+              <p>{img.alt}</p>
+            </div>
           ))
         ) : (
           <p>Inga resultat hittades.</p>
-          
         )}
       </div>
-      
     </div>
   );
 }

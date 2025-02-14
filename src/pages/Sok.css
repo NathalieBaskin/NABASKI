@@ -1,18 +1,28 @@
 .sok-page {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .image-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .image-grid img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-  }
-  
+  text-align: center;
+  padding: 20px;
+}
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.image-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-item img {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.image-item p {
+  margin-top: 10px;
+  font-weight: bold;
+}

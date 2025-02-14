@@ -1,0 +1,69 @@
+.kundgalleri-page {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .galleri-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .galleri-item {
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .galleri-item img {
+    width: 100%;
+    height: auto;
+    border: 2px solid black;
+  }
+  
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .popup input {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 5px;
+    font-size: 16px;
+  }
+  
+  .popup-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .popup button {
+    padding: 8px 12px;
+    border: none;
+    background: black;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .popup .error {
+    color: red;
+    margin-top: 5px;
+  }
+  

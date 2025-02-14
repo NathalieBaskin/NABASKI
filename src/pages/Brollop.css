@@ -1,6 +1,4 @@
-.body {
-    font-family: Arial, Helvetica, sans-serif;
-}
+
 .brollop-page {
     text-align: center;
     padding: 20px;
@@ -11,6 +9,7 @@
     font-size: 28px;
     margin: 20px 0; /* 🔹 Skapar avstånd mellan video och text */
     text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
   }
   
   /* 🔹 Knapp-länkar */

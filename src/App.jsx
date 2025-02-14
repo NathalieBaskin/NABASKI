@@ -9,6 +9,7 @@ import Bokning from "./pages/Bokning";
 import Kontakt from "./pages/Kontakt"; // ✅ Kontrollera att denna fil finns
 import Kundgalleri from "./pages/Kundgalleri"; // ✅ Kontrollera att denna fil finns
 import Sok from "./pages/Sok"; // ✅ Importera söksidan
+import Priser from "./pages/Priser";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/kontakt" element={<Kontakt />} />
           <Route path="/kundgalleri" element={<Kundgalleri />} /> {/* ✅ Kontrollera att denna fil finns */}
           <Route path="/sok" element={<Sok />} /> {/* ✅ Nu är den inuti <Routes> */}
+          <Route path="/priser" element={<Priser />} />
         </Routes>
         <Footer />
       </div>

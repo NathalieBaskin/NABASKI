@@ -24,7 +24,7 @@ function ImageCarousel() {
       setCurrentIndex((prevIndex) =>
         prevIndex + 1 < slides.length ? prevIndex + 1 : 0
       );
-    }, 10000); // Byter bildset var 5:e sekund
+    }, 3000); // Byter bildset var 5:e sekund
 
     return () => clearInterval(interval);
   }, []);
