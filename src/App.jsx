@@ -6,10 +6,11 @@ import Testimonials from "./components/Testimonials";
 import Portfolio from "./pages/Portfolio";
 import Brollop from "./pages/Brollop";
 import Bokning from "./pages/Bokning";
-import Kontakt from "./pages/Kontakt"; // ✅ Kontrollera att denna fil finns
-import Kundgalleri from "./pages/Kundgalleri"; // ✅ Kontrollera att denna fil finns
-import Sok from "./pages/Sok"; // ✅ Importera söksidan
+import Kontakt from "./pages/Kontakt";
+import Kundgalleri from "./pages/Kundgalleri";
+import Sok from "./pages/Sok";
 import Priser from "./pages/Priser";
+import Admin from "./pages/Admin"; // ✅ Lägg till Admin-sidan
 
 function App() {
   return (
@@ -30,9 +31,10 @@ function App() {
           <Route path="/brollop" element={<Brollop />} />
           <Route path="/bokning" element={<Bokning />} />
           <Route path="/kontakt" element={<Kontakt />} />
-          <Route path="/kundgalleri" element={<Kundgalleri />} /> {/* ✅ Kontrollera att denna fil finns */}
-          <Route path="/sok" element={<Sok />} /> {/* ✅ Nu är den inuti <Routes> */}
+          <Route path="/kundgalleri" element={<Kundgalleri />} />
+          <Route path="/sok" element={<Sok />} />
           <Route path="/priser" element={<Priser />} />
+          <Route path="/admin" element={<Admin />} /> {/* ✅ Admin-sidan */}
         </Routes>
         <Footer />
       </div>

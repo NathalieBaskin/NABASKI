@@ -24,7 +24,7 @@ function Sok() {
 
   return (
     <div className="sok-page">
-      <h1>Sökresultat för "{query}"</h1>
+      <h1>Sökresultat för {query}</h1>
       <div className="image-grid">
         {filteredImages.length > 0 ? (
           filteredImages.map((img, index) => (
