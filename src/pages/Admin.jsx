@@ -1,134 +1,116 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 function Admin() {
-  const [galleries, setGalleries] = useState([]);
-  const [selectedGallery, setSelectedGallery] = useState("");
-  const [galleryData, setGalleryData] = useState({
-    name: "",
-    password: "",
-    images: [],
-  });
-  const [newImages, setNewImages] = useState([]);
+  const [galleries, setGalleries] = useState([]);  // För att hålla alla gallerier
+  const [selectedGallery, setSelectedGallery] = useState("");  // För att hålla det valda galleriet
+  const [newGalleryName, setNewGalleryName] = useState("");  // För att hålla det nya galleri-namnet
+  const [newGalleryPassword, setNewGalleryPassword] = useState("");  // För att hålla lösenordet
+  const [newImages, setNewImages] = useState([]);  // För att hålla bilder för det nya galleriet
 
-  // Hämta alla gallerier vid sidladdning
+  // Hantera galleri-val (inklusive skapa nytt)
+  const handleGallerySelect = (event) => {
+    const value = event.target.value;
+    setSelectedGallery(value);
+    if (value === "new") {
+      // Om användaren väljer "Skapa nytt", visa formuläret
+      setNewGalleryName("");
+      setNewGalleryPassword("");
+      setNewImages([]);
+    }
+  };
+
+  // Hämta alla gallerier från backend när komponenten laddas
   useEffect(() => {
-    fetch("/api/galleries")
-      .then((res) => {
-        if (!res.ok) {
-          return res.text().then((text) => { throw new Error(text) });  // Läser svar som text
-        }
-        return res.json(); // Om svaret är OK, parsas det som JSON
-      })
+    fetch("http://localhost:5000/api/galleries")
+      .then((response) => response.json())
       .then((data) => setGalleries(data.galleries))
-      .catch((err) => console.error("Fel vid hämtning av gallerier:", err));
+      .catch((error) => console.error("Error fetching galleries:", error));
   }, []);
-  
 
-  // Hantera val av galleri
-  const handleGallerySelect = async (e) => {
-    const selected = e.target.value;
-    setSelectedGallery(selected);
+  // Hantera inlämning av nytt galleri
+  const handleAddGallery = (e) => {
+    e.preventDefault();
 
-    if (selected === "new") {
-      setGalleryData({ name: "", password: "", images: [] });
+    // Kontrollera att vi har ett namn och lösenord
+    if (!newGalleryName || !newGalleryPassword || newImages.length === 0) {
+      alert("Vänligen fyll i alla fält och lägg till bilder.");
       return;
     }
 
-    try {
-      const res = await fetch("/api/getGallery", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: selected, password: "admin" }),
-      });
-      const data = await res.json();
-      if (data.gallery) {
-        setGalleryData(data.gallery);
-      }
-    } catch (error) {
-      console.error("Fel vid hämtning av galleri:", error);
-    }
-  };
+    // Konvertera FileList till en array
+    const imagesArray = Array.from(newImages);  // Konverterar FileList till en riktig array
 
-  // Hantera bilduppladdning
-  const handleImageUpload = (e) => {
-    setNewImages([...newImages, ...e.target.files]);
-  };
-
-  // Spara eller uppdatera galleri
-  const handleSaveGallery = async () => {
-    if (!galleryData.name || !galleryData.password) {
-      alert("Fyll i alla fält!");
-      return;
-    }
-
-    let url = selectedGallery === "new" ? "/api/addGallery" : "/api/updateGallery";
-    let method = selectedGallery === "new" ? "POST" : "PUT";
-
-    await fetch(url, {
-      method: method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: galleryData.id,
-        name: galleryData.name,
-        password: galleryData.password,
-        images: galleryData.images,
-      }),
+    // Skapa FormData för att skicka bilder och information
+    const formData = new FormData();
+    formData.append("name", newGalleryName);
+    formData.append("password", newGalleryPassword);
+    imagesArray.forEach((file) => {
+      formData.append("images", file);  // Lägg till varje bild
     });
 
-    window.location.reload();
-  };
-
-  // Ta bort ett galleri
-  const handleDeleteGallery = async () => {
-    if (!window.confirm("Är du säker? Detta kan inte ångras!")) return;
-
-    await fetch(`/api/deleteGallery/${galleryData.id}`, { method: "DELETE" });
-    window.location.reload();
+    // Skicka POST-begäran till backend
+    fetch("http://localhost:5000/api/addGallery", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setGalleries([...galleries, data.gallery]);  // Lägg till det nya galleriet i vår lista
+        setSelectedGallery(data.gallery.name);  // Välj det nya galleriet
+        alert("Galleri skapades!");
+      })
+      .catch((error) => {
+        console.error("Error adding gallery:", error);
+        alert("Kunde inte skapa galleri.");
+      });
   };
 
   return (
-    <div className="admin-page">
-      <h1>ADMIN</h1>
-
-      <select onChange={handleGallerySelect} value={selectedGallery}>
-        <option value="">Välj kundgalleri</option>
-        {galleries.map((gallery) => (
-          <option key={gallery.id} value={gallery.name}>
+    <div>
+      <h1>Admin - Hantera Gallerier</h1>
+      
+      {/* Dropdown för att välja ett galleri eller skapa ett nytt */}
+      <select value={selectedGallery} onChange={handleGallerySelect}>
+        <option value="">Välj ett galleri</option>
+        {galleries.map((gallery, index) => (
+          <option key={index} value={gallery.name}>
             {gallery.name}
           </option>
         ))}
-        <option value="new">Skapa nytt</option>
+        <option value="new">Skapa nytt</option>  {/* Alternativ för att skapa nytt galleri */}
       </select>
 
-      {selectedGallery && (
-        <div className="gallery-editor">
+      {selectedGallery === "new" && (
+        <form onSubmit={handleAddGallery}>
+          <h2>Skapa nytt galleri</h2>
+          <label>Galleri namn:</label>
           <input
             type="text"
-            placeholder="Galleri namn"
-            value={galleryData.name}
-            onChange={(e) => setGalleryData({ ...galleryData, name: e.target.value })}
+            value={newGalleryName}
+            onChange={(e) => setNewGalleryName(e.target.value)}
+            required
           />
+          <label>Lösenord:</label>
           <input
             type="password"
-            placeholder="Lösenord"
-            value={galleryData.password}
-            onChange={(e) => setGalleryData({ ...galleryData, password: e.target.value })}
+            value={newGalleryPassword}
+            onChange={(e) => setNewGalleryPassword(e.target.value)}
+            required
+            autoComplete="current-password"  // Lägger till autocomplete-attributet
           />
+          <label>Välj bilder:</label>
+          <input
+            type="file"
+            multiple
+            onChange={(e) => setNewImages(e.target.files)}  // Lägger till valda bilder i state
+            required
+          />
+          <button type="submit">Skapa galleri</button>
+        </form>
+      )}
 
-          <input type="file" multiple onChange={handleImageUpload} />
-
-          <div className="image-preview">
-            {galleryData.images.map((img, index) => (
-              <img key={index} src={img} alt="Galleri bild" width="100" />
-            ))}
-            {newImages.map((img, index) => (
-              <p key={index}>{img.name}</p>
-            ))}
-          </div>
-
-          <button onClick={handleSaveGallery}>Spara galleri</button>
-          {selectedGallery !== "new" && <button onClick={handleDeleteGallery}>Radera galleri</button>}
-        </div>
+      {selectedGallery !== "new" && selectedGallery && (
+        <p>Du har valt: {selectedGallery}</p>
       )}
     </div>
   );

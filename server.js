@@ -1,155 +1,67 @@
-import express from "express";
-import cors from "cors";
-import multer from "multer";
-import { run, get, all } from "./db/utilities/db.js"; // Uppdaterad filväg
+import express from 'express';
+import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import cors from 'cors';  // Importera CORS
 
+// Skapa Express-applikation
 const app = express();
-const PORT = 3000;
 
-app.use(express.json());
+// Aktivera CORS för alla ursprung
 app.use(cors());
-app.use("/uploads", express.static("uploads")); // Servera uppladdade bilder
 
-// 📌 Multer-konfiguration för bilduppladdning
+// Hantera __dirname i ES-moduler
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Använd JSON middleware för att läsa JSON från inkommande request body
+app.use(express.json());
+
+// Ställ in statiska filer för bilder
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));  // Ändrat till /uploads
+
+// Setup multer för bilduppladdning
 const storage = multer.diskStorage({
-  destination: "uploads/",
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "uploads"));  // Här sparas bilderna i /uploads-mappen
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));  // Ge filerna unika namn
   },
 });
-const upload = multer({ storage });
+const upload = multer({ storage: storage });
 
-// 📌 API: Hämta alla gallerier (utan lösenord)
-app.get("/api/galleries", async (req, res) => {
-  try {
-    const galleries = await all("SELECT id, name FROM galleries");
-    res.json({ galleries });
-  } catch (err) {
-    res.status(500).json({ error: "Kunde inte hämta gallerier.", details: err.message });
-  }
-});
+// Dummy databas för gallerier
+let galleries = [];
 
-// 📌 API: Skapa nytt galleri
-app.post("/api/addGallery", async (req, res) => {
+// API för att skapa nytt galleri (ladda upp bilder)
+app.post("/api/addGallery", upload.array("images"), (req, res) => {
   const { name, password } = req.body;
 
-  console.log("⏳ Försöker skapa galleri:", req.body);
-
-  try {
-    await run("INSERT INTO galleries (name, password, images) VALUES (?, ?, ?)", [
-      name,
-      password,
-      JSON.stringify([]),
-    ]);
-    console.log("✅ Galleri skapat:", name);
-    res.json({ message: "Galleri skapat!", gallery: { name } });
-  } catch (err) {
-    console.error("❌ Fel vid insättning i databasen:", err.message);
-    res.status(500).json({ error: "Galleri kunde inte skapas.", details: err.message });
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).json({ message: "Ingen bild uppladdad." });
   }
+
+  const images = req.files.map((file) => `/uploads/${file.filename}`);  // Ändrad sökväg till /uploads
+
+  const newGallery = {
+    name,
+    password,
+    images,
+  };
+
+  galleries.push(newGallery);  // Lägg till det nya galleriet i vår "databas"
+  res.status(201).json({ message: "Galleri skapat", gallery: newGallery });
 });
 
-// 📌 API: Ladda upp bild till galleri
-app.post("/api/upload/:gallery", upload.single("image"), async (req, res) => {
-  const galleryName = req.params.gallery;
-  const imagePath = `/uploads/${req.file.filename}`; // Korrekt bildsökväg
-
-  console.log("📂 Uppladdning till galleri:", galleryName);
-  console.log("🖼️ Uppladdad fil:", req.file);
-
-  try {
-    const row = await get("SELECT * FROM galleries WHERE name = ?", [galleryName]);
-    if (!row) {
-      return res.status(404).json({ error: "Galleri hittades inte." });
-    }
-
-    let images = JSON.parse(row.images);
-    images.push(imagePath);
-
-    await run("UPDATE galleries SET images = ? WHERE name = ?", [JSON.stringify(images), galleryName]);
-
-    console.log("✅ Bild sparad i galleri:", galleryName);
-    res.json({ message: "Bild uppladdad!", imagePath });
-  } catch (err) {
-    console.error("❌ Fel vid bilduppladdning:", err.message);
-    res.status(500).json({ error: "Misslyckades med att spara bilden.", details: err.message });
-  }
+// API för att hämta alla gallerier
+app.get("/api/galleries", (req, res) => {
+  res.json({ galleries });  // Returnera gallerier som JSON
 });
-
-// 📌 API: Hämta ett galleri (lösenord krävs)
-app.post("/api/getGallery", async (req, res) => {
-  const { name, password } = req.body;
-  console.log("🔍 Försöker hämta galleri:", name);
-
-  try {
-    const gallery = await get("SELECT * FROM galleries WHERE name = ? AND password = ?", [name, password]);
-
-    if (!gallery) {
-      return res.status(401).json({ error: "Fel lösenord eller galleri finns inte." });
-    }
-
-    console.log("✅ Galleri hittat:", gallery);
-    res.json({ gallery });
-  } catch (err) {
-    console.error("❌ Kunde inte hämta galleriet:", err.message);
-    res.status(500).json({ error: "Kunde inte hämta galleriet.", details: err.message });
-  }
-});
-
-// 📌 API: Uppdatera galleri (ändra namn, lösenord eller bilder)
-app.put("/api/updateGallery", async (req, res) => {
-  const { id, name, password, images } = req.body;
-
-  try {
-    await run("UPDATE galleries SET name = ?, password = ?, images = ? WHERE id = ?", [
-      name,
-      password,
-      JSON.stringify(images),
-      id,
-    ]);
-    res.json({ message: "Galleri uppdaterat!" });
-  } catch (err) {
-    res.status(500).json({ error: "Misslyckades med att uppdatera galleriet.", details: err.message });
-  }
-});
-
-// 📌 API: Ta bort galleri
-app.delete("/api/deleteGallery/:id", async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    await run("DELETE FROM galleries WHERE id = ?", [id]);
-    res.json({ message: "Galleri raderat!" });
-  } catch (err) {
-    res.status(500).json({ error: "Misslyckades med att radera galleriet.", details: err.message });
-  }
-});
-app.post("/api/addGallery", async (req, res) => {
-    console.log("⏳ Inkommande data:", req.body); // Loggar inkommande data
-  
-    const { name, password } = req.body;
-  
-    if (!name || !password) {
-      return res.status(400).json({ error: "Både namn och lösenord måste anges." });
-    }
-  
-    try {
-      await run("INSERT INTO galleries (name, password, images) VALUES (?, ?, ?)", [
-        name,
-        password,
-        JSON.stringify([]),
-      ]);
-      console.log("✅ Galleri skapat:", name);
-  
-      res.json({ message: "Galleri skapat!", gallery: { name } });
-    } catch (err) {
-      console.error("❌ Fel vid insättning i databasen:", err.message);
-      res.status(500).json({ error: "Galleri kunde inte skapas.", details: err.message });
-    }
-  });
-  
 
 // Starta servern
+const PORT = 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Servern körs på http://localhost:${PORT}`);
+  console.log(`Servern kör på port ${PORT}`);
 });
