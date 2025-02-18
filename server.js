@@ -36,6 +36,7 @@ const upload = multer({ storage: storage });
 let galleries = [];
 
 // API för att skapa nytt galleri (ladda upp bilder)
+// API för att skapa nytt galleri (ladda upp bilder)
 app.post("/api/addGallery", upload.array("images"), (req, res) => {
   const { name, password } = req.body;
 
@@ -43,17 +44,21 @@ app.post("/api/addGallery", upload.array("images"), (req, res) => {
     return res.status(400).json({ message: "Ingen bild uppladdad." });
   }
 
-  const images = req.files.map((file) => `/uploads/${file.filename}`);  // Ändrad sökväg till /uploads
+  // Vi antar att den första bilden är representativ
+  const images = req.files.map((file) => `/uploads/${file.filename}`);
+  const representativeImage = images[0];  // Första bilden som representativ
 
   const newGallery = {
     name,
     password,
     images,
+    representativeImage,  // Lägg till representativ bild
   };
 
-  galleries.push(newGallery);  // Lägg till det nya galleriet i vår "databas"
+  galleries.push(newGallery);  // Lägg till det nya galleriet
   res.status(201).json({ message: "Galleri skapat", gallery: newGallery });
 });
+
 
 // API för att hämta alla gallerier
 app.get("/api/galleries", (req, res) => {
