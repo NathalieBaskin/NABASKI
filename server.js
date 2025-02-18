@@ -3,7 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import cors from 'cors';  // Importera CORS
+import cors from 'cors';
 
 // Skapa Express-applikation
 const app = express();
@@ -15,54 +15,97 @@ app.use(cors());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Använd JSON middleware för att läsa JSON från inkommande request body
+// Middleware för att läsa JSON
 app.use(express.json());
 
 // Ställ in statiska filer för bilder
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));  // Ändrat till /uploads
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));  // Justering här för bildernas åtkomstväg
 
 // Setup multer för bilduppladdning
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "uploads"));  // Här sparas bilderna i /uploads-mappen
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "uploads"));  // Bilder sparas här
   },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));  // Ge filerna unika namn
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));  // Skapa unika filnamn
   },
 });
+
 const upload = multer({ storage: storage });
 
 // Dummy databas för gallerier
 let galleries = [];
 
-// API för att skapa nytt galleri (ladda upp bilder)
-// API för att skapa nytt galleri (ladda upp bilder)
+// API för att skapa ett nytt galleri
 app.post("/api/addGallery", upload.array("images"), (req, res) => {
   const { name, password } = req.body;
 
+  // Om ingen bild laddas upp
   if (!req.files || req.files.length === 0) {
     return res.status(400).json({ message: "Ingen bild uppladdad." });
   }
 
-  // Vi antar att den första bilden är representativ
+  // Hämta alla bilder från uppladdade filer
   const images = req.files.map((file) => `/uploads/${file.filename}`);
-  const representativeImage = images[0];  // Första bilden som representativ
+  const representativeImage = images[0];  // Vi antar att den första bilden är representativ
 
   const newGallery = {
+    id: galleries.length + 1,  // Unikt ID för varje galleri
     name,
     password,
     images,
-    representativeImage,  // Lägg till representativ bild
+    representativeImage,
   };
 
-  galleries.push(newGallery);  // Lägg till det nya galleriet
+  galleries.push(newGallery);
   res.status(201).json({ message: "Galleri skapat", gallery: newGallery });
 });
-
 
 // API för att hämta alla gallerier
 app.get("/api/galleries", (req, res) => {
   res.json({ galleries });  // Returnera gallerier som JSON
+});
+
+// API för att hämta ett specifikt galleri
+// API för att hämta ett specifikt galleri
+app.get("/api/getGallery/:id", (req, res) => {
+  const gallery = galleries.find(g => g.id === parseInt(req.params.id));
+  if (gallery) {
+    res.json({ gallery });
+  } else {
+    res.status(404).json({ message: "Galleri inte hittat" });
+  }
+});
+
+
+// API för att uppdatera galleri
+app.put("/api/updateGallery/:id", upload.array("images"), (req, res) => {
+  const { name, password, representativeImage } = req.body;
+  const images = req.files.map((file) => `/uploads/${file.filename}`);
+
+  const gallery = galleries.find((g) => g.id === parseInt(req.params.id));
+  if (gallery) {
+    gallery.name = name || gallery.name;
+    gallery.password = password || gallery.password;
+    gallery.representativeImage = representativeImage || gallery.representativeImage;
+    gallery.images = images.length > 0 ? images : gallery.images;
+
+    res.json({ message: "Galleri uppdaterat", gallery });
+  } else {
+    res.status(404).json({ message: "Galleri inte hittat" });
+  }
+});
+
+// API för att ta bort galleri
+app.delete("/api/deleteGallery/:id", (req, res) => {
+  const { id } = req.params;
+  const index = galleries.findIndex(gallery => gallery.id === parseInt(id));
+  if (index !== -1) {
+    galleries.splice(index, 1);  // Ta bort galleriet från arrayen
+    res.json({ message: "Galleri raderat" });
+  } else {
+    res.status(404).json({ message: "Galleri inte hittat" });
+  }
 });
 
 // Starta servern
