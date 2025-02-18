@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Importera useNavigate
 import "./Admin.css";
 
 function Admin() {
@@ -9,6 +10,8 @@ function Admin() {
   const [representativeImage, setRepresentativeImage] = useState("");
   const [newImages, setNewImages] = useState([]);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();  // Skapa en navigate-funktion för omdirigering
 
   // Hämtar alla gallerier från servern när sidan laddas
   useEffect(() => {
@@ -96,6 +99,9 @@ function Admin() {
         setGalleries(data.galleries);
         setError("");
         alert(data.message);
+
+        // Omdirigera till kundgalleri-sidan efter sparande
+        navigate("/kundgalleri");
       } else {
         setError("Något gick fel, försök igen.");
       }
@@ -114,6 +120,9 @@ function Admin() {
         if (res.ok) {
           setGalleries(galleries.filter((g) => g.id !== selectedGallery));
           setSelectedGallery("");
+          
+          // Omdirigera till kundgalleri-sidan efter radering
+          navigate("/kundgalleri");
         } else {
           setError("Fel vid radering av galleri.");
         }
