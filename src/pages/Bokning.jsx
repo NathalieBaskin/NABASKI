@@ -8,14 +8,13 @@ import "./Bokning.css";
 function Bokning() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  
+  // Hämta fotograferingstyp, paket och pris från URL
   const initialType = searchParams.get("typ") || "";
   const initialPackage = searchParams.get("paket") || "";
   const initialPrice = searchParams.get("pris") || "";
 
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedType, setSelectedType] = useState(initialType); // Fotograferingstyp
-  const [selectedPackage, setSelectedPackage] = useState(initialPackage); // Paket
-  const [price, setPrice] = useState(initialPrice); // Pris
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -25,38 +24,19 @@ function Bokning() {
 
   const [bookedDates, setBookedDates] = useState([]); // Håller koll på bokade datum
 
-  const photographyTypes = [
-    "Bröllop", "Förlovning", "Familj", "Barn", "Modell", "Event"
-  ];
+  // Vi behöver inte längre "set" funktionerna för type, paket och pris
+  const [selectedType] = useState(initialType); // Fotograferingstyp
+  const [selectedPackage] = useState(initialPackage); // Paket
+  const [price] = useState(initialPrice); // Pris
 
-  const packages = {
-    "Standard": "10,000 SEK",
-    "Premium": "15,000 SEK",
-    "Exclusive": "20,000 SEK"
-  };
-
-  // Uppdatera valda värden om de skickas via URL
   useEffect(() => {
-    if (initialType) setSelectedType(initialType);
-    if (initialPackage) setSelectedPackage(initialPackage);
-    if (initialPrice) setPrice(initialPrice);
+    // Dessa behöver inte längre uppdateras via set-state
   }, [initialType, initialPackage, initialPrice]);
-
-  const handlePackageChange = (event) => {
-    const selected = event.target.value;
-    setSelectedPackage(selected);
-    setPrice(packages[selected] || "");
-  };
-
-  const handleTypeChange = (event) => {
-    setSelectedType(event.target.value);
-  };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
-  // Skicka bokning till backend
   const handleBooking = async () => {
     if (!selectedDate) {
       alert("Välj ett datum innan du bokar.");
@@ -70,7 +50,7 @@ function Bokning() {
       photographyType: selectedType,
       selectedPackage,
       price,
-      date: format(selectedDate, "yyyy-MM-dd"), // Använder direkt format
+      date: format(selectedDate, "yyyy-MM-dd"),
       message: formData.message
     };
 
@@ -88,7 +68,7 @@ function Bokning() {
       const result = await response.json();
       if (response.ok) {
         alert("Bokning genomförd!");
-        setBookedDates([...bookedDates, format(selectedDate, "yyyy-MM-dd")]); // Lägg till datumet direkt
+        setBookedDates([...bookedDates, format(selectedDate, "yyyy-MM-dd")]); // Lägg till datumet i listan över bokningar
         setSelectedDate(null); // Rensa valt datum
         setFormData({ firstName: "", lastName: "", email: "", message: "" }); // Rensa formuläret
       } else {
@@ -98,16 +78,6 @@ function Bokning() {
       console.error("Fel vid bokning:", error);
       alert("Något gick fel. Försök igen.");
     }
-  };
-
-  // Inaktivera redan bokade datum
-  const isDateBooked = (date) => {
-    return bookedDates.includes(format(date, "yyyy-MM-dd"));
-  };
-
-  // Funktion för att visa tooltip och rödmarkera bokade datum
-  const getDayClassName = (date) => {
-    return isDateBooked(date) ? "booked-date" : undefined;
   };
 
   return (
@@ -123,7 +93,6 @@ function Bokning() {
           maxDate={new Date().setFullYear(new Date().getFullYear() + 1)}
           dateFormat="yyyy-MM-dd"
           inline
-          dayClassName={getDayClassName} // Lägg till denna rad för att rödmarkera bokade datum
         />
       </div>
 
@@ -133,20 +102,10 @@ function Bokning() {
         <input type="text" value={selectedDate ? format(selectedDate, "yyyy-MM-dd") : 'Datum inte valt'} readOnly />
 
         <label>Välj fotograferingstyp</label>
-        <select value={selectedType} onChange={handleTypeChange}>
-          <option value="">Välj typ av fotografering</option>
-          {photographyTypes.map((type) => (
-            <option key={type} value={type}>{type}</option>
-          ))}
-        </select>
+        <input type="text" value={selectedType} readOnly />
 
         <label>Välj paket</label>
-        <select value={selectedPackage} onChange={handlePackageChange}>
-          <option value="">Välj paket</option>
-          {Object.keys(packages).map((pkg) => (
-            <option key={pkg} value={pkg}>{pkg}</option>
-          ))}
-        </select>
+        <input type="text" value={selectedPackage} readOnly />
 
         <label>Pris</label>
         <input type="text" value={price} readOnly />
