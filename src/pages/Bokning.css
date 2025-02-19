@@ -50,3 +50,21 @@
 .booking-form button:hover {
   background: darkgray;
 }
+.booked-date {
+  background-color: red !important;
+  color: white !important;
+  cursor: not-allowed;
+}
+
+.booked-date:hover::after {
+  content: "Datumet är upptaget";
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 4px;
+  position: absolute;
+  top: -20px;
+  left: 0;
+  transform: translateX(50%);
+}

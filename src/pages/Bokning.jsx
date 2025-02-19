@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import DatePicker from "react-datepicker"; 
-import { format } from "date-fns"; 
-import "react-datepicker/dist/react-datepicker.css"; 
+import DatePicker from "react-datepicker";
+import { format } from "date-fns";
+import "react-datepicker/dist/react-datepicker.css";
 import "./Bokning.css";
 
 function Bokning() {
@@ -22,7 +22,7 @@ function Bokning() {
     email: "",
     message: "",
   });
-  
+
   const [bookedDates, setBookedDates] = useState([]); // Håller koll på bokade datum
 
   const photographyTypes = [
@@ -56,21 +56,58 @@ function Bokning() {
     setSelectedDate(date);
   };
 
-  const handleBooking = () => {
+  // Skicka bokning till backend
+  const handleBooking = async () => {
     if (!selectedDate) {
       alert("Välj ett datum innan du bokar.");
       return;
     }
 
-    const formattedDate = format(selectedDate, "yyyy-MM-dd");
-    setBookedDates([...bookedDates, formattedDate]); // Lägg till det bokade datumet
-    setSelectedDate(null); // Rensa valt datum
+    const bookingData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      photographyType: selectedType,
+      selectedPackage,
+      price,
+      date: format(selectedDate, "yyyy-MM-dd"), // Använder direkt format
+      message: formData.message
+    };
+
+    console.log("Skickar bokning:", bookingData);
+
+    try {
+      const response = await fetch("http://localhost:8000/api/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookingData),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert("Bokning genomförd!");
+        setBookedDates([...bookedDates, format(selectedDate, "yyyy-MM-dd")]); // Lägg till datumet direkt
+        setSelectedDate(null); // Rensa valt datum
+        setFormData({ firstName: "", lastName: "", email: "", message: "" }); // Rensa formuläret
+      } else {
+        alert("Bokningen misslyckades: " + result.error);
+      }
+    } catch (error) {
+      console.error("Fel vid bokning:", error);
+      alert("Något gick fel. Försök igen.");
+    }
   };
 
   // Inaktivera redan bokade datum
   const isDateBooked = (date) => {
-    const formattedDate = format(date, "yyyy-MM-dd");
-    return bookedDates.includes(formattedDate);
+    return bookedDates.includes(format(date, "yyyy-MM-dd"));
+  };
+
+  // Funktion för att visa tooltip och rödmarkera bokade datum
+  const getDayClassName = (date) => {
+    return isDateBooked(date) ? "booked-date" : undefined;
   };
 
   return (
@@ -86,7 +123,7 @@ function Bokning() {
           maxDate={new Date().setFullYear(new Date().getFullYear() + 1)}
           dateFormat="yyyy-MM-dd"
           inline
-          dayClassName={(date) => isDateBooked(date) ? "booked-date" : undefined}
+          dayClassName={getDayClassName} // Lägg till denna rad för att rödmarkera bokade datum
         />
       </div>
 
