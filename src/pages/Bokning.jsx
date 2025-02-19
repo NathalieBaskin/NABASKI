@@ -29,9 +29,22 @@ function Bokning() {
   const [selectedPackage] = useState(initialPackage); // Paket
   const [price] = useState(initialPrice); // Pris
 
+  // Hämta bokade datum från backend när komponenten laddas
   useEffect(() => {
-    // Dessa behöver inte längre uppdateras via set-state
-  }, [initialType, initialPackage, initialPrice]);
+    const fetchBookedDates = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/bookings");
+        const data = await response.json();
+        // Extrahera datum från API-responsen och spara dem i state
+        const dates = data.map(booking => booking.date);
+        setBookedDates(dates);
+      } catch (error) {
+        console.error("Fel vid hämtning av bokade datum:", error);
+      }
+    };
+
+    fetchBookedDates();
+  }, []); // Tom array säkerställer att detta körs en gång när komponenten monteras
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -80,6 +93,11 @@ function Bokning() {
     }
   };
 
+  // Inaktivera redan bokade datum
+  const isDateBooked = (date) => {
+    return bookedDates.includes(format(date, "yyyy-MM-dd"));
+  };
+
   return (
     <div className="bokning-page">
       <h1>BOKNING</h1>
@@ -93,6 +111,7 @@ function Bokning() {
           maxDate={new Date().setFullYear(new Date().getFullYear() + 1)}
           dateFormat="yyyy-MM-dd"
           inline
+          dayClassName={(date) => isDateBooked(date) ? "booked-date" : undefined} // Använd isDateBooked för att rödmarkera datum
         />
       </div>
 
