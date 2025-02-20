@@ -39,7 +39,7 @@ function KundGalleri() {
 
   return (
     <div>
-      <h1>Kundgalleri</h1>
+      {!showGallery && <h1>Kundgalleri</h1>} {/* FIX: Rubriken visas endast på översiktssidan */}
 
       {!showGallery ? (
         <div className="gallery-container">
