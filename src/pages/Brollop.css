@@ -6,10 +6,10 @@
   
   /* 🔹 "BRÖLLOP" ligger under videon och har bra spacing */
   .brollop-title {
-    font-size: 28px;
+    font-size: 40px;
     margin: 20px 0; /* 🔹 Skapar avstånd mellan video och text */
     text-transform: uppercase;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'BebasNeue', sans-serif; /* Se till att detta är rätt */
   }
   
   /* 🔹 Knapp-länkar */
@@ -25,9 +25,9 @@
     background-color: black;
     color: white;
     text-transform: uppercase;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'BebasNeue', sans-serif; /* Se till att detta är rätt */
+font-size: 25px;
 
-    font-weight: bold;
     text-decoration: none;
     border-radius: 5px;
     transition: background 0.3s;

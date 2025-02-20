@@ -1,20 +1,18 @@
-.body {
-  font-family: Arial, Helvetica, sans-serif;
-}
+
 .portfolio {
   text-align: center;
   padding: 20px;
 }
 
 .portfolio h1 {
-  font-size: 24px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 40px;
+  font-family: 'BebasNeue', sans-serif; /* Se till att detta är rätt */
 }
 
 .portfolio h3 {
   font-size: 18px;
   margin-bottom: 20px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'BebasNeue', sans-serif; /* Se till att detta är rätt */
 }
 
 /* Portfolio Grid */
@@ -49,9 +47,9 @@
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;  /* 🔹 Stor text */
-  font-weight: bold;
+  font-family: 'BebasNeue', sans-serif; /* Se till att detta är rätt */
+  font-size: 30px;  /* 🔹 Stor text */
+ 
   color: rgb(255, 255, 255);
   text-transform: uppercase;
   

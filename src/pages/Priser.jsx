@@ -31,7 +31,7 @@ function Priser() {
       <div className="package-container">
         {packages.map((pkg, index) => (
           <div key={index} className="package">
-            <img src={pkg.image} alt={pkg.name} />
+    
             <h3>{pkg.name}</h3>
             <p>{pkg.description}</p>
             <p><strong>Pris: {pkg.price}</strong></p>

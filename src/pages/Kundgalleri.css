@@ -243,7 +243,9 @@
   color: red;
   margin-top: 5px;
 }
-
+.kundgalleri-page .cart-button {
+  display: none;
+}
 /* ======================= */
 /* 🎯 RESPONSIV DESIGN - Större skärmar */
 /* ======================= */

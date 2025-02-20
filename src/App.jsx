@@ -11,8 +11,11 @@ import Kundgalleri from "./pages/Kundgalleri";
 import Sok from "./pages/Sok";
 import Priser from "./pages/Priser";
 import Admin from "./pages/Admin";
-import Cart from "./pages/Cart";  // Importera Cart-sidan
-import Checkout from "./pages/Checkout";  // Importera Checkout-sidan
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+
+// Importera global CSS-fil
+import './index.css';  // Här säkerställer vi att global CSS är importerad för alla sidor
 
 function App() {
   return (
@@ -37,8 +40,8 @@ function App() {
           <Route path="/sok" element={<Sok />} />
           <Route path="/priser" element={<Priser />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/cart" element={<Cart />} />  {/* Lägg till Cart-sidan */}
-          <Route path="/checkout" element={<Checkout />} />  {/* Lägg till Checkout-sidan */}
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
         <Footer />
       </div>

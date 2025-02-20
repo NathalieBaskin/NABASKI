@@ -1,93 +1,116 @@
 /* Grundläggande styling */
 .body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.header {
-    background: white;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    border-bottom: 2px solid black;
-}
-
-.nav {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
     font-family: Arial, Helvetica, sans-serif;
-    flex-direction: column;
-}
-
-/* 🔥 Sök + kundkorg ligger nu ovanför knapparna i mobil */
-.nav-right {
+  }
+  
+  .header {
+    background: white;
+    padding: 5px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column; /* Vertikal layout */
+    align-items: center; /* Centrerar innehållet horisontellt */
+    border-bottom: 2px solid black;
+  }
+  
+  .logo-container {
+    display: flex;
+    justify-content: center; /* Centrerar logotypen */
+  }
+  
+  .logo {
+    max-height: 80px; /* Justera höjden på logotypen */
+    width: auto;
+  }
+  
+  .nav {
+    display: flex;
+    flex-direction: column; /* Vertikal layout för navigationen */
+    align-items: flex-start; /* Justera så att innehållet är till vänster */
     width: 100%;
-    margin-bottom: 10px; /* Mellanrum mellan sök/kundkorg och knappar */
-}
-
-/* 🔥 Sökfält + kundkorg är centrerade i mobil */
-.search-bar {
+  margin-top: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .nav-right {
+    display: flex;
+    flex-direction: row; /* Se till att sökfält och varukorg är på samma rad */
+    justify-content: flex-start;
+    align-items: left; /* Centrerar innehållet vertikalt */
+    width: 100%;
+    margin-top: 10px; /* Liten justering om det behövs */
+  }
+  
+  .search-bar {
     border: 2px solid black;
-    padding: 5px 10px;
+    padding: 8px 15px;
     font-size: 16px;
     border-radius: 10px;
-    width: 70%;
-    max-width: 250px;
-}
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 18px;
+    margin-right: 150px;
 
+  }
+  
+/* Lägg till en högre z-index för att säkerställa att ikonen ligger ovanpå andra element */
 .cart {
-    background: white;
+    background: transparent;
+    color: black;
     border: none;
-    font-size: 18px;
+    font-size: 24px; /* Justera storleken på ikonen */
     cursor: pointer;
-}
-
-/* 🔥 Knapparna ligger på en rad i mobil */
-.nav-links {
-    display: flex;
-    flex-wrap: nowrap; /* 🔥 Hindrar knapparna från att staplas */
-    justify-content: center;
-    gap: 10px;
+    padding: 5px 10px;
+    margin-left: 10px; /* Mellanrum mellan sökfält och shoppingcart-ikon */
+    z-index: 10;
+  }
+  
+  .cart:hover {
+    transform: scale(1.1); /* Liten effekt vid hover */
+  }
+  
+  /* Knapparna i nav-links ska vara horisontalt placerade och anpassa sig efter skärmstorleken */
+  .nav-links {
+    display: flex; /* Gör knapparna horisontella */
+    justify-content: flex-start; /* Låt knapparna vara till vänster */
+    gap: 5px; /* Mellanrum mellan knapparna */
     list-style: none;
-    width: 100%;
-}
-
-/* 🔥 Gör knapparna stilrena och ser till att texten håller sig på en rad */
-.nav-links a {
+    width: 80%;
+    padding-left: 0; /* Ta bort inbyggd padding */
+    margin-top: 0;
+  }
+  
+  /* Knapparna */
+  .nav-links a {
     text-decoration: none;
     color: black;
-    padding: 10px;
+    padding: 10px 20px;
     border: 2px solid black;
     border-radius: 5px;
-    text-align: center;
-    white-space: nowrap; /* 🔥 Håller texten på en rad */
-}
-
-/* 🔥 Från 640px: Flytta tillbaka sök + kundkorg till höger */
-@media (min-width: 640px) {
-    .nav {
-        flex-direction: row; /* 🔥 Återställ till horisontell layout */
-        align-items: center;
+    text-align: left;
+    white-space: nowrap; /* Håller texten på en rad */
+  }
+  
+  /* Från 640px: Gör layout horisontell igen för större skärmar */
+  @media (min-width: 640px) {
+    .header {
+      flex-direction: row; /* Gör headern horisontell */
+      justify-content: space-between; /* Dela upp logotyp, sök och knappar */
+      align-items: center;
     }
-
+  
     .nav-right {
-        width: auto;
-        margin-bottom: 0;
-        justify-content: flex-end; /* 🔥 Flytta sök + kundkorg till höger */
+      flex-direction: row; /* För större skärmar, gör sök och kundkorg horisontella */
+      margin-bottom: 0;
+      justify-content: flex-start;
     }
-
+  
     .nav-links {
-        flex-wrap: nowrap; /* 🔥 Se till att knapparna ligger på rad */
-        gap: 15px;
+      flex-direction: row; /* För knapparna */
+   
     }
-
+  
     .nav-links a {
-        width: auto;
+      width: auto;
     }
-}
+  }
+  

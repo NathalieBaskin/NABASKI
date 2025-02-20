@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Header.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"; // Importera shoppingcart-ikonen
+import "./Header.css"; // Din CSS-fil för styling
 
 function Header() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,8 +19,10 @@ function Header() {
 
   return (
     <header className="header">
+      <div className="logo-container">
+        <img src="/images/logo.png" alt="Logo" className="logo" />
+      </div>
       <nav className="nav">
-        {/* 🔥 Sökfält och kundkorg ovanför knapparna i mobil */}
         <div className="nav-right">
           <form onSubmit={handleSearch}>
             <input
@@ -29,10 +33,14 @@ function Header() {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </form>
-          <button className="cart"><i className="fas fa-shopping-cart"></i></button>
+
+          {/* Ersätt knappen med shoppingcart-ikonen */}
+          <button className="cart" onClick={() => navigate("/cart")}>
+            <FontAwesomeIcon icon={faShoppingCart} size="lg" />
+          </button>
         </div>
 
-        {/* Navigation – Knapparna ligger på rad även i mobil */}
+        {/* Navigation – Knapparna ligger på rad */}
         <ul className="nav-links">
           <li><Link to="/">Hem</Link></li>
           <li><Link to="/portfolio">Portfolio</Link></li>

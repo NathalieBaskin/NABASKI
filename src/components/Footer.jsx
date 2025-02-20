@@ -11,10 +11,10 @@ function Footer() {
         <li><a href="#">FAQ</a></li>
       </ul>
       <div className="footer-icons">
-        <a href="#"><i className="fas fa-envelope"></i></a>
-        <a href="#"><i className="fab fa-facebook"></i></a>
-        <a href="#"><i className="fab fa-instagram"></i></a>
-        <a href="#"><i className="fab fa-youtube"></i></a>
+   
+        <a href="https://www.facebook.com/namahka"><i className="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/namahka/"><i className="fab fa-instagram"></i></a>
+
       </div>
     </footer>
   );
