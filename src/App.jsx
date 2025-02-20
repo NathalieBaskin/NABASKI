@@ -10,7 +10,9 @@ import Kontakt from "./pages/Kontakt";
 import Kundgalleri from "./pages/Kundgalleri";
 import Sok from "./pages/Sok";
 import Priser from "./pages/Priser";
-import Admin from "./pages/Admin"; // ✅ Lägg till Admin-sidan
+import Admin from "./pages/Admin";
+import Cart from "./pages/Cart";  // Importera Cart-sidan
+import Checkout from "./pages/Checkout";  // Importera Checkout-sidan
 
 function App() {
   return (
@@ -34,7 +36,9 @@ function App() {
           <Route path="/kundgalleri" element={<Kundgalleri />} />
           <Route path="/sok" element={<Sok />} />
           <Route path="/priser" element={<Priser />} />
-          <Route path="/admin" element={<Admin />} /> {/* ✅ Admin-sidan */}
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/cart" element={<Cart />} />  {/* Lägg till Cart-sidan */}
+          <Route path="/checkout" element={<Checkout />} />  {/* Lägg till Checkout-sidan */}
         </Routes>
         <Footer />
       </div>

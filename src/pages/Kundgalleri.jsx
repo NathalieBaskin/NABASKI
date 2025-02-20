@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'; // Importera useNavigate
 import "./Kundgalleri.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as solidHeart, faComments, faArrowLeft, faArrowRight, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as solidHeart, faComments, faArrowLeft, faArrowRight, faTimes, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 
 function KundGalleri() {
@@ -15,19 +16,19 @@ function KundGalleri() {
   const [commentInput, setCommentInput] = useState("");
   const [nameInput, setNameInput] = useState("");
 
+  // Hantering av varukorg
+  const [cart, setCart] = useState([]);
+  const [showAddToCart, setShowAddToCart] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState("");
+
+  const navigate = useNavigate(); // Initiera useNavigate
+
   useEffect(() => {
     fetchGalleries();
   }, []);
 
-  useEffect(() => {
-    if (selectedGallery) {
-      selectedGallery.images.forEach((image) => {
-        fetchComments(image);
-      });
-    }
-  }, [selectedGallery]);
-
-  // Hämtar alla gallerier från servern
   const fetchGalleries = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/galleries");
@@ -38,7 +39,6 @@ function KundGalleri() {
     }
   };
 
-  // Hämtar likes och kommentarer för en bild
   const fetchComments = async (image) => {
     try {
       const res = await fetch(`http://localhost:5000/api/comments/${encodeURIComponent(image)}`);
@@ -50,14 +50,12 @@ function KundGalleri() {
     }
   };
 
-  // Hanterar galleri-valet
   const handleGalleryClick = (gallery) => {
     setSelectedGallery(gallery);
     setPasswordInput("");
     setShowGallery(false);
   };
 
-  // Hanterar lösenordsinmatning
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     if (!selectedGallery) {
@@ -72,32 +70,48 @@ function KundGalleri() {
     }
   };
 
-  // Öppnar slideshowen för en bild
-  const openSlideshow = (index) => {
+  const openSlideshow = (index, image) => {
     setSelectedImageIndex(index);
+    setSelectedImage(image);
     fetchComments(selectedGallery.images[index]);
   };
 
-  // Stänger slideshowen
   const closeSlideshow = () => {
     setSelectedImageIndex(null);
+    setShowAddToCart(false);
   };
 
-  // Navigerar till nästa bild i slideshowen
+  // Hanterar nästa bild
   const handleNextImage = () => {
-    const newIndex = (selectedImageIndex + 1) % selectedGallery.images.length;
-    setSelectedImageIndex(newIndex);
-    fetchComments(selectedGallery.images[newIndex]);
+    if (selectedImageIndex !== null) {
+      const newIndex = (selectedImageIndex + 1) % selectedGallery.images.length;
+      setSelectedImageIndex(newIndex);
+      setSelectedImage(selectedGallery.images[newIndex]);
+      fetchComments(selectedGallery.images[newIndex]);
+    }
   };
 
-  // Navigerar till föregående bild i slideshowen
+  // Hanterar föregående bild
   const handlePrevImage = () => {
-    const newIndex = (selectedImageIndex - 1 + selectedGallery.images.length) % selectedGallery.images.length;
-    setSelectedImageIndex(newIndex);
-    fetchComments(selectedGallery.images[newIndex]);
+    if (selectedImageIndex !== null) {
+      const newIndex = (selectedImageIndex - 1 + selectedGallery.images.length) % selectedGallery.images.length;
+      setSelectedImageIndex(newIndex);
+      setSelectedImage(selectedGallery.images[newIndex]);
+      fetchComments(selectedGallery.images[newIndex]);
+    }
   };
 
-  // Hanterar like-funktion för en bild
+  const handleAddToCart = () => {
+    const product = {
+      image: selectedImage,
+      quantity,
+      size,
+      price: 450, // Detta kan variera baserat på bildens pris
+    };
+    setCart([...cart, product]);
+    setShowAddToCart(false); // Stänger popupen när produkten lagts till
+  };
+
   const handleLike = async (image) => {
     try {
       const res = await fetch(`http://localhost:5000/api/like/${encodeURIComponent(image)}`, { method: "POST" });
@@ -108,7 +122,6 @@ function KundGalleri() {
     }
   };
 
-  // Hanterar kommentarinsändning
   const handleCommentSubmit = async (image) => {
     if (!commentInput || !nameInput) return;
     try {
@@ -126,8 +139,25 @@ function KundGalleri() {
     }
   };
 
+  // Funktion för att navigera till /cart
+  const goToCart = () => {
+    // Här kan du lagra varukorgen i localStorage eller i Redux, beroende på hur du hanterar state i din applikation
+    localStorage.setItem('cart', JSON.stringify(cart)); // Exempel: lagra i localStorage
+    navigate('/cart');
+  };
+
+  const openAddToCartModal = (image) => {
+    setSelectedImage(image);  // Set the selected image
+    setShowAddToCart(true); // Open the modal
+  };
+
   return (
     <div className="kundgalleri-page">
+      {/* "Varukorgen" button */}
+      <button className="cart-button" onClick={goToCart}>
+        Varukorgen ({cart.length})
+      </button>
+
       {!showGallery && <h1>Kundgalleri</h1>}
 
       {!showGallery ? (
@@ -146,7 +176,7 @@ function KundGalleri() {
               <img
                 src={`http://localhost:5000${image}`}
                 alt={`Bild ${index + 1}`}
-                onClick={() => openSlideshow(index)}
+                onClick={() => openSlideshow(index, image)}
               />
               <div className="image-icons">
                 <span onClick={() => handleLike(image)}>
@@ -157,9 +187,42 @@ function KundGalleri() {
                   <FontAwesomeIcon icon={faComments} />
                   <span> {comments[image] ? comments[image].length : 0}</span>
                 </span>
+                <span onClick={() => openAddToCartModal(image)}>
+                  <FontAwesomeIcon icon={faShoppingCart} /> {/* Shopping cart icon */}
+                </span>
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Lägg till i varukorg modal */}
+      {showAddToCart && (
+        <div className="add-to-cart-modal">
+          <div className="modal-content">
+            <div>
+              <label>Antal</label>
+              <input
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+                min="1"
+              />
+            </div>
+            <div>
+              <label>Storlek</label>
+              <select value={size} onChange={(e) => setSize(e.target.value)}>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+              </select>
+            </div>
+            <div>Summa: 450kr</div>
+            <div>
+              <button onClick={handleAddToCart}>Lägg i varukorg</button>
+              <button onClick={() => setShowAddToCart(false)}>Avbryt</button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -180,9 +243,7 @@ function KundGalleri() {
             </form>
           </div>
         </div>
-      )}
-
-      {selectedImageIndex !== null && (
+      )}... {selectedImageIndex !== null && (
         <div className="slideshow">
           <button className="close-btn" onClick={closeSlideshow}>
             <FontAwesomeIcon icon={faTimes} />
