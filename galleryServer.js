@@ -169,6 +169,20 @@ app.post('/api/comment/:image', (req, res) => {
   saveComments(comments);
   res.json(comments[req.params.image]);
 });
+// Ta bort en kommentar för en specifik bild
+app.delete('/api/deleteComment/:image', (req, res) => {
+  const { image } = req.params;
+  const { commentIndex } = req.body;  // Ta emot index för kommentaren som ska tas bort
+
+  const comments = loadComments();
+  if (comments[image] && comments[image].comments[commentIndex]) {
+    comments[image].comments.splice(commentIndex, 1);  // Ta bort kommentaren från arrayen
+    saveComments(comments);
+    return res.json({ message: "Kommentar raderad!" });
+  } else {
+    return res.status(404).json({ error: "Kommentar inte funnen." });
+  }
+});
 
 /* ============================================= */
 /* 🚀 Starta servern */
