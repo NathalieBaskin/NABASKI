@@ -1,91 +1,77 @@
 import { useState, useEffect } from "react";
 import "./Kundgalleri.css";
 
-function Kundgalleri() {
+function KundGalleri() {
   const [galleries, setGalleries] = useState([]);
   const [selectedGallery, setSelectedGallery] = useState(null);
-  const [password, setPassword] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const [showGallery, setShowGallery] = useState(false);
   const [error, setError] = useState("");
-  const [isPasswordCorrect, setIsPasswordCorrect] = useState(false);
 
-  useEffect(() => {
-    // Hämta gallerier från backend
-    fetch("http://localhost:5000/api/galleries")
-      .then((response) => response.json())
-      .then((data) => setGalleries(data.galleries))
-      .catch((error) => console.error("Error fetching galleries:", error));
-  }, []);
-
-  const openGallery = (gallery) => {
-    setSelectedGallery(gallery);  // Sätt det valda galleriet
-    setPassword("");  // Nollställ lösenordet
-    setError("");  // Nollställ felmeddelanden
-    setIsPasswordCorrect(false);  // Se till att lösenordet inte är korrekt i början
-  };
-
-  const handlePasswordSubmit = () => {
-    if (password === selectedGallery.password) {
-      setIsPasswordCorrect(true); // Om lösenordet är korrekt, visa galleriet
-    } else {
-      setError("Fel lösenord, försök igen!");  // Om lösenordet är fel, visa felmeddelande
+  const fetchGalleries = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/galleries");
+      const data = await res.json();
+      setGalleries(data.galleries || []);
+    } catch (error) {
+      console.error("Fel vid hämtning av gallerier:", error);
     }
   };
 
-  const closeGallery = () => {
-    setSelectedGallery(null);  // Stäng popup
+  useEffect(() => {
+    fetchGalleries();
+  }, []);
+
+  const handleGalleryClick = async (gallery) => {
+    setSelectedGallery(gallery);
+    setPasswordInput("");
+    setShowGallery(false);
+    setError("");
+  };
+
+  const handlePasswordSubmit = async () => {
+    if (passwordInput === selectedGallery.password) {
+      setShowGallery(true);
+    } else {
+      setError("Fel lösenord!");
+    }
   };
 
   return (
-    <div className="kundgalleri-page">
+    <div>
       <h1>Kundgalleri</h1>
-      <div className="galleri-grid">
-        {galleries.map((gallery, index) => (
-          <div key={index} className="galleri-item">
-            {/* Visa den representativa bilden */}
+      <div className="gallery-container">
+        {galleries.map((gallery) => (
+          <div key={gallery.id} className="gallery-card">
+            <h2>{gallery.name}</h2>
             <img
-              src={gallery.representativeImage}
-              alt={gallery.name}
-              onClick={() => openGallery(gallery)} // Öppna galleri vid klick
+              src={`http://localhost:5000${gallery.representativeImage}`}
+              alt="Galleri bild"
+              width="200"
+              className="clickable-image"
+              onClick={() => handleGalleryClick(gallery)}
             />
-            <p>{gallery.name}</p>
           </div>
         ))}
       </div>
 
-      {/* Visa popup om ett galleri är valt */}
-      {selectedGallery && !isPasswordCorrect && (
-        <div className="gallery-popup">
-          <div className="popup-content">
-            <h2>{selectedGallery.name}</h2>
-            <p>Detta galleri är lösenordsskyddat.</p>
-            <input
-              type="password"
-              placeholder="Ange lösenord"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {error && <p className="error">{error}</p>}
-            <div className="popup-buttons">
-              <button onClick={handlePasswordSubmit}>Ange lösenord</button>
-              <button onClick={closeGallery}>Avbryt</button>
-            </div>
-          </div>
+      {selectedGallery && !showGallery && (
+        <div className="password-modal">
+          <input type="password" value={passwordInput} onChange={(e) => setPasswordInput(e.target.value)} />
+          <button onClick={handlePasswordSubmit}>Se galleri</button>
+          {error && <p className="error">{error}</p>}
         </div>
       )}
 
-      {/* Visa bilder om lösenordet är korrekt */}
-      {selectedGallery && isPasswordCorrect && (
-        <div className="gallery-images">
-          <div className="image-grid">
-            {selectedGallery.images.map((image, index) => (
-              <img key={index} src={image} alt={`Galleri bild ${index + 1}`} />
-            ))}
-          </div>
-          <button onClick={closeGallery}>Stäng</button>
+      {showGallery && selectedGallery && (
+        <div className="image-gallery">
+          {selectedGallery.images.filter(img => img !== selectedGallery.representativeImage).map((image, index) => (
+            <img key={index} src={`http://localhost:5000${image}`} alt={`Bild ${index + 1}`} width="200" />
+          ))}
         </div>
       )}
     </div>
   );
 }
 
-export default Kundgalleri;
+export default KundGalleri;

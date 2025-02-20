@@ -5,8 +5,10 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
+    port: 3000,
     proxy: {
-      '/api': 'http://localhost:8000',  // Skickar alla /api-anrop till din backend
+      '/api/bookings': 'http://localhost:8000',  // För bokningar
+      '/api/galleries': 'http://localhost:5000', // För gallerier
     },
   },
 })

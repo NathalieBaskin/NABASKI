@@ -5,7 +5,7 @@ function Footer() {
     <footer className="footer">
       <h3 className="footer-title">NABASKI</h3>
       <ul className="footer-links">
-        <li><a href="#">Prislita</a></li>
+        <li><a href="#">Prislista</a></li>
         <li><a href="#">Kundrecensioner</a></li>
         <li><a href="#">Kundgalleri</a></li>
         <li><a href="#">FAQ</a></li>
