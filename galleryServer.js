@@ -12,17 +12,15 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 5000;
 
-// Skapa uppladdningsmapp om den inte finns
+// Filvägar
 const uploadDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+const dbFile = path.resolve(__dirname, 'galleries.json');
+const commentsFile = path.resolve(__dirname, 'comments.json');
 
-// Skapa databasfil om den inte finns
-const dbFile = path.resolve(__dirname, 'galleries.json'); // FIXAR `dbFile` FEL
-if (!fs.existsSync(dbFile)) {
-  fs.writeFileSync(dbFile, JSON.stringify([]));
-}
+// Skapa mappar och filer om de inte finns
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+if (!fs.existsSync(dbFile)) fs.writeFileSync(dbFile, JSON.stringify([]));
+if (!fs.existsSync(commentsFile)) fs.writeFileSync(commentsFile, JSON.stringify({}));
 
 // Ladda gallerier från JSON-fil
 const loadGalleries = () => {
@@ -30,7 +28,7 @@ const loadGalleries = () => {
     const data = fs.readFileSync(dbFile);
     return JSON.parse(data);
   } catch (error) {
-    console.error("Fel vid läsning av fil:", error);
+    console.error("❌ Fel vid läsning av gallerier:", error);
     return [];
   }
 };
@@ -40,7 +38,26 @@ const saveGalleries = (galleries) => {
   try {
     fs.writeFileSync(dbFile, JSON.stringify(galleries, null, 2));
   } catch (error) {
-    console.error("Fel vid skrivning till fil:", error);
+    console.error("❌ Fel vid skrivning av gallerier:", error);
+  }
+};
+
+// Ladda kommentarer och likes från JSON
+const loadComments = () => {
+  try {
+    return JSON.parse(fs.readFileSync(commentsFile));
+  } catch (error) {
+    console.error("❌ Fel vid läsning av kommentarer:", error);
+    return {};
+  }
+};
+
+// Spara kommentarer och likes till JSON
+const saveComments = (comments) => {
+  try {
+    fs.writeFileSync(commentsFile, JSON.stringify(comments, null, 2));
+  } catch (error) {
+    console.error("❌ Fel vid skrivning av kommentarer:", error);
   }
 };
 
@@ -49,26 +66,33 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use("/uploads", express.static(uploadDir));
 
-// **Hämta alla gallerier**
+// Konfigurera Multer för filuppladdning
+const upload = multer({ dest: uploadDir });
+
+/* ============================================= */
+/* 📷 Hämta alla gallerier */
+/* ============================================= */
 app.get('/api/galleries', (req, res) => {
   const galleries = loadGalleries();
   res.json({ galleries });
 });
 
-// **Lägg till ett nytt galleri**
-app.post('/api/addGallery', multer({ dest: uploadDir }).fields([
+/* ============================================= */
+/* 📂 Lägg till nytt galleri */
+/* ============================================= */
+app.post('/api/addGallery', upload.fields([
   { name: "representativeImage", maxCount: 1 },
   { name: "images", maxCount: 10 }
 ]), (req, res) => {
   const galleries = loadGalleries();
-
   const { name, password } = req.body;
+
   if (!name || !password) {
-    return res.status(400).json({ error: "Alla fält måste fyllas i." });
+    return res.status(400).json({ error: "❌ Alla fält måste fyllas i." });
   }
 
   if (!req.files || !req.files["images"] || req.files["images"].length === 0) {
-    return res.status(400).json({ error: "Minst en bild krävs." });
+    return res.status(400).json({ error: "❌ Minst en bild krävs." });
   }
 
   const images = req.files["images"].map(file => `/uploads/${file.filename}`);
@@ -86,10 +110,12 @@ app.post('/api/addGallery', multer({ dest: uploadDir }).fields([
 
   galleries.push(newGallery);
   saveGalleries(galleries);
-  res.json({ message: 'Galleri tillagt!', gallery: newGallery });
+  res.json({ message: '✅ Galleri tillagt!', gallery: newGallery });
 });
 
-// **Radera galleri**
+/* ============================================= */
+/* 🗑 Radera galleri */
+/* ============================================= */
 app.delete('/api/deleteGallery/:id', (req, res) => {
   let galleries = loadGalleries();
   const { id } = req.params;
@@ -98,13 +124,55 @@ app.delete('/api/deleteGallery/:id', (req, res) => {
   if (galleryIndex !== -1) {
     galleries.splice(galleryIndex, 1);
     saveGalleries(galleries);
-    res.json({ message: 'Galleri raderat!' });
+    res.json({ message: '✅ Galleri raderat!' });
   } else {
-    res.status(404).json({ message: 'Galleri inte hittat' });
+    res.status(404).json({ message: '❌ Galleri inte hittat' });
   }
 });
 
-// Starta servern
+/* ============================================= */
+/* 💬 Hämta kommentarer och likes för en bild */
+/* ============================================= */
+app.get('/api/comments/:image', (req, res) => {
+  const comments = loadComments();
+  res.json(comments[req.params.image] || { likes: 0, comments: [] });
+});
+
+/* ============================================= */
+/* ❤️ Gilla en bild */
+/* ============================================= */
+app.post('/api/like/:image', (req, res) => {
+  const comments = loadComments();
+  if (!comments[req.params.image]) {
+    comments[req.params.image] = { likes: 0, comments: [] };
+  }
+  comments[req.params.image].likes += 1;
+  saveComments(comments);
+  res.json(comments[req.params.image]);
+});
+
+/* ============================================= */
+/* 📝 Lägg till en kommentar */
+/* ============================================= */
+app.post('/api/comment/:image', (req, res) => {
+  const { name, text } = req.body;
+  if (!name || !text) {
+    return res.status(400).json({ error: "❌ Namn och kommentar krävs." });
+  }
+
+  const comments = loadComments();
+  if (!comments[req.params.image]) {
+    comments[req.params.image] = { likes: 0, comments: [] };
+  }
+
+  comments[req.params.image].comments.push({ name, text });
+  saveComments(comments);
+  res.json(comments[req.params.image]);
+});
+
+/* ============================================= */
+/* 🚀 Starta servern */
+/* ============================================= */
 app.listen(PORT, () => {
-  console.log(`Servern kör på http://localhost:${PORT}`);
+  console.log(`✅ Servern körs på http://localhost:${PORT}`);
 });
