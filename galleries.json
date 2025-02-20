@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "name": "Emma och Oscar",
+    "password": "hh",
+    "images": [
+      "/uploads/f24e39f882a28b19efec55a263424f20",
+      "/uploads/41e521c302be6159bc77745952f0e994",
+      "/uploads/3bc33968781425c3b3d973060c2c2ed6"
+    ],
+    "representativeImage": "/uploads/7319ccf3d8b558cd176f690baf951f6c"
+  }
+]
