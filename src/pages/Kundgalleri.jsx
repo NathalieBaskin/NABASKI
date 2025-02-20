@@ -72,8 +72,8 @@ function KundGalleri() {
       )}
 
       {selectedGallery && !showGallery && (
-        <div className="password-modal">
-          <div className="modal-content">
+        <div className="modal-overlay">
+          <div className="password-modal">
             <h2>{selectedGallery.name}</h2>
             <p>Detta galleri är lösenordsskyddat</p>
             <input 
