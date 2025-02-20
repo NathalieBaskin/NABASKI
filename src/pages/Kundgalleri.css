@@ -6,13 +6,15 @@
   padding: 10px;
 }
 
+
 /* Galleri-grid anpassad för mobil */
 .galleri-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); 
+  grid-template-columns: 1fr; /* Gör så att bilderna ligger under varandra */
   gap: 10px;
   padding: 10px;
 }
+
 
 /* Bildstorlek och padding */
 .image-gallery img {

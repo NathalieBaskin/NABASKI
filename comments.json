@@ -1,8 +1,11 @@
 {
   "/uploads/f24e39f882a28b19efec55a263424f20": {
-    "likes": ,
+    "likes": 1,
     "comments": [
-     
+      {
+        "name": "Nathalie",
+        "text": "Fint"
+      }
     ]
   }
 }
