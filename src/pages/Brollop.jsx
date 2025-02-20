@@ -7,8 +7,7 @@ const imagePaths = [
   "/images/wedding4.jpg", "/images/wedding5.jpg", "/images/wedding6.jpg",
   "/images/wedding7.jpg", "/images/wedding8.jpg", "/images/wedding9.jpg",
   "/images/wedding10.jpg", "/images/wedding11.jpg", "/images/wedding12.jpg",
-  "/images/wedding13.jpg", "/images/wedding14.jpg", "/images/wedding15.jpg",
-  "/images/wedding16.jpg", "/images/wedding17.jpg", "/images/wedding18.jpg"
+  "/images/wedding13.jpg", "/images/wedding14.jpg"
 ];
 
 function Brollop() {
