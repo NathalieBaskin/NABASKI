@@ -62,6 +62,7 @@ function Admin() {
   };
 
   const handleDrop = (e, newIndex) => {
+    e.preventDefault();
     const oldIndex = parseInt(e.dataTransfer.getData("index"), 10);
     if (oldIndex !== newIndex) {
       const reorderedImages = [...newImages];
@@ -151,12 +152,6 @@ function Admin() {
         <option value="new">Skapa nytt galleri</option>
       </select>
 
-      {selectedGallery && selectedGallery !== "new" && (
-        <button onClick={handleDeleteGallery} className="delete-button">
-          🗑 Radera Galleri
-        </button>
-      )}
-
       {selectedGallery && (
         <div className="gallery-editor">
           <label>Galleri namn</label>
@@ -200,7 +195,14 @@ function Admin() {
 
           {error && <p className="error">{error}</p>}
 
-          <button onClick={handleSaveGallery}>Spara Galleri</button>
+          <div className="button-group">
+            <button onClick={handleSaveGallery}>Spara Galleri</button>
+            {selectedGallery !== "new" && (
+              <button onClick={handleDeleteGallery} className="delete-button">
+                🗑 Radera Galleri
+              </button>
+            )}
+          </div>
         </div>
       )}
     </div>
