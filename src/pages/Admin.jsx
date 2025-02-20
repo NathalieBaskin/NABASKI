@@ -141,7 +141,7 @@ function Admin() {
 
   return (
     <div className="admin-page">
-      <h1>Admin Panel</h1>
+      <h1>Admin</h1>
       <select onChange={handleGallerySelect} value={selectedGallery}>
         <option value="">Välj ett galleri</option>
         {galleries.map((gallery) => (
