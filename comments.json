@@ -1,18 +1,18 @@
 {
   "/uploads/f24e39f882a28b19efec55a263424f20": {
-    "likes": 1,
+    "likes": 0,
     "comments": []
   },
   "/uploads/41e521c302be6159bc77745952f0e994": {
-    "likes": 1,
+    "likes": 0,
     "comments": []
   },
   "/uploads/3bc33968781425c3b3d973060c2c2ed6": {
     "likes": 0,
     "comments": [
       {
-        "name": "Natta",
-        "text": "Fint"
+        "name": "",
+        "text": ""
       }
     ]
   }
