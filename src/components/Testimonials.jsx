@@ -17,6 +17,16 @@ function Testimonials() {
       author: "Cassandra",
       image: "/images/testimon-cassie.jpg",
     },
+    {
+      text: "I have worked with Nathalie on various projects and have never been disappointed. She has an amazing eye for different situations, whether it is portrait, events, fashion or scenery. A talented photographer who is easy to work with, to say the least.",
+      author: "Karolina",
+      image: "/images/testimon-karolina.jpg",
+    },
+    {
+      text: "Professionalitet med gedigen metod i hennes arbete med ett öga för fotografi",
+      author: "Sebastian",
+      image: "/images/testimon-sebbe.jpg",
+    },
   ];
 
   return (
