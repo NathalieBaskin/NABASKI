@@ -1,4 +1,3 @@
-
 import "./Brollop.css";
 
 const imagePaths = [
@@ -6,14 +5,13 @@ const imagePaths = [
   "/images/wedding4.jpg", "/images/wedding5.jpg", "/images/wedding6.jpg",
   "/images/wedding7.jpg",  "/images/wedding9.jpg",
   "/images/wedding10.jpg", "/images/wedding11.jpg", "/images/wedding12.jpg",
- "/images/wedding14.jpg"
+  "/images/wedding14.jpg"
 ];
 
 function Brollop() {
   return (
     <div className="brollop-page">
       {/* ✅ Videon ligger i en egen container för full bredd */}
-   
 
       <h1 className="brollop-title">BRÖLLOP</h1>
 
@@ -28,7 +26,7 @@ function Brollop() {
       {/* Bildgalleri */}
       <div className="image-grid">
         {imagePaths.map((src, index) => (
-          <img key={index} src={src} alt={`Bröllopsbild ${index + 1}`} />
+          <img key={index} src={src} alt="bröllop" />
         ))}
       </div>
     </div>
