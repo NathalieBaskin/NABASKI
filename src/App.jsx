@@ -15,6 +15,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Engagement from "./pages/Engagement";
 import Familj from "./pages/Familj";
+import Barn from "./pages/Barn";
 
 // Importera global CSS-fil
 import './index.css';  // Här säkerställer vi att global CSS är importerad för alla sidor
@@ -46,6 +47,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/engagement" element={<Engagement />} />
           <Route path="/familj" element={<Familj />} />
+          <Route path="/barn" element={<Barn/>} />
         </Routes>
         <Footer />
       </div>
