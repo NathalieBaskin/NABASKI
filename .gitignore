@@ -24,4 +24,10 @@ dist-ssr
 *.sw?
 # Ignorera SQLite-databasen
 nabaski.db
-
+# ignorera specifika filtyper överallt i projektet:
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.mp4
+*.mov
