@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Admin.css";
+import imageCompression from 'browser-image-compression';
 
 function Admin() {
   // Kundgallerirelaterade state (oförändrat)
@@ -58,9 +59,22 @@ function Admin() {
   };
 
   // Kundgalleriets bilduppladdning
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const uploadedImages = Array.from(e.target.files);
-    setNewImages([...newImages, ...uploadedImages]);
+    const compressedImages = [];
+
+    for (let image of uploadedImages) {
+      try {
+        const compressedFile = await compressImage(image);
+        compressedImages.push(compressedFile);
+      } catch (err) {
+        console.error("Kunde inte komprimera bild:", err);
+        setError("Kunde inte komprimera en eller flera bilder.");
+        return;
+      }
+    }
+
+    setNewImages([...newImages, ...compressedImages]);
   };
 
   const removeImage = (index) => {
@@ -148,10 +162,41 @@ function Admin() {
     }
   };
 
+  // Komprimeringsfunktion
+  const compressImage = async (imageFile) => {
+    console.log('Komprimerar', imageFile.name);
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true
+    }
+    try {
+      const compressedFile = await imageCompression(imageFile, options);
+      console.log('Komprimerad fil storlek', compressedFile.size / 1024 / 1024, 'MB');
+      return compressedFile;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
   // --- Portfolio-funktionalitet ---
-  const handlePortfolioImageUpload = (e) => {
+  const handlePortfolioImageUpload = async (e) => {
     const uploadedImages = Array.from(e.target.files);
-    setPortfolioImages([...portfolioImages, ...uploadedImages]);
+    const compressedImages = [];
+
+    for (let image of uploadedImages) {
+      try {
+        const compressedFile = await compressImage(image);
+        compressedImages.push(compressedFile);
+      } catch (err) {
+        console.error("Kunde inte komprimera bild:", err);
+        setError("Kunde inte komprimera en eller flera bilder.");
+        return;
+      }
+    }
+
+    setPortfolioImages([...portfolioImages, ...compressedImages]);
   };
 
   const removePortfolioImage = (index) => {
@@ -237,10 +282,10 @@ function Admin() {
                 onDrop={(e) => handleDrop(e, index)}
                 onDragOver={(e) => e.preventDefault()}
               >
-                <img 
-                  src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`} 
-                  width="100" 
-                  alt="Uppladdad bild" 
+                <img
+                  src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`}
+                  width="100"
+                  alt="Uppladdad bild"
                 />
                 <button onClick={() => removeImage(index)}>X</button>
               </div>
@@ -276,7 +321,7 @@ function Admin() {
         <div className="portfolio-editor">
           <label>Ladda upp bilder för {selectedPortfolioCategory}</label>
           <input type="file" multiple onChange={handlePortfolioImageUpload} />
-          
+
           <div className="image-preview">
             {portfolioImages.map((img, index) => (
               <div
@@ -287,10 +332,10 @@ function Admin() {
                 onDrop={(e) => handleDrop(e, index)}
                 onDragOver={(e) => e.preventDefault()}
               >
-                <img 
-                  src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`} 
-                  width="100" 
-                  alt="Preview" 
+                <img
+                  src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`}
+                  width="100"
+                  alt="Preview"
                 />
                 <button onClick={() => removePortfolioImage(index)}>X</button>
               </div>

@@ -95,7 +95,13 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
-const upload = multer({ storage });
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 200 * 1024 * 1024, // 200MB
+  },
+});
+
 
 // POST: Ladda upp bilder till portfolio
 app.post("/api/addPortfolioImages", upload.array("images", 10), (req, res) => {

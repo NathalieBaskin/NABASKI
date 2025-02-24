@@ -4,6 +4,8 @@ import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
+import imageCompression from 'browser-image-compression'; // Importera biblioteket
+import { Buffer } from 'node:buffer'; // Importera Buffer från Node.js
 
 // Hantera __dirname i ES-moduler
 const __filename = fileURLToPath(import.meta.url);
@@ -67,7 +69,39 @@ app.use(express.json());
 app.use("/uploads", express.static(uploadDir));
 
 // Konfigurera Multer för filuppladdning
-const upload = multer({ dest: uploadDir });
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 200 * 1024 * 1024, // 200MB
+  }
+});
+
+// Komprimeringsfunktion (kan anpassas)
+const compressImage = async (imagePath) => {
+    try {
+        const imageFile = fs.readFileSync(imagePath);
+        const options = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1920,
+            useWebWorker: true
+        };
+
+        const compressedFile = await imageCompression(new File([imageFile], "compressed.jpg"), options);
+        const buffer = Buffer.from(await compressedFile.arrayBuffer()); // Skapa en Buffer från ArrayBuffer
+        fs.writeFileSync(imagePath, buffer); // Ersätt originalfilen med den komprimerade filen
+    } catch (error) {
+        console.error("Fel vid komprimering av bild:", error);
+    }
+};
 
 /* ============================================= */
 /* 📷 Hämta alla gallerier */
@@ -83,7 +117,7 @@ app.get('/api/galleries', (req, res) => {
 app.post('/api/addGallery', upload.fields([
   { name: "representativeImage", maxCount: 1 },
   { name: "images", maxCount: 10 }
-]), (req, res) => {
+]), async (req, res) => {
   const galleries = loadGalleries();
   const { name, password } = req.body;
 
@@ -99,6 +133,14 @@ app.post('/api/addGallery', upload.fields([
   const representativeImage = req.files["representativeImage"]
     ? `/uploads/${req.files["representativeImage"][0].filename}`
     : images[0];
+
+  // Komprimera bilderna asynkront
+  for (const file of req.files["images"]) {
+    await compressImage(path.join(uploadDir, file.filename));
+  }
+  if (req.files["representativeImage"] && req.files["representativeImage"][0]) {
+    await compressImage(path.join(uploadDir, req.files["representativeImage"][0].filename));
+  }
 
   const newGallery = {
     id: galleries.length + 1,
