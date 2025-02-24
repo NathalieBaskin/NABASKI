@@ -8,11 +8,12 @@ import "./Bokning.css";
 function Bokning() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  
-  // Hämta fotograferingstyp, paket och pris från URL
+
+  // Hämta fotograferingstyp, paket, pris och kategori från URL
   const initialType = searchParams.get("typ") || "";
   const initialPackage = searchParams.get("paket") || "";
   const initialPrice = searchParams.get("pris") || "";
+  const initialCategory = searchParams.get("category") || "brollop"; // Default till bröllop
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [formData, setFormData] = useState({
@@ -28,6 +29,7 @@ function Bokning() {
   const [selectedType] = useState(initialType); // Fotograferingstyp
   const [selectedPackage] = useState(initialPackage); // Paket
   const [price] = useState(initialPrice); // Pris
+  const [selectedCategory] = useState(initialCategory); //Kategori
 
   // Hämta bokade datum från backend när komponenten laddas
   useEffect(() => {
@@ -64,7 +66,8 @@ function Bokning() {
       selectedPackage,
       price,
       date: format(selectedDate, "yyyy-MM-dd"),
-      message: formData.message
+      message: formData.message,
+      category: selectedCategory // Inkludera kategorin i bokningsdatan
     };
 
     console.log("Skickar bokning:", bookingData);
@@ -128,6 +131,9 @@ function Bokning() {
 
         <label>Pris</label>
         <input type="text" value={price} readOnly />
+
+        <label>Kategori</label>
+        <input type="text" value={selectedCategory} readOnly />
 
         <label>Förnamn</label>
         <input type="text" name="firstName" value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} required />

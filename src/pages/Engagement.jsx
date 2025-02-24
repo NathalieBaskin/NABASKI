@@ -1,13 +1,22 @@
-import "./Engagement.css";  // Se till att CSS-filen också har stor bokstav
-
-const imagePaths = [
-  "/images/eng1.jpeg", "/images/eng2.JPG", "/images/eng3.JPEG",
-  "/images/eng4.JPG", "/images/eng5.jpeg", "/images/eng6.jpg",
-  "/images/eng7.jpg", "/images/eng9.jpg",
-  "/images/eng10.jpg"
-];
+import { useState, useEffect } from "react";
+import "./Engagement.css"; // Se till att CSS-filen också har stor bokstav
 
 function Engagement() {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/portfolio/forlovning");
+        const data = await response.json();
+        setImages(data);
+      } catch (err) {
+        console.error("Fel vid hämtning av förlovningsbilder:", err);
+      }
+    };
+    fetchImages();
+  }, []);
+
   return (
     <div className="forlovning-page">
       <h1 className="forlovning-title">FÖRLOVNING</h1>
@@ -15,16 +24,20 @@ function Engagement() {
       {/* Knapp-länkar */}
       <div className="button-links">
         <a href="/portfolio" className="btn">PORTFOLIO</a>
-        <a href="/priser" className="btn">PRISER</a>
-        <a href="/bokning" className="btn">BOKNING</a>
+        <a href="/priser?category=forlovning" className="btn">PRISER</a>
+        <a href="/bokning?category=forlovning" className="btn">BOKNING</a>
         <a href="/kundgalleri" className="btn">KUNDGALLERI</a>
       </div>
 
       {/* Bildgalleri */}
       <div className="image-grid">
-        {imagePaths.map((src, index) => (
-          <img key={index} src={src} alt="förlovning" />
-        ))}
+        {images.length > 0 ? (
+          images.map((img, index) => (
+            <img key={index} src={`http://localhost:8000${img.image_url}`} alt="Förlovning" />
+          ))
+        ) : (
+          <p>Inga bilder tillgängliga för denna kategori.</p>
+        )}
       </div>
     </div>
   );
