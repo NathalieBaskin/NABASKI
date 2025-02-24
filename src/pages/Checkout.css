@@ -1,0 +1,146 @@
+/* Grundläggande styling */
+.checkout-page {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: "Arial", sans-serif;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Titel */
+  .checkout-page h1 {
+    text-align: center;
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  /* Meddelande om tom varukorg */
+  .checkout-page p {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+  }
+  
+  /* Orderöversikt */
+  .checkout-item {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    transition: transform 0.2s ease-in-out;
+    width: 100%;
+  }
+  
+  .checkout-item:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Produktbild */
+  .checkout-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  /* Produktinfo */
+  .checkout-item div {
+    flex: 1;
+    margin-left: 15px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Totalpris */
+  .checkout-page h3 {
+    text-align: center;
+    font-size: 22px;
+    margin-top: 20px;
+  }
+  
+  /* Formulär styling */
+  .checkout-page div {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 15px;
+  }
+  
+  .checkout-page label {
+    font-size: 16px;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Inputfält */
+  .checkout-page input,
+  .checkout-page select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  .checkout-page input:focus,
+  .checkout-page select:focus {
+    border-color: #007aff;
+    outline: none;
+  }
+  
+  /* Checkout-knapp */
+  .checkout-page button {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 15px;
+    background: #000000;
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-align: center;
+  }
+  
+  .checkout-page button:hover {
+    background: #5e0404;
+  }
+  
+  /* Anpassning för iPhone 14 Pro Max */
+  @media (max-width: 430px) {
+    .checkout-page {
+      padding: 15px;
+    }
+  
+    .checkout-item {
+      width: 100%;
+    }
+  
+    .checkout-item img {
+      width: 70px;
+      height: 70px;
+    }
+  
+    .checkout-page input,
+    .checkout-page select {
+      font-size: 16px;
+    }
+  
+    .checkout-page button {
+      width: 100%;
+    }
+  }
+  

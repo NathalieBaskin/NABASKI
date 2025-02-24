@@ -1,0 +1,154 @@
+/* Grundläggande styling för varukorgssidan */
+.cart-page {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrera innehållet */
+}
+
+/* Titel */
+.cart-page h1 {
+  text-align: center;
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Varukorgsobjekt */
+.cart-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  transition: transform 0.2s ease-in-out;
+  width: 95%;
+  max-width: 380px; /* Håller objekten centrerade och inte för breda */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Hover-effekt */
+.cart-item:hover {
+  transform: scale(1.02);
+}
+
+/* Produktbild */
+.cart-item img {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.cart-item img:hover {
+  transform: scale(1.1);
+}
+
+/* Produktinfo och pris */
+.cart-item div {
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Antal & knappar */
+.cart-item div:nth-child(4) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Knappar */
+.cart-item button {
+  background-color: #007aff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+}
+
+/* Antaljusteringsknappar */
+.cart-item div:nth-child(4) button {
+  width: 50px;
+}
+
+.cart-item button:hover {
+  background-color: #005ecb;
+}
+
+/* Checkout-knapp */
+.cart-page button {
+  display: block;
+  width: 90%;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 15px;
+  background: #000000;
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+}
+
+.cart-page button:hover {
+  background: #510713;
+}
+
+/* Totalpris */
+.cart-page h3 {
+  text-align: center;
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+/* Anpassning för iPhone 14 Pro Max */
+@media (max-width: 430px) {
+  .cart-page {
+    padding: 15px;
+  }
+
+  .cart-item {
+    width: 90%;
+    max-width: 380px;
+  }
+
+  .cart-item img {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .cart-item div {
+    font-size: 16px;
+  }
+
+  .cart-item button {
+    width: 100%;
+  }
+
+  .cart-page button {
+    width: 95%;
+  }
+}
