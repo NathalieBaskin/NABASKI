@@ -3,8 +3,7 @@ import "./Barn.css";  // Se till att CSS-filen också har stor bokstav
 const imagePaths = [
     "/images/1.jpg", "/images/barn.jpg", "/images/30.jpg",
     "/images/97.jpg", "/images/2021-02-11-17.56.19-1-1.jpg",
-    "/images/Bella-12.jpg", "/images/df.jpg", "/images/dhdfgh.jpg",
-    "/images/IMG_0115.png", "/images/IMG_0148.jpg", "/images/img_2336-3.jpg",
+    "/images/Bella-12.jpg", "/images/df.jpg", "/images/dhdfgh.jpg", "/images/IMG_0148.jpg", "/images/img_2336-3.jpg",
     "/images/img_2346.jpg", "/images/img_2426.jpg", "/images/img_2433.JPEG",
     "/images/IMG_3739klar.jpg", "/images/IMG_3743klar1.jpg",
     "/images/IMG_7614.JPG", "/images/jhkl.jpg", "/images/in.jpg",
