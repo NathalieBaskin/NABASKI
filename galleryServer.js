@@ -184,9 +184,8 @@ app.delete('/api/deleteComment/:image', (req, res) => {
   }
 });
 
-/* ============================================= */
-/* 🚀 Starta servern */
-/* ============================================= */
+// TODO: Koppla kundgalleri till sqlite3 databas
+
 app.listen(PORT, () => {
   console.log(`✅ Servern körs på http://localhost:${PORT}`);
 });
