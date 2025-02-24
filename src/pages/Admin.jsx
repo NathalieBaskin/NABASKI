@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Admin.css";
 
 function Admin() {
+  // Kundgallerirelaterade state (oförändrat)
   const [galleries, setGalleries] = useState([]);
   const [selectedGallery, setSelectedGallery] = useState("");
   const [galleryName, setGalleryName] = useState("");
@@ -10,6 +11,13 @@ function Admin() {
   const [representativeImage, setRepresentativeImage] = useState(null);
   const [newImages, setNewImages] = useState([]);
   const [error, setError] = useState("");
+
+  // Portfolio-relaterade state
+  const [portfolioCategories] = useState([
+    "Bröllop", "Förlovning", "Familj", "Barn", "Modell", "Event"
+  ]);
+  const [selectedPortfolioCategory, setSelectedPortfolioCategory] = useState("");
+  const [portfolioImages, setPortfolioImages] = useState([]);
 
   const navigate = useNavigate();
 
@@ -49,8 +57,10 @@ function Admin() {
     }
   };
 
+  // Kundgalleriets bilduppladdning
   const handleImageUpload = (e) => {
-    setNewImages([...newImages, ...Array.from(e.target.files)]);
+    const uploadedImages = Array.from(e.target.files);
+    setNewImages([...newImages, ...uploadedImages]);
   };
 
   const removeImage = (index) => {
@@ -94,11 +104,10 @@ function Admin() {
       selectedGallery === "new"
         ? "http://localhost:5000/api/addGallery"
         : `http://localhost:5000/api/updateGallery/${selectedGallery}`;
-    let method = selectedGallery === "new" ? "POST" : "PUT";
 
     try {
       const response = await fetch(url, {
-        method,
+        method: selectedGallery === "new" ? "POST" : "PUT",
         body: formData,
       });
 
@@ -139,9 +148,54 @@ function Admin() {
     }
   };
 
+  // --- Portfolio-funktionalitet ---
+  const handlePortfolioImageUpload = (e) => {
+    const uploadedImages = Array.from(e.target.files);
+    setPortfolioImages([...portfolioImages, ...uploadedImages]);
+  };
+
+  const removePortfolioImage = (index) => {
+    setPortfolioImages(portfolioImages.filter((_, i) => i !== index));
+  };
+
+  const handleSavePortfolioImages = async () => {
+    if (!selectedPortfolioCategory || portfolioImages.length === 0) {
+      setError("Kategori och bilder måste väljas!");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("category", selectedPortfolioCategory);
+    portfolioImages.forEach((image) => {
+      formData.append("images", image);
+    });
+
+    try {
+      console.log("🚀 Skickar API-anrop till /api/addPortfolioImages...");
+      const response = await fetch("http://localhost:8000/api/addPortfolioImages", {
+        method: "POST",
+        body: formData,
+      });
+
+      console.log("📩 Response mottagen:", response);
+      if (response.ok) {
+        alert("Bilder uppladdade till portfolio!");
+        setPortfolioImages([]); // Töm fältet efter uppladdning
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || "Något gick fel vid uppladdning.");
+      }
+    } catch (err) {
+      console.error("❌ Fel vid uppladdning:", err);
+      setError("Kunde inte ladda upp bilder.");
+    }
+  };
+
   return (
     <div className="admin-page">
       <h1>Admin</h1>
+
+      {/* Kundgalleri-sektionen - exakt som tidigare */}
       <select onChange={handleGallerySelect} value={selectedGallery}>
         <option value="">Välj ett galleri</option>
         {galleries.map((gallery) => (
@@ -183,10 +237,10 @@ function Admin() {
                 onDrop={(e) => handleDrop(e, index)}
                 onDragOver={(e) => e.preventDefault()}
               >
-                <img
-                  src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`}
-                  width="100"
-                  alt="Uppladdad bild"
+                <img 
+                  src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`} 
+                  width="100" 
+                  alt="Uppladdad bild" 
                 />
                 <button onClick={() => removeImage(index)}>X</button>
               </div>
@@ -205,6 +259,51 @@ function Admin() {
           </div>
         </div>
       )}
+
+      {/* Portfolio-sektionen */}
+      <h2>Portfolio</h2>
+      <select
+        onChange={(e) => setSelectedPortfolioCategory(e.target.value)}
+        value={selectedPortfolioCategory}
+      >
+        <option value="">Välj kategori</option>
+        {portfolioCategories.map((category, index) => (
+          <option key={index} value={category}>{category}</option>
+        ))}
+      </select>
+
+      {selectedPortfolioCategory && (
+        <div className="portfolio-editor">
+          <label>Ladda upp bilder för {selectedPortfolioCategory}</label>
+          <input type="file" multiple onChange={handlePortfolioImageUpload} />
+          
+          <div className="image-preview">
+            {portfolioImages.map((img, index) => (
+              <div
+                key={index}
+                className="draggable-image"
+                draggable
+                onDragStart={(e) => handleDragStart(e, index)}
+                onDrop={(e) => handleDrop(e, index)}
+                onDragOver={(e) => e.preventDefault()}
+              >
+                <img 
+                  src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`} 
+                  width="100" 
+                  alt="Preview" 
+                />
+                <button onClick={() => removePortfolioImage(index)}>X</button>
+              </div>
+            ))}
+          </div>
+
+          <div className="button-group">
+            <button onClick={handleSavePortfolioImages}>Spara Portfolio-bilder</button>
+          </div>
+        </div>
+      )}
+
+      {error && <p className="error">{error}</p>}
     </div>
   );
 }

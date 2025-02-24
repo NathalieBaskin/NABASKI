@@ -1,21 +1,26 @@
+import { useState, useEffect } from "react";
 import "./Brollop.css";
 
-const imagePaths = [
-  "/images/wedding1.jpg", "/images/wedding2.jpg", "/images/wedding3.jpg",
-  "/images/wedding4.jpg", "/images/wedding5.jpg", "/images/wedding6.jpg",
-  "/images/wedding7.jpg",  "/images/wedding9.jpg",
-  "/images/wedding10.jpg", "/images/wedding11.jpg", "/images/wedding12.jpg",
-  "/images/wedding14.jpg"
-];
-
 function Brollop() {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/portfolio/brollop");
+        const data = await response.json();
+        setImages(data);
+      } catch (err) {
+        console.error("Fel vid hämtning av bröllopsbilder:", err);
+      }
+    };
+    fetchImages();
+  }, []);
+
   return (
     <div className="brollop-page">
-      {/* ✅ Videon ligger i en egen container för full bredd */}
-
       <h1 className="brollop-title">BRÖLLOP</h1>
 
-      {/* Knapp-länkar */}
       <div className="button-links">
         <a href="/portfolio" className="btn">PORTFOLIO</a>
         <a href="/priser" className="btn">PRISER</a>
@@ -23,11 +28,14 @@ function Brollop() {
         <a href="/kundgalleri" className="btn">KUNDGALLERI</a>
       </div>
 
-      {/* Bildgalleri */}
       <div className="image-grid">
-        {imagePaths.map((src, index) => (
-          <img key={index} src={src} alt="bröllop" />
-        ))}
+        {images.length > 0 ? (
+          images.map((img, index) => (
+            <img key={index} src={`http://localhost:8000${img.image_url}`} alt="Bröllop" />
+          ))
+        ) : (
+          <p>Inga bilder tillgängliga för denna kategori.</p>
+        )}
       </div>
     </div>
   );

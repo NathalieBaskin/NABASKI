@@ -20,5 +20,14 @@
       "/uploads/9d6e8be18839793e65e637e02cf6d865"
     ],
     "representativeImage": "/uploads/3288deca25231696aade1bf6cfb9d03e"
+  },
+  {
+    "id": 3,
+    "name": "Jesper och Nicole",
+    "password": "bröllop",
+    "images": [
+      "/uploads/d9b65dee1923a3da1535e82d336849b8"
+    ],
+    "representativeImage": "/uploads/9895aa80ca361b454bf631f90c131ab5"
   }
 ]

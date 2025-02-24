@@ -46,6 +46,7 @@ function Header() {
           <li><Link to="/portfolio">Portfolio</Link></li>
           <li><Link to="/kontakt">Kontakt</Link></li>
           <li><Link to="/kundgalleri">Kundgalleri</Link></li>
+          <li><Link to="/admin">Admin</Link></li>
         </ul>
       </nav>
     </header>

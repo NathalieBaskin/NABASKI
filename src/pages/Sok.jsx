@@ -1,61 +1,67 @@
-import { useLocation, useNavigate } from 'react-router-dom'; // Lägg till useNavigate för navigation
-
-const images = [
-  { name: "Bröllop", image: "/images/Brollop.jpg", alt: "Bröllop" },
-  { name: "Bröllop", image: "/images/wedding2.jpg", alt: "Bröllop" },
-  { name: "Bröllop", image: "/images/wedding3.jpg", alt: "Bröllop" },
-  { name: "Bröllop", image: "/images/wedding4.jpg", alt: "Bröllop" },
-  { name: "Bröllop", image: "/images/wedding5.jpg", alt: "Bröllop" },
-  { name: "Bröllop", image: "/images/wedding6.jpg", alt: "Bröllop" },
-  { name: "Bröllop", image: "/images/wedding7.jpg", alt: "Bröllop" },
-  { name: "Bröllop", image: "/images/wedding8.jpg", alt: "Bröllop" },
-  { name: "Bröllop", image: "/images/wedding9.jpg", alt: "Bröllop" },
-  { name: "Bröllop", image: "/images/wedding10.jpg", alt: "Bröllop" },
-  { name: "Bröllop", image: "/images/wedding11.jpg", alt: "Bröllop" },
-  { name: "Bröllop", image: "/images/wedding12.jpg", alt: "Bröllop" },  
-  { name: "Bröllop", image: "/images/wedding13.jpg", alt: "Bröllop" },
-  { name: "Bröllop", image: "/images/wedding14.jpg", alt: "Bröllop" },
-  { name: "Förlovning", image: "/images/Forlovning.jpg", alt: "Förlovning" },
-  { name: "Familj", image: "/images/Familj.jpg", alt: "Familj" },
-  { name: "Barn", image: "/images/Barn.jpg", alt: "Barn" },
-  { name: "Modell", image: "/images/Modell.jpg", alt: "Modell" },
-  { name: "Event", image: "/images/Event.jpg", alt: "Event" }
-];
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function Sok() {
-  const location = useLocation();  
-  const navigate = useNavigate(); // Används för att navigera vid klick
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const searchParams = new URLSearchParams(location.search);  
-  const query = searchParams.get("q")?.toLowerCase() || "";  
+  const [images, setImages] = useState([]); // Håller dynamiskt laddade bilder
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Filtrerar bilder baserat på queryn (alt-texter)
+  const searchParams = new URLSearchParams(location.search);
+  const query = searchParams.get("q")?.toLowerCase() || "";
+
+  // Hämta bilder dynamiskt från en API-endpoint
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch("https://api.example.com/images"); // Ersätt med riktig API-endpoint
+        if (!response.ok) {
+          throw new Error("Något gick fel vid hämtning av bilder.");
+        }
+        const data = await response.json();
+        setImages(data); // Sätter bilder från API
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  // Filtrera bilder baserat på sökningen
   const filteredImages = images.filter((img) =>
-    img.alt.toLowerCase().includes(query)  
+    img.alt.toLowerCase().includes(query)
   );
-
-  console.log("Sökquery:", query);  
-  console.log("Filtrerade bilder:", filteredImages);  
 
   return (
     <div className="sok-page">
       <h1>Sökresultat för {query}</h1>
-      <div className="image-grid">
-        {filteredImages.length > 0 ? (
-          filteredImages.map((img, index) => (
-            <div key={index} className="image-item">
-              <img 
-                src={img.image} 
-                alt={img.alt} 
-                onClick={() => navigate("/brollop")} // Navigera till /brollop vid klick
-                style={{ cursor: "pointer" }} // Gör muspekaren till en klickbar hand
-              />
-            </div>
-          ))
-        ) : (
-          <p>Inga resultat hittades.</p>
-        )}
-      </div>
+
+      {loading && <p>Laddar bilder...</p>}
+      {error && <p style={{ color: "red" }}>Fel: {error}</p>}
+
+      {!loading && !error && (
+        <div className="image-grid">
+          {filteredImages.length > 0 ? (
+            filteredImages.map((img, index) => (
+              <div key={index} className="image-item">
+                <img 
+                  src={img.image} 
+                  alt={img.alt} 
+                  onClick={() => navigate("/brollop")}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+            ))
+          ) : (
+            <p>Inga resultat hittades.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
