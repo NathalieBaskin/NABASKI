@@ -1,21 +1,22 @@
-import "./Familj.css";  // Se till att CSS-filen också har stor bokstav
-
-const imagePaths = [
-    "/images/_uaE4xfK.jpeg", "/images/2.jpg", "/images/3.jpg",
-    "/images/4.jpg", "/images/5.jpg", "/images/6q4AmPm6.jpeg",
-    "/images/7.jpg", "/images/8.jpg",
-    "/images/10.jpg", "/images/11.jpg", "/images/14.jpg",
-    "/images/38.1.jpg", "/images/42.jpg", "/images/46.jpg",
-    "/images/65.jpg", "/images/71.jpg", "/images/79.jpg",
-    "/images/96.jpg", "/images/Bella-6.jpg", "/images/Bella-15.jpg",
-    "/images/f.jpg", "/images/Familj-1.jpg", "/images/Familj-5.jpg",
-    "/images/Familj-6.jpg", "/images/Familj-16.jpg", "/images/fs.jpg",
-    "/images/gm.jpg", "/images/img_2440.jpg", "/images/IMG_4870.JPG",
-    "/images/IMG_7600.JPG"
-  ];
-  
+import { useState, useEffect } from "react";
+import "./Familj.css"; // Se till att CSS-filen också har stor bokstav
 
 function Familj() {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/portfolio/familj");
+        const data = await response.json();
+        setImages(data);
+      } catch (err) {
+        console.error("Fel vid hämtning av bilder:", err);
+      }
+    };
+    fetchImages();
+  }, []);
+
   return (
     <div className="familj-page">
       <h1 className="familj-title">FAMILJ</h1>
@@ -23,16 +24,20 @@ function Familj() {
       {/* Knapp-länkar */}
       <div className="button-links">
         <a href="/portfolio" className="btn">PORTFOLIO</a>
-        <a href="/priser" className="btn">PRISER</a>
-        <a href="/bokning" className="btn">BOKNING</a>
+        <a href="/priser?category=familj" className="btn">PRISER</a>
+        <a href="/bokning?category=familj" className="btn">BOKNING</a>
         <a href="/kundgalleri" className="btn">KUNDGALLERI</a>
       </div>
 
       {/* Bildgalleri */}
       <div className="image-grid">
-        {imagePaths.map((src, index) => (
-          <img key={index} src={src} alt="familj" />
-        ))}
+        {images.length > 0 ? (
+          images.map((img, index) => (
+            <img key={index} src={`http://localhost:8000${img.image_url}`} alt="Familj" />
+          ))
+        ) : (
+          <p>Inga bilder tillgängliga för denna kategori.</p>
+        )}
       </div>
     </div>
   );

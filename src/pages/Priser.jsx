@@ -46,11 +46,103 @@ function Priser() {
         price: "4 000 SEK",
         photographyType: "Förlovning"
       }
+    ],
+    familj: [
+      {
+        name: "family",
+        description: "Upp till 3 timmar. Vad ingår? Upp till 75st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära, 5st utskrivna bilder (10x13) och 1st inramad förstoring (30x40)",
+        price: "8 000 SEK",
+        photographyType: "Familj"
+      },
+      {
+        name: "fam",
+        description: "Upp till 2 timmar. Vad ingår? Upp till 50st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
+        price: "6 000 SEK",
+        photographyType: "Familj"
+      },
+      {
+        name: "ff",
+        description: "Upp till 1 timme. Vad ingår? Upp till 25st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
+        price: "4 000 SEK",
+        photographyType: "Familj"
+      }
+    ],
+    barn: [
+      {
+        name: "barn",
+        description: "Upp till 3 timmar. Vad ingår? Upp till 75st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära, 5st utskrivna bilder (10x13) och 1st inramad förstoring (30x40)",
+        price: "8 000 SEK",
+        photographyType: "Barn"
+      },
+      {
+        name: "ba",
+        description: "Upp till 2 timmar. Vad ingår? Upp till 50st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
+        price: "6 000 SEK",
+        photographyType: "Barn"
+      },
+      {
+        name: "bbb",
+        description: "Upp till 1 timme. Vad ingår? Upp till 25st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
+        price: "4 000 SEK",
+        photographyType: "Barn"
+      }
+    ],
+    modell: [
+      {
+        name: "modell",
+        description: "Upp till 3 timmar. Vad ingår? Upp till 75st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära, 5st utskrivna bilder (10x13) och 1st inramad förstoring (30x40)",
+        price: "8 000 SEK",
+        photographyType: "Modell"
+      },
+      {
+        name: "mod",
+        description: "Upp till 2 timmar. Vad ingår? Upp till 50st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
+        price: "6 000 SEK",
+        photographyType: "Modell"
+      },
+      {
+        name: "mm",
+        description: "Upp till 1 timme. Vad ingår? Upp till 25st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
+        price: "4 000 SEK",
+        photographyType: "Modell"
+      }
+    ],
+    event: [
+      {
+        name: "Event",
+        description: "Upp till 3 timmar. Vad ingår? Upp till 75st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära, 5st utskrivna bilder (10x13) och 1st inramad förstoring (30x40)",
+        price: "8 000 SEK",
+        photographyType: "Event"
+      },
+      {
+        name: "eve",
+        description: "Upp till 2 timmar. Vad ingår? Upp till 50st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
+        price: "6 000 SEK",
+        photographyType: "Event"
+      },
+      {
+        name: "ee",
+        description: "Upp till 1 timme. Vad ingår? Upp till 25st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
+        price: "4 000 SEK",
+        photographyType: "Event"
+      }
     ]
   };
 
   const selectedPackages = packages[category] || packages.brollop; // Välj rätt paket baserat på kategori
-  const categoryName = category === "forlovning" ? "Förlovning" : "Bröllop";
+  let categoryName = "Bröllop";
+
+  if (category === "forlovning") {
+    categoryName = "Förlovning";
+  } else if (category === "familj") {
+    categoryName = "Familj";
+  } else if (category === "barn") {
+      categoryName = "Barn";
+  } else if (category === "modell") {
+      categoryName = "Modell";
+  } else if (category === "event") {
+      categoryName = "Event";
+  }
 
   return (
     <div className="priser-page">

@@ -1,0 +1,61 @@
+
+.modell-page {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* 🔹 "BRÖLLOP" ligger under videon och har bra spacing */
+  .modell-title {
+    font-size: 40px;
+    margin: 20px 0; /* 🔹 Skapar avstånd mellan video och text */
+    text-transform: uppercase;
+    font-family: 'BebasNeue', sans-serif; /* Se till att detta är rätt */
+  }
+  
+  /* 🔹 Knapp-länkar */
+  .button-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    padding: 5px 5px;
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+    font-family: 'BebasNeue', sans-serif; /* Se till att detta är rätt */
+font-size: 25px;
+
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: gray;
+  }
+  
+  /* 🔹 Bildgalleri */
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .image-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  /* 🔹 Större skärmar (3 per rad över 640px) */
+  @media (min-width: 640px) {
+    .image-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
