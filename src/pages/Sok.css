@@ -16,6 +16,7 @@
   align-items: center;
 }
 
+
 .image-item img {
   width: 200px;
   height: auto;
@@ -25,5 +26,6 @@
 .image-item p {
   margin-top: 10px;
   font-weight: bold;
+  text-align: center;
 }
  /*TODO: Fixa css för ipad och desktop*/

@@ -40,7 +40,7 @@ function Sok() {
 
   return (
     <div className="sok-page">
-      <h1>Sökresultat för {query}</h1>
+      <h1 className='soktitel'>Sökresultat för {query}</h1>
 
       {loading && <p>Laddar bilder...</p>}
       {error && <p style={{ color: "red" }}>Fel: {error}</p>}

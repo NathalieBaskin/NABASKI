@@ -90,7 +90,6 @@ function KundGalleri() {
         setShowAddToCart(false);
     };
 
-    // Hanterar nästa bild
     const handleNextImage = () => {
         if (selectedImageIndex !== null) {
             const newIndex = (selectedImageIndex + 1) % selectedGallery.images.length;
@@ -100,7 +99,6 @@ function KundGalleri() {
         }
     };
 
-    // Hanterar föregående bild
     const handlePrevImage = () => {
         if (selectedImageIndex !== null) {
             const newIndex = (selectedImageIndex - 1 + selectedGallery.images.length) % selectedGallery.images.length;
@@ -109,7 +107,6 @@ function KundGalleri() {
             fetchComments(selectedGallery.images[newIndex]);
         }
     };
-
     const handleAddToCart = () => {
         const product = {
             image: selectedImage,
@@ -119,7 +116,14 @@ function KundGalleri() {
         };
         setCart(prevCart => [...prevCart, product]); // Use functional update
         setShowAddToCart(false);
+    
+        // Visa pop-up när produkten har lagts till
+        setShowCartPopup(true);
+        setTimeout(() => {
+            setShowCartPopup(false); // Dölj pop-upen efter 2 sekunder
+        }, 2000);
     };
+    
 
     const handleLike = async (image) => {
         try {
@@ -156,13 +160,51 @@ function KundGalleri() {
         setSelectedImage(image);
         setShowAddToCart(true);
     };
+    const [showCartPopup, setShowCartPopup] = useState(false);
+
 
     return (
         <div className="kundgalleri-page">
             {/* "Varukorgen" button */}
-            <button className="cart-button" onClick={goToCart}>
-                Varukorgen ({cart.length})
-            </button>
+            <div className="cart-module">
+                <button className="cart-button" onClick={goToCart}>
+                    Varukorgen ({cart.length})
+                </button>
+                {showCartPopup && (
+    <div className="cart-popup">
+        <p>Produkten har lagts till i varukorgen!</p>
+    </div>
+)}
+
+                {showAddToCart && (
+                    <div className="add-to-cart-modal">
+                        <div className="modal-content">
+                            <div>
+                                <label>Antal</label>
+                                <input
+                                    type="number"
+                                    value={quantity}
+                                    onChange={(e) => setQuantity(Number(e.target.value))}
+                                    min="1"
+                                />
+                            </div>
+                            <div>
+                                <label>Storlek</label>
+                                <select value={size} onChange={(e) => setSize(e.target.value)}>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                </select>
+                            </div>
+                            <div>Summa: 450kr</div>
+                            <div>
+                                <button onClick={handleAddToCart}>Lägg i varukorg</button>
+                                <button onClick={() => setShowAddToCart(false)}>Avbryt</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
 
             {!showGallery && <h1>Kundgalleri</h1>}
 
@@ -199,35 +241,6 @@ function KundGalleri() {
                             </div>
                         </div>
                     ))}
-                </div>
-            )}
-
-            {showAddToCart && (
-                <div className="add-to-cart-modal">
-                    <div className="modal-content">
-                        <div>
-                            <label>Antal</label>
-                            <input
-                                type="number"
-                                value={quantity}
-                                onChange={(e) => setQuantity(Number(e.target.value))}
-                                min="1"
-                            />
-                        </div>
-                        <div>
-                            <label>Storlek</label>
-                            <select value={size} onChange={(e) => setSize(e.target.value)}>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                            </select>
-                        </div>
-                        <div>Summa: 450kr</div>
-                        <div>
-                            <button onClick={handleAddToCart}>Lägg i varukorg</button>
-                            <button onClick={() => setShowAddToCart(false)}>Avbryt</button>
-                        </div>
-                    </div>
                 </div>
             )}
 
