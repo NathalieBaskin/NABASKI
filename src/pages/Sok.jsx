@@ -12,11 +12,12 @@ function Sok() {
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get("q")?.toLowerCase() || "";
 
-  // Hämta bilder dynamiskt från en API-endpoint
+  // Hämta bilder dynamiskt från vårt API
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch("https://api.example.com/images"); // Ersätt med riktig API-endpoint
+        // Uppdatera här till rätt API-url
+        const response = await fetch(`http://localhost:8000/api/searchImages?q=${query}`); // Rätt endpoint
         if (!response.ok) {
           throw new Error("Något gick fel vid hämtning av bilder.");
         }
@@ -30,11 +31,11 @@ function Sok() {
     };
 
     fetchImages();
-  }, []);
+  }, [query]);
 
-  // Filtrera bilder baserat på sökningen
+  // Filtrera bilder baserat på sökningen med "name"
   const filteredImages = images.filter((img) =>
-    img.alt.toLowerCase().includes(query)
+    img.name.toLowerCase().includes(query)
   );
 
   return (
@@ -50,8 +51,8 @@ function Sok() {
             filteredImages.map((img, index) => (
               <div key={index} className="image-item">
                 <img 
-                  src={img.image} 
-                  alt={img.alt} 
+                  src={`http://localhost:8000${img.image_url}`} // Använd korrekt URL för att visa bilder
+                  alt={img.name}
                   onClick={() => navigate("/brollop")}
                   style={{ cursor: "pointer" }}
                 />
@@ -67,4 +68,3 @@ function Sok() {
 }
 
 export default Sok;
-// TODO: Visa sökresultat baserat på "name"

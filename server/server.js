@@ -102,7 +102,6 @@ const upload = multer({
   },
 });
 
-
 // POST: Ladda upp bilder till portfolio
 app.post("/api/addPortfolioImages", upload.array("images", 10), (req, res) => {
   console.log("⚡ API-anrop mottaget: /api/addPortfolioImages");
@@ -137,7 +136,6 @@ app.post("/api/addPortfolioImages", upload.array("images", 10), (req, res) => {
   });
 });
 
-
 // GET: Hämta bilder från en specifik portfolio-kategori
 app.get("/api/portfolio/:category", (req, res) => {
   let category = req.params.category.trim();
@@ -150,6 +148,23 @@ app.get("/api/portfolio/:category", (req, res) => {
       return res.status(500).json({ error: err.message });
     }
     console.log("📸 Bilder hittade:", rows);
+    res.json(rows);
+  });
+});
+
+// =================================
+// SÖK: Hämta bilder baserat på namn
+// =================================
+app.get("/api/searchImages", (req, res) => {
+  const query = req.query.q ? req.query.q.toLowerCase() : "";
+  console.log("🔍 Söker efter bilder med namn:", query);
+
+  const sql = "SELECT * FROM portfolio_images WHERE name LIKE ?";
+  db.all(sql, [`%${query}%`], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    console.log("📸 Sökträffar:", rows);
     res.json(rows);
   });
 });
