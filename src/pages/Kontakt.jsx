@@ -1,5 +1,6 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import emailjs from 'emailjs-com';
+import "./Kontakt.css";
 
 function Kontakt() {
   const [formData, setFormData] = useState({
@@ -24,7 +25,6 @@ function Kontakt() {
       .then(
         (result) => {
           console.log('Meddelandet skickades:', result.text);
-          // Här kan du lägga till en bekräftelsemeddelande för användaren om det behövs.
         },
         (error) => {
           console.log('Fel:', error.text);
@@ -33,43 +33,46 @@ function Kontakt() {
   };
 
   return (
-    <div>
-      <h1>Kontakt</h1>
-      <p>Här kan du kontakta oss!</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-        <div>
-          <label htmlFor="user_name">Ditt namn</label>
+    <div className="kontakt-container">
+      <h1 className="kontakt-heading">Kontakt</h1>
+      <p className="kontakt-description">Här kan du kontakta oss!</p>
+      <form onSubmit={handleSubmit} className="kontakt-form">
+        <div className="kontakt-form-group">
+          <label htmlFor="user_name" className="kontakt-label">Ditt namn</label>
           <input
             type="text"
             id="user_name"
-            name="from_name"  // Matchar template variabel
+            name="from_name" 
+            className="kontakt-input"
             value={formData.user_name}
-            onChange={handleChange}  // Uppdaterar formData vid input
+            onChange={handleChange}
             required
           />
         </div>
-          <label htmlFor="user_email">Din e-post</label>
+        <div className="kontakt-form-group">
+          <label htmlFor="user_email" className="kontakt-label">Din e-post</label>
           <input
             type="email"
             id="user_email"
             name="user_email"
+            className="kontakt-input"
             value={formData.user_email}
             onChange={handleChange}
             required
           />
         </div>
-        <div>
-          <label htmlFor="message">Meddelande</label>
+        <div className="kontakt-form-group">
+          <label htmlFor="message" className="kontakt-label">Meddelande</label>
           <textarea
             id="message"
             name="message"
+            className="kontakt-textarea"
             value={formData.message}
             onChange={handleChange}
             required
           />
         </div>
-        <button type="submit">Skicka</button>
+        <button type="submit" className="kontakt-button">Skicka</button>
       </form>
     </div>
   );

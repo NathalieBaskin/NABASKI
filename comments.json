@@ -1,7 +1,12 @@
 {
   "/uploads/f24e39f882a28b19efec55a263424f20": {
-    "likes": 0,
-    "comments": []
+    "likes": 1,
+    "comments": [
+      {
+        "name": "j",
+        "text": "j"
+      }
+    ]
   },
   "/uploads/41e521c302be6159bc77745952f0e994": {
     "likes": 1,

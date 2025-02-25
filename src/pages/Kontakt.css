@@ -1,1 +1,124 @@
- /*TODO: Fixa css för ipad och desktop*/
+:root {
+    --primary-color: #000000;
+    --secondary-color: #f5f5f5;
+    --text-color: #000000;
+    --border-color: #ddd;
+    --success-color: #4CAF50;
+    --error-color: #f44336;
+  }
+  
+  /* Kontakt-formulär container */
+  .kontakt-container {
+    max-width: 900px;  /* Höjer max-bredden för att göra formuläret bredare */
+    margin: 0 auto;
+    padding: 40px;  /* Ökar padding för att ge mer utrymme runt formuläret */
+    font-family: 'Silksemi';
+  }
+  
+  /* Rubrik för kontaktformuläret */
+  .kontakt-heading {
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5rem;  /* Större fontstorlek för rubriken */
+  }
+  
+  /* Beskrivningstext */
+  .kontakt-description {
+    text-align: center;
+    margin-bottom: 30px;
+    color: black;
+    font-size: 1rem;  /* Normal storlek på beskrivningstext */
+  }
+  
+
+  /* Formulärgrupp */
+  .kontakt-form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Etiketter */
+  .kontakt-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-color);
+    font-weight: bold;
+  }
+  
+  /* Inputfält och textområde */
+  .kontakt-input,
+  .kontakt-textarea {
+    width: 100%;
+    padding: 20px;  /* Ökat padding för att ge mer utrymme i fälten */
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .kontakt-textarea {
+    height: 150px;
+    resize: vertical;
+  }
+  
+  /* Fältfokus (när användaren klickar på input) */
+  .kontakt-input:focus,
+  .kontakt-textarea:focus {
+    border-color: #000000;
+    outline: none;
+  }
+  
+  /* Skicka-knappen */
+  .kontakt-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 14px 20px;  /* Större padding för knappen */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    width: 100%; /* Gör knappen lika bred som formuläret */
+  }
+  
+  .kontakt-button:hover {
+    background-color: darken(var(--primary-color), 10%);
+  }
+  
+  /* Responsiv design */
+  @media (max-width: 640px) {
+    .kontakt-container {
+      padding: 15px;
+    }
+  
+ 
+  
+    .kontakt-input,
+    .kontakt-textarea {
+      font-size: 14px;
+    }
+  
+    .kontakt-button {
+      width: 100%;
+    }
+  }
+  
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .kontakt-container {
+      padding: 20px;
+    }
+  
+    .kontakt-form {
+      padding: 25px;
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    .kontakt-container {
+      padding: 30px;
+    }
+  
+    .kontakt-form {
+      padding: 40px;
+    }
+  }
+  

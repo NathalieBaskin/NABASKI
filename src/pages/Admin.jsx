@@ -269,7 +269,7 @@ function Admin() {
     <div className="admin-page">
       <h1>Admin</h1>
         <div>
-            <h3>Befintliga Kategorier:</h3>
+            <h3>Kundgalleri</h3>
             <ul>
                 {existingNames.map((name, index) => (
                     <li key={index}>{name}</li>
@@ -294,7 +294,7 @@ function Admin() {
           <label>Lösenord</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-          <label>Välj representativ bild</label>
+          <label>Välj cover bild</label>
           <input type="file" onChange={(e) => setRepresentativeImage(e.target.files[0])} />
           {representativeImage && (
             <img
@@ -341,7 +341,7 @@ function Admin() {
       )}
 
       {/* Portfolio-sektionen */}
-      <h2>Portfolio</h2>
+      <h3>Portfolio</h3>
       <select
         onChange={(e) => setSelectedPortfolioCategory(e.target.value)}
         value={selectedPortfolioCategory}
@@ -356,7 +356,7 @@ function Admin() {
         onChange={(e) => setImageCategory(e.target.value)} // Används för att sätta kategori för uppladdning i backend
         value={imageCategory}
       >
-        <option value="">Välj kategori för uppladdning</option>
+        <option value="">Välj Namn</option>
         {portfolioCategories.map((category, index) => (
           <option key={index} value={category}>{category}</option>
         ))}
