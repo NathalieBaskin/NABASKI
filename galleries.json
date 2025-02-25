@@ -9,25 +9,5 @@
       "/uploads/3bc33968781425c3b3d973060c2c2ed6"
     ],
     "representativeImage": "/uploads/7319ccf3d8b558cd176f690baf951f6c"
-  },
-  {
-    "id": 2,
-    "name": "Luisa och Muslim",
-    "password": "Bröllop",
-    "images": [
-      "/uploads/21673d9c93755556cd9cbe60b8a30139",
-      "/uploads/7800314527406e80594bf35490b4b759",
-      "/uploads/9d6e8be18839793e65e637e02cf6d865"
-    ],
-    "representativeImage": "/uploads/3288deca25231696aade1bf6cfb9d03e"
-  },
-  {
-    "id": 3,
-    "name": "Jesper och Nicole",
-    "password": "bröllop",
-    "images": [
-      "/uploads/d9b65dee1923a3da1535e82d336849b8"
-    ],
-    "representativeImage": "/uploads/9895aa80ca361b454bf631f90c131ab5"
   }
 ]

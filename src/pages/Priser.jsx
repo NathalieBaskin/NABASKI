@@ -169,3 +169,4 @@ function Priser() {
 }
 
 export default Priser;
+// TODO: Lägg in rätt priser på alla kategorier

@@ -44,3 +44,4 @@ function Modell() {
 }
 
 export default Modell;
+//TODO: Fyll på med bilder

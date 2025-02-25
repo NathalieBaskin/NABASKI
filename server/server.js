@@ -105,40 +105,38 @@ const upload = multer({
 
 // POST: Ladda upp bilder till portfolio
 app.post("/api/addPortfolioImages", upload.array("images", 10), (req, res) => {
-  console.log("⚡ API-anrop mottaget: /api/addPortfolioImages"); 
-  console.log("Kategori (före normalisering):", req.body.category);
+  console.log("⚡ API-anrop mottaget: /api/addPortfolioImages");
+  console.log("Kategori:", req.body.category);
+  console.log("Namn:", req.body.name);
 
-  if (!req.body.category || !req.files || req.files.length === 0) {
-    console.error("🚨 Fel: Ingen kategori eller inga bilder mottagna");
-    return res.status(400).json({ error: "Kategori och bilder måste anges" });
+  if (!req.body.category || !req.body.name || !req.files || req.files.length === 0) {
+    return res.status(400).json({ error: "Kategori, namn och bilder måste anges" });
   }
 
-  const category = normalizeCategory(req.body.category);
-  console.log("Kategori (efter normalisering):", category);
+  const category = req.body.category;
+  const name = req.body.name;
 
   let insertedCount = 0;
   let errorOccurred = false;
-  
+
   req.files.forEach((file) => {
     const filename = path.basename(file.path);
     const relativePath = `/uploads/portfolio/${filename}`;
-    console.log("💾 Sparar bild med relativ sökväg:", relativePath);
 
     const sql = `INSERT INTO portfolio_images (category, name, image_url) VALUES (?, ?, ?)`;
-    db.run(sql, [category, filename, relativePath], function (err) {
+    db.run(sql, [category, name, relativePath], function (err) {
       if (err) {
-        console.error("❌ Fel vid insättning i databasen:", err.message);
         errorOccurred = true;
         return res.status(500).json({ error: err.message });
       }
       insertedCount++;
-      console.log("✅ Infogad bild med id:", this.lastID);
       if (insertedCount === req.files.length && !errorOccurred) {
         res.status(200).json({ message: "Bilder uppladdade till portfolio!" });
       }
     });
   });
 });
+
 
 // GET: Hämta bilder från en specifik portfolio-kategori
 app.get("/api/portfolio/:category", (req, res) => {

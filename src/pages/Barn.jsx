@@ -44,3 +44,4 @@ function Barn() {
 }
 
 export default Barn;
+//TODO: Fyll på med bilder

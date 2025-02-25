@@ -4,7 +4,7 @@ import "./Admin.css";
 import imageCompression from 'browser-image-compression';
 
 function Admin() {
-  // Kundgallerirelaterade state (oförändrat)
+  // Kundgalleri-relaterade state
   const [galleries, setGalleries] = useState([]);
   const [selectedGallery, setSelectedGallery] = useState("");
   const [galleryName, setGalleryName] = useState("");
@@ -19,11 +19,14 @@ function Admin() {
   ]);
   const [selectedPortfolioCategory, setSelectedPortfolioCategory] = useState("");
   const [portfolioImages, setPortfolioImages] = useState([]);
+  const [imageCategory, setImageCategory] = useState("");  // Här deklareras och används setImageCategory
+  const [existingNames, setExistingNames] = useState([]); // State för att lagra befintliga namn
 
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchGalleries();
+    fetchExistingNames();
   }, []);
 
   const fetchGalleries = async () => {
@@ -58,7 +61,7 @@ function Admin() {
     }
   };
 
-  // Kundgalleriets bilduppladdning
+  // Kundgalleri-bilduppladdning
   const handleImageUpload = async (e) => {
     const uploadedImages = Array.from(e.target.files);
     const compressedImages = [];
@@ -203,6 +206,10 @@ function Admin() {
     setPortfolioImages(portfolioImages.filter((_, i) => i !== index));
   };
 
+  const normalizeCategory = (category) => {
+    return category.toLowerCase().replace(/å/g, "a").replace(/ä/g, "a").replace(/ö/g, "o");
+  };
+
   const handleSavePortfolioImages = async () => {
     if (!selectedPortfolioCategory || portfolioImages.length === 0) {
       setError("Kategori och bilder måste väljas!");
@@ -210,7 +217,14 @@ function Admin() {
     }
 
     const formData = new FormData();
-    formData.append("category", selectedPortfolioCategory);
+
+    // Skicka kategorin i normaliserad form
+    formData.append("category", normalizeCategory(selectedPortfolioCategory));  // t.ex. "brollop" för "Bröllop"
+
+    // Skicka namnet på kategorin i exakt format
+    formData.append("name", selectedPortfolioCategory);  // t.ex. "Bröllop"
+
+    // Lägg till alla bilder
     portfolioImages.forEach((image) => {
       formData.append("images", image);
     });
@@ -222,7 +236,6 @@ function Admin() {
         body: formData,
       });
 
-      console.log("📩 Response mottagen:", response);
       if (response.ok) {
         alert("Bilder uppladdade till portfolio!");
         setPortfolioImages([]); // Töm fältet efter uppladdning
@@ -235,12 +248,35 @@ function Admin() {
       setError("Kunde inte ladda upp bilder.");
     }
   };
+    const fetchExistingNames = async () => {
+        try {
+            const response = await fetch("http://localhost:8000/api/getUniqueNames"); // Ersätt med din faktiska endpoint
+            if (response.ok) {
+                const data = await response.json();
+                setExistingNames(data.names); // Antag att API:et returnerar ett objekt med en 'names'-array
+            } else {
+                console.error("", response.status);
+                setError("");
+            }
+        } catch (error) {
+            console.error("", error);
+            setError("");
+        }
+    };
+
 
   return (
     <div className="admin-page">
       <h1>Admin</h1>
-
-      {/* Kundgalleri-sektionen - exakt som tidigare */}
+        <div>
+            <h3>Befintliga Kategorier:</h3>
+            <ul>
+                {existingNames.map((name, index) => (
+                    <li key={index}>{name}</li>
+                ))}
+            </ul>
+        </div>
+      {/* Kundgalleri-sektionen */}
       <select onChange={handleGallerySelect} value={selectedGallery}>
         <option value="">Välj ett galleri</option>
         {galleries.map((gallery) => (
@@ -255,7 +291,6 @@ function Admin() {
         <div className="gallery-editor">
           <label>Galleri namn</label>
           <input type="text" value={galleryName} onChange={(e) => setGalleryName(e.target.value)} />
-
           <label>Lösenord</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
@@ -317,6 +352,16 @@ function Admin() {
         ))}
       </select>
 
+      <select
+        onChange={(e) => setImageCategory(e.target.value)} // Används för att sätta kategori för uppladdning i backend
+        value={imageCategory}
+      >
+        <option value="">Välj kategori för uppladdning</option>
+        {portfolioCategories.map((category, index) => (
+          <option key={index} value={category}>{category}</option>
+        ))}
+      </select>
+
       {selectedPortfolioCategory && (
         <div className="portfolio-editor">
           <label>Ladda upp bilder för {selectedPortfolioCategory}</label>
@@ -354,3 +399,5 @@ function Admin() {
 }
 
 export default Admin;
+
+//TODO: Portfolio visas efter uppladdning

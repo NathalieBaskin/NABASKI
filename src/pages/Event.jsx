@@ -44,3 +44,4 @@ function Event() {
 }
 
 export default Event;
+//TODO: Fyll på med bilder

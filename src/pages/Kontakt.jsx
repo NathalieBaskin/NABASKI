@@ -8,4 +8,4 @@ function Kontakt() {
   }
   
   export default Kontakt;
-  
+  //TODO: Kontaktformulär med fungerande mail

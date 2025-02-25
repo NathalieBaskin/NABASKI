@@ -44,3 +44,4 @@ function Familj() {
 }
 
 export default Familj;
+//TODO: Fyll på med bilder

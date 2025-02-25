@@ -42,3 +42,4 @@ function Brollop() {
 }
 
 export default Brollop;
+//TODO: Fyll på med bilder

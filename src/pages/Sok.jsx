@@ -67,3 +67,4 @@ function Sok() {
 }
 
 export default Sok;
+// TODO: Visa sökresultat baserat på "name"
