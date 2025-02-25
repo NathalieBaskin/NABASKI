@@ -34,8 +34,8 @@
   .nav-right {
     display: flex;
     flex-direction: row; /* Se till att sökfält och varukorg är på samma rad */
-    justify-content: flex-start;
-    align-items: left; /* Centrerar innehållet vertikalt */
+    justify-content: center;
+    align-items: center; /* Centrerar innehållet vertikalt */
     width: 100%;
     margin-top: 10px; /* Liten justering om det behövs */
   }
@@ -45,10 +45,10 @@
     padding: 8px 15px;
     font-size: 16px;
     border-radius: 10px;
-    width: 80%;
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 18px;
-    margin-right: 150px;
+  
 
   }
   
@@ -60,7 +60,7 @@
     font-size: 24px; /* Justera storleken på ikonen */
     cursor: pointer;
     padding: 5px 10px;
-    margin-left: 10px; /* Mellanrum mellan sökfält och shoppingcart-ikon */
+    margin-left: 125px; /* Mellanrum mellan sökfält och shoppingcart-ikon */
     z-index: 10;
   }
   
@@ -71,19 +71,19 @@
   /* Knapparna i nav-links ska vara horisontalt placerade och anpassa sig efter skärmstorleken */
   .nav-links {
     display: flex; /* Gör knapparna horisontella */
-    justify-content: flex-start; /* Låt knapparna vara till vänster */
+    justify-content:center; /* Låt knapparna vara till vänster */
     gap: 5px; /* Mellanrum mellan knapparna */
     list-style: none;
-    width: 80%;
-    padding-left: 0; /* Ta bort inbyggd padding */
-    margin-top: 0;
+    width: 100%;
+   
+    margin-top: 20px;
   }
   
   /* Knapparna */
   .nav-links a {
     text-decoration: none;
     color: black;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border: 2px solid black;
     border-radius: 5px;
     text-align: left;

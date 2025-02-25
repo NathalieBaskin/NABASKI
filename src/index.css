@@ -1,34 +1,34 @@
 /* Lägga till BebasNeue-Regular font för titlar */
 @font-face {
-    font-family: 'BebasNeue';
-    src: url('/fonts/BebasNeue-Regular.ttf') format('truetype');
+    font-family: 'Silksemi';
+    src: url('/fonts/Silksemi.otf') format('opentype');
   }
   
   /* Lägga till CaviarDreams font för all annan text */
   @font-face {
-    font-family: 'CaviarDreams';
-    src: url('/fonts/CaviarDreams.ttf') format('truetype');
+    font-family: 'Silkmedium';
+    src: url('/fonts/Silkmedium.otf') format('opentype');
   }
   
   /* Använda BebasNeue-Regular för alla titlar */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'BebasNeue', sans-serif;
+    font-family: 'Silksemi', sans-serif;
   }
   
   /* Använda CaviarDreams för all annan text */
   body, p, a, span, li {
-    font-family: 'CaviarDreams', sans-serif;
+    font-family: 'Silkmedium', sans-serif;
   }
   
   /* Andra globala stilar */
   body {
     margin: 0;
     padding: 0;
-    font-family: 'CaviarDreams', sans-serif;
+    font-family: 'Silkmedium', sans-serif;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'BebasNeue', sans-serif;
+    font-family: 'Silksemi', sans-serif;
   }
   
   a {

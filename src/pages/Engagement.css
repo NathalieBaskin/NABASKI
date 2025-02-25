@@ -1,61 +1,67 @@
-
+/* Styling för knappar */
 .forlovning-page {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  /* 🔹 "BRÖLLOP" ligger under videon och har bra spacing */
-  .forlovning-title {
-    font-size: 40px;
-    margin: 20px 0; /* 🔹 Skapar avstånd mellan video och text */
-    text-transform: uppercase;
-    font-family: 'BebasNeue', sans-serif; /* Se till att detta är rätt */
-  }
-  
-  /* 🔹 Knapp-länkar */
-  .button-links {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .btn {
-    padding: 5px 5px;
-    background-color: black;
-    color: white;
-    text-transform: uppercase;
-    font-family: 'BebasNeue', sans-serif; /* Se till att detta är rätt */
-font-size: 25px;
+  text-align: center;
+  padding: 20px;
+}
 
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.3s;
-  }
-  
-  .btn:hover {
-    background-color: gray;
-  }
-  
-  /* 🔹 Bildgalleri */
+/* 🔹 "BRÖLLOP" ligger under videon och har bra spacing */
+.forlovning-title {
+  font-size: 40px;
+  margin: 20px 0; /* 🔹 Skapar avstånd mellan video och text */
+  text-transform: uppercase;
+  font-family: 'Silksemi', sans-serif; /* Se till att detta är rätt */
+}
+.button-links {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  max-width: 100%; 
+}
+
+/* Standardknapp */
+.btn {
+  padding: 12px 25px;
+  background-color: #000000;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-family: 'Silksemi', sans-serif;
+  font-size: 1.1em;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  display: inline-block;
+  text-align: center;
+  width: calc(50% - 5px); /* 50% bredd minus hälften av gap */
+  margin-bottom: 10px;
+  box-sizing: border-box; /* Inkluderar padding i breddberäkningen */
+}
+
+/* Hover-effekt på knapp */
+.btn:hover {
+  background-color: #444444;
+}
+
+/* För större skärmar */
+@media (min-width: 640px) {
   .image-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    max-width: 900px;
-    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
   }
-  
-  .image-grid img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
+
+  .btn {
+    font-size: 1.2em;
+    padding: 14px 30px;
   }
-  
-  /* 🔹 Större skärmar (3 per rad över 640px) */
-  @media (min-width: 640px) {
-    .image-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+}
+
+/* Mobilläge - max 640px */
+@media (max-width: 640px) {
+  .button-links {
+    flex-direction: row; /* Säkerställer att knapparna är i rader */
   }
-   /*TODO: Fixa css för ipad och desktop*/
+
+  .btn {
+    width: calc(50% - 5px); /* 50% bredd minus hälften av gap */
+  }
+}

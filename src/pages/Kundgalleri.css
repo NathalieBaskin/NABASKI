@@ -187,33 +187,38 @@
   font-size: 20px;
   margin-right: 5px;
 }
-
 /* ======================= */
 /* 🔒 Lösenords-popup Styling */
 /* ======================= */
 .modal-overlay {
-  position: fixed;
+  position: fixed; /* Fast position så att den inte rör sig med scroll */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5); /* Dämpad bakgrund */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  justify-content: center; /* Centrerar horisontellt */
+  align-items: center; /* Centrerar vertikalt */
+  z-index: 1000; /* Se till att den ligger över allt annat */
 }
 
+/* Lösenordsmodul */
 .password-modal {
+  position: fixed;  /* Håller modalen på plats på skärmen */
+  top: 50%;  /* Vertikal placering */
+  left: 50%;  /* Horisontell placering */
+  transform: translate(-50%, -50%);  /* Justerar modalen så att den är exakt centrerad */
   background: white;
-  padding: 15px;
+  padding: 20px;
   border-radius: 10px;
   text-align: center;
-  width: 300px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  margin-bottom: 4rem;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3); /* Skugga för att ge djup */
 }
 
+/* Inputfält i modalen */
 .password-modal input {
   width: 100%;
   padding: 8px;
@@ -223,6 +228,7 @@
   font-size: 14px;
 }
 
+/* Lösenords knapp */
 .password-modal button {
   margin-top: 10px;
   padding: 10px;
@@ -235,14 +241,20 @@
   font-size: 14px;
 }
 
+/* Hover-effekt för lösenords-knappen */
 .password-modal button:hover {
   background: #555;
 }
 
+/* Felmeddelande om lösenordet är felaktigt */
 .password-modal .error {
   color: red;
   margin-top: 5px;
 }
+
+
+
+
 .kundgalleri-page .cart-button {
   display: none;
 }
