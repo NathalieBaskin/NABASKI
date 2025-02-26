@@ -1,10 +1,18 @@
-.video-container {
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* 🔹 Förhindrar sidscroll */
+  width: 100%;
+  
+}.video-container {
   width: 100vw; /* 🔹 Gör så att videon sträcker sig över hela skärmen */
   max-width: 100%;
   height: auto;
   display: block;
   margin: 0;
   padding: 0;
+
 }
 
   
@@ -12,5 +20,7 @@
     width: 100%;
     height: auto;
     display: block;
+   
+    
   }
   

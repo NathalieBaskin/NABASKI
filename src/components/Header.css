@@ -1,116 +1,113 @@
-/* Grundläggande styling */
-.body {
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  .header {
-    background: white;
-    padding: 5px;
-    display: flex;
-    flex-direction: column; /* Vertikal layout */
-    align-items: center; /* Centrerar innehållet horisontellt */
-    border-bottom: 2px solid black;
-  }
-  
-  .logo-container {
-    display: flex;
-    justify-content: center; /* Centrerar logotypen */
-  }
-  
-  .logo {
-    max-height: 80px; /* Justera höjden på logotypen */
-    width: auto;
-  }
-  
-  .nav {
-    display: flex;
-    flex-direction: column; /* Vertikal layout för navigationen */
-    align-items: flex-start; /* Justera så att innehållet är till vänster */
-    width: 100%;
-  margin-top: 0;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  .nav-right {
-    display: flex;
-    flex-direction: row; /* Se till att sökfält och varukorg är på samma rad */
-    justify-content: center;
-    align-items: center; /* Centrerar innehållet vertikalt */
-    width: 100%;
-    margin-top: 10px; /* Liten justering om det behövs */
-  }
-  
-  .search-bar {
-    border: 2px solid black;
-    padding: 8px 15px;
-    font-size: 16px;
-    border-radius: 10px;
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 18px;
-  
+/* Header.css */
 
-  }
-  
-/* Lägg till en högre z-index för att säkerställa att ikonen ligger ovanpå andra element */
+.header {
+
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lätt skugga */
+  font-size: 1em;
+}
+
+.logo-container {
+  /* Justera storlek och marginaler efter behov */
+  width: 400px; /* Exempelstorlek */
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+ 
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  margin-right: 10px;
+  width: 150px; /* Justera bredden efter behov */
+  font-size: 0.9em;
+}
+
 .cart {
-    background: transparent;
-    color: black;
-    border: none;
-    font-size: 24px; /* Justera storleken på ikonen */
-    cursor: pointer;
-    padding: 5px 10px;
-    margin-left: 125px; /* Mellanrum mellan sökfält och shoppingcart-ikon */
-    z-index: 10;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1em; /* Justera storleken på ikonen */
+  color: #333;
+  margin-left: 10px; /* Lägg till lite marginal på höger sida */
+
+}
+
+.nav-links {
+  list-style: none;
+  padding-top: 10px;
+  margin: 0;
+  display: flex;
+
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links li:first-child {
+  margin-left: 0; /* Ingen marginal på första länken */
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+/* Media query för mindre skärmar (t.ex. mobiler) */
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    align-items: center; /* Centrera innehållet horisontellt */
   }
-  
-  .cart:hover {
-    transform: scale(1.1); /* Liten effekt vid hover */
+
+  .logo-container {
+    margin-bottom: 10px;
+ 
   }
-  
-  /* Knapparna i nav-links ska vara horisontalt placerade och anpassa sig efter skärmstorleken */
+
+  .nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-right {
+    margin-bottom: 10px;
+  margin-left: 1.5rem;
+  }
+
   .nav-links {
-    display: flex; /* Gör knapparna horisontella */
-    justify-content:center; /* Låt knapparna vara till vänster */
-    gap: 5px; /* Mellanrum mellan knapparna */
-    list-style: none;
-    width: 100%;
+    flex-direction: row;
+    align-items:center;
+  }
+
+  .nav-links li {
+    margin: 10px ;
+  }
+  .search-bar {
    
-    margin-top: 20px;
+    width: 300px; /* Justera bredden efter behov */
   }
-  
-  /* Knapparna */
-  .nav-links a {
-    text-decoration: none;
-    color: black;
-    padding: 5px 10px;
-    border: 2px solid black;
-    border-radius: 5px;
-    text-align: left;
-    white-space: nowrap; /* Håller texten på en rad */
-  }
-  
-  /* Från 640px: Gör layout horisontell igen för större skärmar */
-  @media (min-width: 640px) {
-    .header {
-      flex-direction: row; /* Gör headern horisontell */
-      justify-content: space-between; /* Dela upp logotyp, sök och knappar */
-      align-items: center;
-    }
-  
-    .nav-right {
-      flex-direction: row; /* För större skärmar, gör sök och kundkorg horisontella */
-      margin-bottom: 0;
-      justify-content: flex-start;
-    }
-  
-    .nav-links {
-      flex-direction: row; /* För knapparna */
-   
-    }
-  
-    .nav-links a {
-      width: auto;
-    }
-  }
-  
+
+}
