@@ -8,25 +8,21 @@ function Testimonials() {
       image: "/images/testimon-lusisa.jpg",
     },
     {
-      text: "Kan varmt rekommendera denna tjej! Hon tar grymma bilder och har ett öga för detaljer",
-      author: "Madelene",
-      image: "/images/testimon-madde.jpg",
-    },
-    {
       text: "Du är en sån trygg och lyhörd fotograf! Rekommenderar starkt!!",
       author: "Cassandra",
       image: "/images/testimon-cassie.jpg",
     },
     {
+      text: "Kan varmt rekommendera denna tjej! Hon tar grymma bilder och har ett öga för detaljer",
+      author: "Madelene",
+      image: "/images/testimon-madde.jpg",
+    },
+ 
+    {
       text: "I have worked with Nathalie on various projects and have never been disappointed. She has an amazing eye for different situations, whether it is portrait, events, fashion or scenery. A talented photographer who is easy to work with, to say the least.",
       author: "Karolina",
       image: "/images/testimon-karolina.jpg",
-    },
-    {
-      text: "Professionalitet med gedigen metod i hennes arbete med ett öga för fotografi",
-      author: "Sebastian",
-      image: "/images/testimon-sebbe.jpg",
-    },
+    }
   ];
 
   return (
