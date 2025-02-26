@@ -348,7 +348,9 @@ button:hover {
 /* ======================= */
 @media (min-width: 768px) {
   .galleri-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px;
   }
 
   .slideshow {

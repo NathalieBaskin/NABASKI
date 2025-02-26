@@ -83,6 +83,34 @@
   .kontakt-button:hover {
     background-color: darken(var(--primary-color), 10%);
   }
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 1000;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+    animation: fadeOut 1s ease-in-out forwards;
+  }
+  
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  
+
   
   /* Responsiv design */
   @media (max-width: 640px) {
@@ -119,6 +147,12 @@
   
     .kontakt-form {
       padding: 40px;
+    }
+    .kontakt-container {
+      max-width: 1500px;  /* Höjer max-bredden för att göra formuläret bredare */
+      margin: 0 auto;
+      padding: 40px;  /* Ökar padding för att ge mer utrymme runt formuläret */
+      font-family: 'Silksemi';
     }
   }
   

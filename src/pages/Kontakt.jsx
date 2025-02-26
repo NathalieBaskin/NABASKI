@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import emailjs from 'emailjs-com';
 import "./Kontakt.css";
 
@@ -7,6 +8,8 @@ function Kontakt() {
     user_email: '',
     message: '',
   });
+  const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,12 +22,16 @@ function Kontakt() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Skicka formuläret via EmailJS
     emailjs
       .sendForm('service_krh8r1w', 'template_qgh2vdt', e.target, 'Z3WD4ZES9N1LKNRBl')
       .then(
         (result) => {
           console.log('Meddelandet skickades:', result.text);
+          setShowPopup(true);
+          setTimeout(() => {
+            setShowPopup(false);
+            navigate('/'); // Omdirigerar till startsidan
+          }, 2000); // Popup visas i 2 sekunder
         },
         (error) => {
           console.log('Fel:', error.text);
@@ -74,6 +81,9 @@ function Kontakt() {
         </div>
         <button type="submit" className="kontakt-button">Skicka</button>
       </form>
+
+      {/* Popup */}
+      {showPopup && <div className="popup">Meddelandet är skickat!</div>}
     </div>
   );
 }
