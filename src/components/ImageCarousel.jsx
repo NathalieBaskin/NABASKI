@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./ImageCarousel.css";
 
 const images = [
@@ -16,24 +16,56 @@ for (let i = 0; i < images.length; i += 3) {
   slides.push(images.slice(i, i + 3));
 }
 
+// Lägg till en kopia av första och sista sliden för att skapa loop-effekt
+const extendedSlides = [slides[slides.length - 1], ...slides, slides[0]];
+
 function ImageCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1); // Starta vid första "riktiga" sliden
+  const carouselWrapperRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex + 1 < slides.length ? prevIndex + 1 : 0
-      );
-    }, 3000); // Byter bildset var 5:e sekund
-
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (currentIndex === extendedSlides.length - 1) {
+      setTimeout(() => {
+        if (carouselWrapperRef.current) {
+          carouselWrapperRef.current.style.transition = "none";
+          setCurrentIndex(1);
+        }
+      }, 500);
+    }
+    if (currentIndex === 0) {
+      setTimeout(() => {
+        if (carouselWrapperRef.current) {
+          carouselWrapperRef.current.style.transition = "none";
+          setCurrentIndex(extendedSlides.length - 2);
+        }
+      }, 500);
+    } else {
+      if (carouselWrapperRef.current) {
+        carouselWrapperRef.current.style.transition = "transform 0.5s ease-in-out";
+      }
+    }
+  }, [currentIndex]);
+
   return (
     <div className="carousel-container">
-      <div className="carousel-images">
-        {slides[currentIndex].map((image, index) => (
-          <img key={index} src={image} alt="Highlight" className="carousel-image" />
+      <div
+        className="carousel-wrapper"
+        ref={carouselWrapperRef}
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+      >
+        {extendedSlides.map((slide, index) => (
+          <div key={index} className="carousel-slide">
+            {slide.map((image, imageIndex) => (
+              <img key={imageIndex} src={image} alt="Highlight" className="carousel-image" />
+            ))}
+          </div>
         ))}
       </div>
     </div>

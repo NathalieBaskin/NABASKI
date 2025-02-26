@@ -1,40 +1,23 @@
+/* ImageCarousel.css */
+
 .carousel-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
   overflow: hidden;
-  margin-bottom: 2rem;
 }
 
-.carousel-images {
+.carousel-wrapper {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  transition: opacity 3s ease-in-out; /* Smidig övergång */
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .carousel-image {
   width: 30%;
-  max-width: 250px;
   height: auto;
   object-fit: cover;
-  border-radius: 10px;
-}
-
-/* 📌 RESPONSIV DESIGN */
-@media (max-width: 768px) {
-  .carousel-image {
-    width: 45%;
-    max-width: 200px;
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel-image {
-    width: 80%;
-    max-width: 125px;
-  }
 }

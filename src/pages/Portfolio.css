@@ -68,6 +68,6 @@
 /*TODO: Fixa css för ipad och desktop*/
 @media (min-width: 768px) {
   .portfolio-text {
-    font-size: 40px; /* Större text på större skärmar */
+    font-size: 30px; /* Större text på större skärmar */
   }
 }
