@@ -400,4 +400,3 @@ function Admin() {
 
 export default Admin;
 
-//TODO: Portfolio visas efter uppladdning

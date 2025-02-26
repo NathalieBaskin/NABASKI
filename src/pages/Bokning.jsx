@@ -154,4 +154,3 @@ function Bokning() {
 }
 
 export default Bokning;
-//TODO: Koppla fungerande mailfunktion

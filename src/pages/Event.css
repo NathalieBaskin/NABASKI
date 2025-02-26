@@ -4,12 +4,11 @@
     padding: 20px;
   }
   
-  /* 🔹 "BRÖLLOP" ligger under videon och har bra spacing */
   .event-title {
     font-size: 40px;
     margin: 20px 0; /* 🔹 Skapar avstånd mellan video och text */
     text-transform: uppercase;
-    font-family: 'BebasNeue', sans-serif; /* Se till att detta är rätt */
+    font-family: 'Silksemi', sans-serif; /* Se till att detta är rätt */
   }
   
   /* 🔹 Knapp-länkar */
@@ -58,4 +57,4 @@ font-size: 25px;
       grid-template-columns: repeat(3, 1fr);
     }
   }
-   /*TODO: Fixa css för ipad och desktop*/
+  
