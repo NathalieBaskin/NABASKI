@@ -25,7 +25,8 @@ function KundGalleri() {
     const [showAddToCart, setShowAddToCart] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [quantity, setQuantity] = useState(1);
-    const [size, setSize] = useState("");
+    const [size, setSize] = useState("10x10");
+    const [showCartPopup, setShowCartPopup] = useState(false);
 
     const navigate = useNavigate();
 
@@ -107,23 +108,40 @@ function KundGalleri() {
             fetchComments(selectedGallery.images[newIndex]);
         }
     };
+
+    const getSizePrice = (size) => {
+        switch (size) {
+            case "10x10":
+                return 50;
+            case "20x30":
+                return 80;
+            case "30x40":
+                return 150;
+            default:
+                return 50;
+        }
+    };
+
+    const calculateTotalPrice = () => {
+        return quantity * getSizePrice(size);
+    };
+
     const handleAddToCart = () => {
         const product = {
             image: selectedImage,
             quantity,
             size,
-            price: 450,
+            price: getSizePrice(size), // Spara enhetspriset
+            totalPrice: calculateTotalPrice(), // Spara totalpriset
         };
-        setCart(prevCart => [...prevCart, product]); // Use functional update
+        setCart(prevCart => [...prevCart, product]);
         setShowAddToCart(false);
-    
-        // Visa pop-up när produkten har lagts till
+
         setShowCartPopup(true);
         setTimeout(() => {
-            setShowCartPopup(false); // Dölj pop-upen efter 2 sekunder
+            setShowCartPopup(false);
         }, 2000);
     };
-    
 
     const handleLike = async (image) => {
         try {
@@ -159,10 +177,10 @@ function KundGalleri() {
     const openAddToCartModal = (image) => {
         setSelectedImage(image);
         setShowAddToCart(true);
+        setQuantity(1); // Reset quantity when opening the modal
+        setSize("10x10"); // Reset size when opening the modal
     };
-    const [showCartPopup, setShowCartPopup] = useState(false);
-
-
+    
     return (
         <div className="kundgalleri-page">
             {/* "Varukorgen" button */}
@@ -171,10 +189,10 @@ function KundGalleri() {
                     Varukorgen ({cart.length})
                 </button>
                 {showCartPopup && (
-    <div className="cart-popup">
-        <p>Produkten har lagts till i varukorgen!</p>
-    </div>
-)}
+                    <div className="cart-popup">
+                        <p>Produkten har lagts till i varukorgen!</p>
+                    </div>
+                )}
 
                 {showAddToCart && (
                     <div className="add-to-cart-modal">
@@ -186,17 +204,18 @@ function KundGalleri() {
                                     value={quantity}
                                     onChange={(e) => setQuantity(Number(e.target.value))}
                                     min="1"
+                                    max="10"
                                 />
                             </div>
                             <div>
                                 <label>Storlek</label>
                                 <select value={size} onChange={(e) => setSize(e.target.value)}>
-                                    <option value="S">S</option>
-                                    <option value="M">M</option>
-                                    <option value="L">L</option>
+                                    <option value="10x10">10cm x 10cm</option>
+                                    <option value="20x30">20cm x 30cm</option>
+                                    <option value="30x40">30cm x 40cm</option>
                                 </select>
                             </div>
-                            <div>Summa: 450kr</div>
+                            <div>Summa: {calculateTotalPrice()} kr</div>
                             <div>
                                 <button onClick={handleAddToCart}>Lägg i varukorg</button>
                                 <button onClick={() => setShowAddToCart(false)}>Avbryt</button>
