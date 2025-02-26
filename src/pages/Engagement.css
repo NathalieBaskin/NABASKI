@@ -23,8 +23,8 @@
 /* Standardknapp */
 .btn {
   padding: 12px 25px;
-  background-color: #000000;
-  color: #FFFFFF;
+
+  color: #000000;
   text-transform: uppercase;
   font-family: 'Silksemi', sans-serif;
   font-size: 1.1em;

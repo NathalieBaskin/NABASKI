@@ -22,8 +22,7 @@
   
   .btn {
     padding: 5px 5px;
-    background-color: rgb(0, 0, 0);
-    color: white;
+
     text-transform: uppercase;
     font-family: 'Silkmedium', sans-serif; /* Se till att detta är rätt */
     text-decoration: none;
@@ -32,9 +31,7 @@
     max-width: 150px;
   }
 
-  .btn:hover {
-    background-color: rgb(58, 2, 2);
-  }
+
   
   /* 🔹 Bildgalleri */
   .image-grid {

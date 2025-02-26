@@ -21,20 +21,16 @@
   
   .btn {
     padding: 5px 5px;
-    background-color: black;
-    color: white;
-    text-transform: uppercase;
-    font-family: 'BebasNeue', sans-serif; /* Se till att detta är rätt */
-font-size: 25px;
 
+    text-transform: uppercase;
+    font-family: 'Silkmedium', sans-serif; /* Se till att detta är rätt */
     text-decoration: none;
     border-radius: 5px;
     transition: background 0.3s;
+    max-width: 150px;
   }
-  
-  .btn:hover {
-    background-color: gray;
-  }
+
+
   
   /* 🔹 Bildgalleri */
   .image-grid {
