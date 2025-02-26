@@ -40,13 +40,21 @@ function Header() {
           </button>
         </div>
 
-        {/* Navigation – Knapparna ligger på rad */}
         <ul className="nav-links">
-          <li><Link to="/">Hem</Link></li>
-          <li><Link to="/portfolio">Portfolio</Link></li>
-          <li><Link to="/kontakt">Kontakt</Link></li>
-          <li><Link to="/kundgalleri">Kundgalleri</Link></li>
-    
+  <li><Link to="/admin" className="admin-link">Admin</Link></li>
+
+          <li>
+            <Link to="/">Hem</Link>
+          </li>
+          <li>
+            <Link to="/portfolio">Portfolio</Link>
+          </li>
+          <li>
+            <Link to="/kontakt">Kontakt</Link>
+          </li>
+          <li>
+            <Link to="/kundgalleri">Kundgalleri</Link>
+          </li>
         </ul>
       </nav>
     </header>

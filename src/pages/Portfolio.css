@@ -1,88 +1,90 @@
 .portfolio {
   text-align: center;
-  background-color: black;
-
 }
 
 .portfolio h1 {
   font-size: 40px;
-  font-family: 'Silksemi', sans-serif; /* Se till att detta är rätt */
-  color: white;
+  font-family: "Silksemi", sans-serif; /* Se till att detta är rätt */
+  color: rgb(0, 0, 0);
 }
 
 .portfolio h3 {
-  font-size: 18px;
   margin-bottom: 20px;
-  font-family: 'Silksemi', sans-serif; /* Se till att detta är rätt */
-  color: white;
+  font-family: "Silksemi", sans-serif; /* Se till att detta är rätt */
+  color: rgb(0, 0, 0);
 }
 
-/* Portfolio Grid */
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin: 0 auto;
   padding-top: 1rem;
-  padding-bottom: 2rem;
- 
-}
-@media (max-width: 640px) {
-.portfolio-text {
-  font-size: 25px!important;
-}
-}
-@media (min-width: 640px) {
-  .portfolio-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .portfolio-item {
   position: relative;
   text-align: center;
-
 }
 
-.portfolio-item img {
-  width: 50%;
-  height: auto;
-  border-radius: 10px;
-  padding-bottom: 2rem;
+
+  .portfolio-item img {
+    width: 100%;
+    height: 250px; /* Justera till en fast höjd */
+    object-fit: cover; /* Håller proportioner utan att skapa extra luft */
+    border-radius: 10px;
   text-align: center;
-}
-
-/* ✅ Säkertställer att vi styr rätt element */
+  margin-bottom: 2rem;
+  }
 .portfolio-text {
   position: absolute;
   top: 75%; /* Får texten att vara vertikalt centrerad */
   left: 50%;
   transform: translate(-50%, -50%); /* Håller texten centrerad */
-  font-family: 'Silksemi', sans-serif; /* Se till att detta är rätt */
-font-size: 40px!important;
-  color: rgb(255, 255, 255);
+  font-family: "Silksemi", sans-serif; /* Se till att detta är rätt */
+  color: rgb(0, 0, 0);
   text-transform: uppercase;
   white-space: nowrap; /* 🔹 Gör att texten sticker ut på sidorna */
   letter-spacing: 3px; /* 🔹 Ger mer mellanrum mellan bokstäverna */
   margin-top: 5%;
-  
   z-index: 10 !important; /* 🔹 Se till att texten ligger över bilden */
 }
+/*mobil*/
+@media (max-width: 640px) {
+  .portfolio-text {
+    font-size: 25px !important;
+  }
+  .portfolio-item img {
+    width: 400px;
+    height: auto;
+    border-radius: 10px;
 
-
+    text-align: center;
+  }
+}
+/*ipad*/
+@media (min-width: 640px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .portfolio-text {
+    margin-top: 10%;
+    font-size: 40px !important;
+  }
+}
+/*desktop*/
 @media (min-width: 1024px) {
   .portfolio-text {
     margin-top: 2rem;
     font-size: 30px; /* Större text på större skärmar */
   }
-  
-.portfolio-item img {
-  width: 400px;
-  height: auto;
-  border-radius: 10px;
-  padding-bottom: 2rem;
-}
-.portfolio h1 {
-  font-size: 40px;
-}
+
+  .portfolio-item img {
+    width: 400px;
+    height: auto;
+    border-radius: 10px;
+  }
+  .portfolio h1 {
+    font-size: 40px;
+  }
 }
