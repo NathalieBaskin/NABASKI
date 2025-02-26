@@ -20,7 +20,9 @@ function Header() {
   return (
     <header className="header">
       <div className="logo-container">
-        <img src="/images/logo.png" alt="Logo" className="logo" />
+        <Link to="/">
+          <img src="/images/logo.png" alt="Logo" className="logo" />
+        </Link>
       </div>
       <nav className="nav">
         <div className="nav-right">
@@ -41,8 +43,6 @@ function Header() {
         </div>
 
         <ul className="nav-links">
-  <li><Link to="/admin" className="admin-link">Admin</Link></li>
-
           <li>
             <Link to="/">Hem</Link>
           </li>
@@ -55,6 +55,7 @@ function Header() {
           <li>
             <Link to="/kundgalleri">Kundgalleri</Link>
           </li>
+          <li><Link to="/admin" className="admin-link">Admin</Link></li>
         </ul>
       </nav>
     </header>

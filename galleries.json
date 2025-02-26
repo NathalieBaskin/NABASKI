@@ -9,5 +9,31 @@
       "/uploads/3bc33968781425c3b3d973060c2c2ed6"
     ],
     "representativeImage": "/uploads/7319ccf3d8b558cd176f690baf951f6c"
+  },
+  {
+    "id": 2,
+    "name": "Ida och Niklas",
+    "password": "ida",
+    "images": [
+      "/uploads/1740575057599",
+      "/uploads/1740575057614",
+      "/uploads/1740575057622",
+      "/uploads/1740575057627",
+      "/uploads/1740575057637",
+      "/uploads/1740575057648"
+    ],
+    "representativeImage": "/uploads/1740575057590.JPG"
+  },
+  {
+    "id": 3,
+    "name": "Familjen Filipsson",
+    "password": "ff",
+    "images": [
+      "/uploads/1740575142377",
+      "/uploads/1740575142385",
+      "/uploads/1740575142390",
+      "/uploads/1740575142396"
+    ],
+    "representativeImage": "/uploads/1740575142183.jpg"
   }
 ]
