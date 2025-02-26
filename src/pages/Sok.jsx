@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import "./Sok.css";
+
 function Sok() {
   const location = useLocation();
   const navigate = useNavigate();

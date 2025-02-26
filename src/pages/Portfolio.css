@@ -29,7 +29,7 @@
 }
 @media (max-width: 640px) {
 .portfolio-text {
-  font-size: 35px;
+  font-size: 25px!important;
 }
 }
 @media (min-width: 640px) {
@@ -45,7 +45,7 @@
 }
 
 .portfolio-item img {
-  width: 80%;
+  width: 50%;
   height: auto;
   border-radius: 10px;
   padding-bottom: 2rem;
@@ -59,7 +59,7 @@
   left: 50%;
   transform: translate(-50%, -50%); /* Håller texten centrerad */
   font-family: 'Silksemi', sans-serif; /* Se till att detta är rätt */
-font-size: 40px;
+font-size: 40px!important;
   color: rgb(255, 255, 255);
   text-transform: uppercase;
   white-space: nowrap; /* 🔹 Gör att texten sticker ut på sidorna */
@@ -69,11 +69,11 @@ font-size: 40px;
   z-index: 10 !important; /* 🔹 Se till att texten ligger över bilden */
 }
 
-/*TODO: Fixa css för ipad och desktop*/
+
 @media (min-width: 1024px) {
   .portfolio-text {
-    margin-top: 2.5rem;
-    font-size: 50px; /* Större text på större skärmar */
+    margin-top: 2rem;
+    font-size: 30px; /* Större text på större skärmar */
   }
   
 .portfolio-item img {
