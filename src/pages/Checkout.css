@@ -5,7 +5,7 @@
     margin: 0 auto;
     padding: 20px;
     font-family: "Arial", sans-serif;
-    background-color: #f9f9f9;
+   
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -94,7 +94,7 @@
   
   .checkout-page input:focus,
   .checkout-page select:focus {
-    border-color: #007aff;
+    border-color: #000000;
     outline: none;
   }
   
