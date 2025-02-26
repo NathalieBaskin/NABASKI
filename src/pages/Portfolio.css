@@ -22,16 +22,19 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-  max-width: 700px;
   margin: 0 auto;
   padding-top: 1rem;
   padding-bottom: 2rem;
  
 }
-
+@media (max-width: 640px) {
+.portfolio-text {
+  font-size: 35px;
+}
+}
 @media (min-width: 640px) {
   .portfolio-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -42,10 +45,11 @@
 }
 
 .portfolio-item img {
-  width: 12em;
-  height: 8em;
+  width: 80%;
+  height: auto;
   border-radius: 10px;
   padding-bottom: 2rem;
+  text-align: center;
 }
 
 /* ✅ Säkertställer att vi styr rätt element */
@@ -55,19 +59,30 @@
   left: 50%;
   transform: translate(-50%, -50%); /* Håller texten centrerad */
   font-family: 'Silksemi', sans-serif; /* Se till att detta är rätt */
-  font-size: 25px;  /* 🔹 Stor text */
+font-size: 40px;
   color: rgb(255, 255, 255);
   text-transform: uppercase;
   white-space: nowrap; /* 🔹 Gör att texten sticker ut på sidorna */
   letter-spacing: 3px; /* 🔹 Ger mer mellanrum mellan bokstäverna */
-  
+  margin-top: 5%;
   
   z-index: 10 !important; /* 🔹 Se till att texten ligger över bilden */
 }
 
 /*TODO: Fixa css för ipad och desktop*/
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .portfolio-text {
-    font-size: 30px; /* Större text på större skärmar */
+    margin-top: 2.5rem;
+    font-size: 50px; /* Större text på större skärmar */
   }
+  
+.portfolio-item img {
+  width: 400px;
+  height: auto;
+  border-radius: 10px;
+  padding-bottom: 2rem;
+}
+.portfolio h1 {
+  font-size: 40px;
+}
 }
