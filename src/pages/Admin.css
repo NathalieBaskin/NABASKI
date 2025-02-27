@@ -46,9 +46,12 @@
     border: none;
     background: black;
     color: white;
+   margin: 10px;
   }
   
   button:hover {
     background: #333;
   }
-  
+  .draggable-image {
+    cursor: pointer;
+  }

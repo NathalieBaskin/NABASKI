@@ -4,6 +4,7 @@ function Footer() {
   return (
     <footer className="footer">
       <h3 className="footer-title">NABASKI</h3>
+      <p className="footer-name">Nathalie Baskin</p>
       <ul className="footer-links">
    
       </ul>
