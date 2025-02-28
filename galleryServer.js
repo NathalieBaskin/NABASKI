@@ -154,6 +154,52 @@ app.post('/api/addGallery', upload.fields([
   saveGalleries(galleries);
   res.json({ message: '✅ Galleri tillagt!', gallery: newGallery });
 });
+app.get("/api/getUniqueNames", async (req, res) => {
+  console.log("GET /api/getUniqueNames called");
+  try {
+      const galleries = loadGalleries(); // Hämta gallerier
+      const names = galleries.map(g => g.name); // Plocka ut namnen
+      const uniqueNames = [...new Set(names)]; // Ta bort dubbletter
+      console.log("Fetched unique names:", uniqueNames);
+      res.json({ names: uniqueNames });
+  } catch (error) {
+      console.error("Error fetching names:", error);
+      res.status(500).json({ error: "Server error" });
+  }
+});
+app.put("/api/updateGallery/:id", upload.fields([
+  { name: "representativeImage", maxCount: 1 },
+  { name: "images", maxCount: 10 }
+]), async (req, res) => {
+  const galleries = loadGalleries();
+  const { id } = req.params;
+  const { name, password } = req.body;
+
+  const galleryIndex = galleries.findIndex(g => g.id === parseInt(id));
+  if (galleryIndex === -1) {
+    return res.status(404).json({ error: "❌ Galleri inte hittat." });
+  }
+
+  if (!name || !password) {
+    return res.status(400).json({ error: "❌ Alla fält måste fyllas i." });
+  }
+
+  const existingGallery = galleries[galleryIndex];
+
+  const images = req.files["images"]
+    ? req.files["images"].map(file => `/uploads/${file.filename}`)
+    : existingGallery.images;
+
+  const representativeImage = req.files["representativeImage"]
+    ? `/uploads/${req.files["representativeImage"][0].filename}`
+    : existingGallery.representativeImage;
+
+  galleries[galleryIndex] = { ...existingGallery, name, password, images, representativeImage };
+  saveGalleries(galleries);
+  
+  res.json({ message: "✅ Galleri uppdaterat!", gallery: galleries[galleryIndex] });
+});
+
 
 /* ============================================= */
 /* 🗑 Radera galleri */

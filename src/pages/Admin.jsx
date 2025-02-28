@@ -250,7 +250,7 @@ function Admin() {
   };
     const fetchExistingNames = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/getUniqueNames"); // Ersätt med din faktiska endpoint
+            const response = await fetch("http://localhost:5000/api/getUniqueNames"); // Ersätt med din faktiska endpoint
             if (response.ok) {
                 const data = await response.json();
                 setExistingNames(data.names); // Antag att API:et returnerar ett objekt med en 'names'-array
@@ -270,11 +270,7 @@ function Admin() {
       <h1>Admin</h1>
         <div>
             <h3>Kundgalleri</h3>
-            <ul>
-                {existingNames.map((name, index) => (
-                    <li key={index}>{name}</li>
-                ))}
-            </ul>
+           
         </div>
       {/* Kundgalleri-sektionen */}
       <select onChange={handleGallerySelect} value={selectedGallery}>
