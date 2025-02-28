@@ -9,19 +9,19 @@ function Priser() {
   const packages = {
     brollop: [
       {
-        name: "Stora paketet",
+        name: "Small",
         description: "Förberedelser, vigsel, porträtt, gästfotografering, mingel, middag och fest, upp till 10 timmar. Vad ingår? Upp till 500st redigerade bilder levererade via wetransfer och USB, kortare video, lösenordsskyddat galleri att dela med nära och kära, 10st utskrivna bilder (10x13) och 1st inramad förstoring (40x60)",
         price: "18 000 SEK",
         photographyType: "Bröllop"
       },
       {
-        name: "Mellan paketet",
+        name: "Medium",
         description: "Förberedelser, vigsel, porträtt och gästfotografering, upp till 5 timmar. Vad ingår? Upp till 100st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
         price: "12 000 SEK",
         photographyType: "Bröllop"
       },
       {
-        name: "Lilla paketet",
+        name: "Large",
         description: "Vigsel & porträtt, upp till 2 timmar. Vad ingår? Upp till 50st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
         price: "5000 SEK",
         photographyType: "Bröllop"
@@ -29,41 +29,29 @@ function Priser() {
     ],
     forlovning: [
       {
-        name: "Lyx",
-        description: "Upp till 3 timmar. Vad ingår? Upp till 75st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära, 5st utskrivna bilder (10x13) och 1st inramad förstoring (30x40)",
-        price: "8 000 SEK",
+        name: "Small",
+        description: "Upp till 2 timmar med 1-2 fotoplatser i näravstånd.",
+        price: "2 000 SEK",
         photographyType: "Förlovning"
       },
       {
-        name: "Standard",
-        description: "Upp till 2 timmar. Vad ingår? Upp till 50st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
-        price: "6 000 SEK",
-        photographyType: "Förlovning"
-      },
-      {
-        name: "Enkel",
-        description: "Upp till 1 timme. Vad ingår? Upp till 25st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
-        price: "4 000 SEK",
+        name: "Medium",
+        description: "Upp till 4 timmar med 2-4 fotoplatser i näravstånd.",
+        price: "3 500 SEK",
         photographyType: "Förlovning"
       }
     ],
     familj: [
       {
-        name: "family",
-        description: "Upp till 3 timmar. Vad ingår? Upp till 75st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära, 5st utskrivna bilder (10x13) och 1st inramad förstoring (30x40)",
-        price: "8 000 SEK",
+        name: "Small",
+        description: "Upp till 2 timmar. Passar för familj på 2-4 personer/gravidfoto med 1-2 fotoplatser i näravstånd.",
+        price: "3 000 SEK",
         photographyType: "Familj"
       },
       {
-        name: "fam",
-        description: "Upp till 2 timmar. Vad ingår? Upp till 50st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
-        price: "6 000 SEK",
-        photographyType: "Familj"
-      },
-      {
-        name: "ff",
-        description: "Upp till 1 timme. Vad ingår? Upp till 25st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
-        price: "4 000 SEK",
+        name: "Medium",
+        description: "Upp till 4 timmar. Passar för familj på 4-6 med 2-4 fotoplatser i näravstånd.",
+        price: "4 500 SEK",
         photographyType: "Familj"
       }
     ],
@@ -75,55 +63,61 @@ function Priser() {
         photographyType: "Barn"
       },
       {
-        name: "ba",
-        description: "Upp till 2 timmar. Vad ingår? Upp till 50st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
-        price: "6 000 SEK",
+        name: "1 barn",
+        description: "1 timme.",
+        price: "1500 SEK",
         photographyType: "Barn"
       },
       {
-        name: "bbb",
-        description: "Upp till 1 timme. Vad ingår? Upp till 25st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
-        price: "4 000 SEK",
+        name: "2 barn",
+        description: "Upp till 2 timmar.",
+        price: "2500 SEK",
+        photographyType: "Barn"
+      },
+      {
+        name: "3 barn",
+        description: "Upp till 3 timmar.",
+        price: "4000 SEK",
         photographyType: "Barn"
       }
     ],
     modell: [
       {
-        name: "modell",
-        description: "Upp till 3 timmar. Vad ingår? Upp till 75st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära, 5st utskrivna bilder (10x13) och 1st inramad förstoring (30x40)",
-        price: "8 000 SEK",
+        name: "1 person",
+        description: "2 timmar",
+        price: "2000 SEK",
         photographyType: "Modell"
       },
       {
-        name: "mod",
-        description: "Upp till 2 timmar. Vad ingår? Upp till 50st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
-        price: "6 000 SEK",
+        name: "2 personer",
+        description: "Upp timmar 4 timmar",
+        price: "4500 SEK",
         photographyType: "Modell"
       },
       {
-        name: "mm",
-        description: "Upp till 1 timme. Vad ingår? Upp till 25st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
-        price: "4 000 SEK",
+        name: "3-4 personer",
+        description: "Upp till 4 timmar",
+        price: "6000 SEK",
         photographyType: "Modell"
       }
     ],
     event: [
       {
-        name: "Event",
-        description: "Upp till 3 timmar. Vad ingår? Upp till 75st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära, 5st utskrivna bilder (10x13) och 1st inramad förstoring (30x40)",
-        price: "8 000 SEK",
-        photographyType: "Event"
-      },
-      {
-        name: "eve",
-        description: "Upp till 2 timmar. Vad ingår? Upp till 50st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
-        price: "6 000 SEK",
-        photographyType: "Event"
-      },
-      {
-        name: "ee",
-        description: "Upp till 1 timme. Vad ingår? Upp till 25st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
+        name: "Event - Small",
+        description: "Upp till 3 timmar.",
         price: "4 000 SEK",
+        photographyType: "Event"
+      },
+      {
+        name: "Event - Medium",
+        description: "Upp till 6",
+        price: "10 000 SEK",
+        photographyType: "Event"
+      },
+      {
+        name: "Event - Large",
+        description: "Upp till 8 timmar",
+        price: "13 000 SEK",
         photographyType: "Event"
       }
     ]
