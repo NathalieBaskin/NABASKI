@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Admin.css";
 import imageCompression from 'browser-image-compression';
@@ -19,8 +19,8 @@ function Admin() {
   ]);
   const [selectedPortfolioCategory, setSelectedPortfolioCategory] = useState("");
   const [portfolioImages, setPortfolioImages] = useState([]);
-  const [imageCategory, setImageCategory] = useState("");  // Här deklareras och används setImageCategory
-  const [existingNames, setExistingNames] = useState([]); // State för att lagra befintliga namn
+  const [imageCategory, setImageCategory] = useState("");
+  const [existingNames, setExistingNames] = useState([]);
 
   const navigate = useNavigate();
 
@@ -35,8 +35,24 @@ function Admin() {
       const data = await res.json();
       setGalleries(data.galleries || []);
     } catch (err) {
-      console.error("Serverfel vid galleri-sparande:", err);
-      setError("Något gick fel, försök igen.");
+      console.error("Serverfel vid galleri-hämtning:", err);
+      setError("Något gick fel vid hämtning av gallerier.");
+    }
+  };
+
+  const fetchExistingNames = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/getUniqueNames");
+      if (response.ok) {
+        const data = await response.json();
+        setExistingNames(data.names);
+      } else {
+        console.error("Fel vid hämtning av namn:", response.status);
+        setError("Kunde inte hämta befintliga namn.");
+      }
+    } catch (error) {
+      console.error("Fel vid hämtning av namn:", error);
+      setError("Kunde inte hämta befintliga namn.");
     }
   };
 
@@ -61,7 +77,6 @@ function Admin() {
     }
   };
 
-  // Kundgalleri-bilduppladdning
   const handleImageUpload = async (e) => {
     const uploadedImages = Array.from(e.target.files);
     const compressedImages = [];
@@ -117,10 +132,9 @@ function Admin() {
       formData.append("images", image);
     });
 
-    let url =
-      selectedGallery === "new"
-        ? "http://localhost:5000/api/addGallery"
-        : `http://localhost:5000/api/updateGallery/${selectedGallery}`;
+    let url = selectedGallery === "new"
+      ? "http://localhost:5000/api/addGallery"
+      : `http://localhost:5000/api/updateGallery/${selectedGallery}`;
 
     try {
       const response = await fetch(url, {
@@ -165,7 +179,6 @@ function Admin() {
     }
   };
 
-  // Komprimeringsfunktion
   const compressImage = async (imageFile) => {
     console.log('Komprimerar', imageFile.name);
     const options = {
@@ -183,7 +196,6 @@ function Admin() {
     }
   };
 
-  // --- Portfolio-funktionalitet ---
   const handlePortfolioImageUpload = async (e) => {
     const uploadedImages = Array.from(e.target.files);
     const compressedImages = [];
@@ -217,20 +229,15 @@ function Admin() {
     }
 
     const formData = new FormData();
+    formData.append("category", normalizeCategory(selectedPortfolioCategory));
+    formData.append("name", selectedPortfolioCategory);
 
-    // Skicka kategorin i normaliserad form
-    formData.append("category", normalizeCategory(selectedPortfolioCategory));  // t.ex. "brollop" för "Bröllop"
-
-    // Skicka namnet på kategorin i exakt format
-    formData.append("name", selectedPortfolioCategory);  // t.ex. "Bröllop"
-
-    // Lägg till alla bilder
     portfolioImages.forEach((image) => {
       formData.append("images", image);
     });
 
     try {
-      console.log("🚀 Skickar API-anrop till /api/addPortfolioImages...");
+      console.log("Skickar API-anrop till /api/addPortfolioImages...");
       const response = await fetch("http://localhost:8000/api/addPortfolioImages", {
         method: "POST",
         body: formData,
@@ -238,156 +245,141 @@ function Admin() {
 
       if (response.ok) {
         alert("Bilder uppladdade till portfolio!");
-        setPortfolioImages([]); // Töm fältet efter uppladdning
+        setPortfolioImages([]);
       } else {
         const errorData = await response.json();
         setError(errorData.error || "Något gick fel vid uppladdning.");
       }
     } catch (err) {
-      console.error("❌ Fel vid uppladdning:", err);
+      console.error("Fel vid uppladdning:", err);
       setError("Kunde inte ladda upp bilder.");
     }
   };
-    const fetchExistingNames = async () => {
-        try {
-            const response = await fetch("http://localhost:5000/api/getUniqueNames"); // Ersätt med din faktiska endpoint
-            if (response.ok) {
-                const data = await response.json();
-                setExistingNames(data.names); // Antag att API:et returnerar ett objekt med en 'names'-array
-            } else {
-                console.error("", response.status);
-                setError("");
-            }
-        } catch (error) {
-            console.error("", error);
-            setError("");
-        }
-    };
-
 
   return (
     <div className="admin-page">
       <h1>Admin</h1>
-        <div>
-            <h3>Kundgalleri</h3>
-           
-        </div>
-      {/* Kundgalleri-sektionen */}
-      <select onChange={handleGallerySelect} value={selectedGallery}>
-        <option value="">Välj ett galleri</option>
-        {galleries.map((gallery) => (
-          <option key={gallery.id} value={gallery.id}>
-            {gallery.name}
-          </option>
-        ))}
-        <option value="new">Skapa nytt galleri</option>
-      </select>
+      <div>
+        <h3>Kundgalleri</h3>
+        <select onChange={handleGallerySelect} value={selectedGallery}>
+          <option value="">Välj ett galleri</option>
+          {galleries.map((gallery) => (
+            <option key={gallery.id} value={gallery.id}>
+              {gallery.name}
+            </option>
+          ))}
+          <option value="new">Skapa nytt galleri</option>
+        </select>
 
-      {selectedGallery && (
-        <div className="gallery-editor">
-          <label>Galleri namn</label>
-          <input type="text" value={galleryName} onChange={(e) => setGalleryName(e.target.value)} />
-          <label>Lösenord</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        {selectedGallery && (
+          <div className="gallery-editor">
+            <label>Galleri namn</label>
+            <input type="text" value={galleryName} onChange={(e) => setGalleryName(e.target.value)} />
+            <label>Lösenord</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-          <label>Välj cover bild</label>
-          <input type="file" onChange={(e) => setRepresentativeImage(e.target.files[0])} />
-          {representativeImage && (
-            <img
-              src={representativeImage instanceof File ? URL.createObjectURL(representativeImage) : `http://localhost:5000${representativeImage}`}
-              width="100"
-              alt="Förhandsvisning"
-            />
-          )}
-
-          <label>Ladda upp nya bilder</label>
-          <input type="file" multiple onChange={handleImageUpload} />
-
-          <div className="image-preview">
-            {newImages.map((img, index) => (
-              <div
-                key={index}
-                className="draggable-image"
-                draggable
-                onDragStart={(e) => handleDragStart(e, index)}
-                onDrop={(e) => handleDrop(e, index)}
-                onDragOver={(e) => e.preventDefault()}
-              >
-                <img
-                  src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`}
-                  width="100"
-                  alt="Uppladdad bild"
-                />
-                <button onClick={() => removeImage(index)}>X</button>
-              </div>
-            ))}
-          </div>
-
-          {error && <p className="error">{error}</p>}
-
-          <div className="button-group">
-            <button onClick={handleSaveGallery}>Spara Galleri</button>
-            {selectedGallery !== "new" && (
-              <button onClick={handleDeleteGallery} className="delete-button">
-                🗑 Radera Galleri
-              </button>
+            <label>Välj cover bild</label>
+            <input type="file" onChange={(e) => setRepresentativeImage(e.target.files[0])} />
+            {representativeImage && (
+              <img
+                src={representativeImage instanceof File ? URL.createObjectURL(representativeImage) : `http://localhost:5000${representativeImage}`}
+                width="100"
+                alt="Förhandsvisning"
+              />
             )}
+
+            <label>Ladda upp nya bilder</label>
+            <input type="file" multiple onChange={handleImageUpload} />
+
+            <div className="image-preview">
+              {newImages.map((img, index) => (
+                <div
+                  key={index}
+                  className="draggable-image"
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, index)}
+                  onDrop={(e) => handleDrop(e, index)}
+                  onDragOver={(e) => e.preventDefault()}
+                >
+                  <img
+                    src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`}
+                    width="100"
+                    alt="Uppladdad bild"
+                  />
+                  <button onClick={() => removeImage(index)}>X</button>
+                </div>
+              ))}
+            </div>
+
+            {error && <p className="error">{error}</p>}
+
+            <div className="button-group">
+              <button onClick={handleSaveGallery}>Spara Galleri</button>
+              {selectedGallery !== "new" && (
+                <button onClick={handleDeleteGallery} className="delete-button">
+                  🗑 Radera Galleri
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
-      {/* Portfolio-sektionen */}
-      <h3>Portfolio</h3>
-      <select
-        onChange={(e) => setSelectedPortfolioCategory(e.target.value)}
-        value={selectedPortfolioCategory}
-      >
-        <option value="">Välj kategori</option>
-        {portfolioCategories.map((category, index) => (
-          <option key={index} value={category}>{category}</option>
-        ))}
-      </select>
+      <div>
+        <h3>Portfolio</h3>
+        <select
+          onChange={(e) => setSelectedPortfolioCategory(e.target.value)}
+          value={selectedPortfolioCategory}
+        >
+          <option value="">Välj kategori</option>
+          {portfolioCategories.map((category, index) => (
+            <option key={index} value={category}>{category}</option>
+          ))}
+        </select>
 
-      <select
-        onChange={(e) => setImageCategory(e.target.value)} // Används för att sätta kategori för uppladdning i backend
-        value={imageCategory}
-      >
-        <option value="">Välj Namn</option>
-        {portfolioCategories.map((category, index) => (
-          <option key={index} value={category}>{category}</option>
-        ))}
-      </select>
+        <label htmlFor="existingNameSelect">Välj ett befintligt namn:</label>
+        <select
+          id="existingNameSelect"
+          onChange={(e) => setImageCategory(e.target.value)}
+          value={imageCategory}
+        >
+          <option value="">Välj Namn</option>
+          {existingNames.map((name, index) => (
+            <option key={index} value={name}>{name}</option>
+          ))}
+        </select>
 
-      {selectedPortfolioCategory && (
-        <div className="portfolio-editor">
-          <label>Ladda upp bilder för {selectedPortfolioCategory}</label>
-          <input type="file" multiple onChange={handlePortfolioImageUpload} />
+        {selectedPortfolioCategory && (
+          <div className="portfolio-editor">
+            <label>Ladda upp bilder för {selectedPortfolioCategory}</label>
+            <input type="file" multiple onChange={handlePortfolioImageUpload} />
 
-          <div className="image-preview">
-            {portfolioImages.map((img, index) => (
-              <div
-                key={index}
-                className="draggable-image"
-                draggable
-                onDragStart={(e) => handleDragStart(e, index)}
-                onDrop={(e) => handleDrop(e, index)}
-                onDragOver={(e) => e.preventDefault()}
-              >
-                <img
-                  src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`}
-                  width="100"
-                  alt="Preview"
-                />
-                <button onClick={() => removePortfolioImage(index)}>X</button>
-              </div>
-            ))}
+            <div className="image-preview">
+              {portfolioImages.map((img, index) => (
+                <div
+                  key={index}
+                  className="draggable-image"
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, index)}
+                  onDrop={(e) => handleDrop(e, index)}
+                  onDragOver={(e) => e.preventDefault()}
+                >
+                  <img
+                    src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`}
+                    width="100"
+                    alt="Preview"
+                  />
+                  <button onClick={() => removePortfolioImage(index)}>X</button>
+                </div>
+              ))}
+            </div>
+
+            <div className="button-group">
+              <button onClick={handleSavePortfolioImages}>Spara Portfolio-bilder</button>
+            </div>
           </div>
-
-          <div className="button-group">
-            <button onClick={handleSavePortfolioImages}>Spara Portfolio-bilder</button>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {error && <p className="error">{error}</p>}
     </div>
@@ -395,4 +387,3 @@ function Admin() {
 }
 
 export default Admin;
-
