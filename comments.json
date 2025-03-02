@@ -5,10 +5,15 @@
   },
   "/uploads/41e521c302be6159bc77745952f0e994": {
     "likes": 0,
-    "comments": []
+    "comments": [
+      {
+        "name": "Emma",
+        "text": "Fina"
+      }
+    ]
   },
   "/uploads/3bc33968781425c3b3d973060c2c2ed6": {
-    "likes": 0,
+    "likes": 1,
     "comments": []
   },
   "/uploads/1740478185713": {
