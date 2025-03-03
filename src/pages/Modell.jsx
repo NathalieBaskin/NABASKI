@@ -26,8 +26,7 @@ function Modell() {
       <div className="button-links">
         <a href="/portfolio" className="btn">PORTFOLIO</a>
         <a href="/priser?category=modell" className="btn">PRISER</a>
-        <a href="/bokning?category=modell" className="btn">BOKNING</a>
-        <a href="/kundgalleri" className="btn">KUNDGALLERI</a>
+
       </div>
 
      <div className="image-grid">

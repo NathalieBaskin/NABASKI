@@ -23,15 +23,13 @@ function Barn() {
     <div className="barn-page">
       <h1 className="barn-title">BARN</h1>
 
-      {/* Knapp-länkar */}
+
       <div className="button-links">
         <a href="/portfolio" className="btn">PORTFOLIO</a>
         <a href="/priser?category=barn" className="btn">PRISER</a>
-        <a href="/bokning?category=barn" className="btn">BOKNING</a>
-        <a href="/kundgalleri" className="btn">KUNDGALLERI</a>
+  
       </div>
 
-      {/* Bildgalleri */}
       <div className="image-grid">
         {images.length > 0 ? (
           images.map((img, index) => (
@@ -39,7 +37,7 @@ function Barn() {
               key={index} 
               src={`http://localhost:8000${img.image_url}`} 
               alt="Barn" 
-              onClick={() => setSelectedIndex(index)} // 🔹 Nu kan man klicka på bilden
+              onClick={() => setSelectedIndex(index)} 
             />
           ))
         ) : (
@@ -47,7 +45,7 @@ function Barn() {
         )}
       </div>
 
-      {/* 🔹 Flytta `ImageModal` inuti `return` */}
+
       <ImageModal images={images} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
     </div>
   );

@@ -26,8 +26,7 @@ function Brollop() {
       <div className="button-links">
         <a href="/portfolio" className="btn">PORTFOLIO</a>
         <a href="/priser" className="btn">PRISER</a>
-        <a href="/bokning" className="btn">BOKNING</a>
-        <a href="/kundgalleri" className="btn">KUNDGALLERI</a>
+    
       </div>
 
   
@@ -38,7 +37,7 @@ function Brollop() {
               key={index} 
               src={`http://localhost:8000${img.image_url}`} 
               alt="Bröllop" 
-              onClick={() => setSelectedIndex(index)} // 🔹 Nu kan man klicka på bilden
+              onClick={() => setSelectedIndex(index)} 
             />
           ))
         ) : (
@@ -46,7 +45,6 @@ function Brollop() {
         )}
       </div>
 
-      {/* 🔹 Flytta `ImageModal` inuti `return` */}
       <ImageModal images={images} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
     </div>
   );

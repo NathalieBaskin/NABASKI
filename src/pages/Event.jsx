@@ -13,7 +13,7 @@ function Event() {
         const data = await response.json();
         setImages(data);
       } catch (err) {
-        console.error("Fel vid hämtning av förlovningsbilder:", err);
+        console.error("Fel vid hämtning av bilder:", err);
       }
     };
     fetchImages();
@@ -27,8 +27,8 @@ function Event() {
       <div className="button-links">
         <a href="/portfolio" className="btn">PORTFOLIO</a>
         <a href="/priser?category=event" className="btn">PRISER</a>
-        <a href="/bokning?category=event" className="btn">BOKNING</a>
-        <a href="/kundgalleri" className="btn">KUNDGALLERI</a>
+   
+     
       </div>
 
      <div className="image-grid">
