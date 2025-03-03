@@ -75,6 +75,15 @@ function Checkout() {
             />
           </div>
           <div>
+            <label>Efternamn:</label>
+            <input
+              type="text"
+              name="eftername"
+              value={customerInfo.name}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
             <label>Email:</label>
             <input
               type="email"
@@ -92,7 +101,24 @@ function Checkout() {
               onChange={handleInputChange}
             />
           </div>
-
+          <div>
+            <label>Postnummer:</label>
+            <input
+              type="text"
+              name="Postnr"
+              value={customerInfo.address}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label>Ort:</label>
+            <input
+              type="text"
+              name="ort"
+              value={customerInfo.address}
+              onChange={handleInputChange}
+            />
+          </div>
           <div>
             <label>Betalningsmetod:</label>
             <select
@@ -100,9 +126,9 @@ function Checkout() {
               value={customerInfo.paymentMethod}
               onChange={handleInputChange}
             >
-              <option value="card">Kort</option>
-              <option value="swish">Swish</option>
-              <option value="invoice">Faktura</option>
+              <option value="card">Swish</option>
+              <option value="swish">Kort</option>
+              
             </select>
           </div>
 

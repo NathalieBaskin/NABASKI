@@ -42,7 +42,6 @@ function Kontakt() {
   return (
     <div className="kontakt-container">
       <h1 className="kontakt-heading">Kontakt</h1>
-      <p className="kontakt-description">Här kan du kontakta oss!</p>
       <form onSubmit={handleSubmit} className="kontakt-form">
         <div className="kontakt-form-group">
           <label htmlFor="user_name" className="kontakt-label">Ditt namn</label>
@@ -83,7 +82,7 @@ function Kontakt() {
       </form>
 
 
-      {showPopup && <div className="popup">Meddelandet är skickat!</div>}
+      {showPopup && <div className="popup">Tack för ditt meddelande!</div>}
     </div>
   );
 }
