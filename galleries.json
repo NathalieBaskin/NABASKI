@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Emma och Oscar",
-    "password": "hh",
+    "password": "Emma",
     "images": [
       "/uploads/f24e39f882a28b19efec55a263424f20",
       "/uploads/41e521c302be6159bc77745952f0e994",
@@ -13,7 +13,7 @@
   {
     "id": 2,
     "name": "Ida och Niklas",
-    "password": "ida",
+    "password": "Ida",
     "images": [
       "/uploads/1740575057599",
       "/uploads/1740575057614",

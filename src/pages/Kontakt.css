@@ -79,8 +79,10 @@
   }
   
   .kontakt-button:hover {
-    background-color: darken(var(--primary-color), 10%);
-  }
+  background-color: rgb(94, 1, 1); 
+    
+    }
+  
   .popup {
     position: fixed;
     top: 50%;

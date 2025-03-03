@@ -19,7 +19,9 @@
 
 .gallery-item img {
   width: 400px;
+
   height:auto;
+  cursor: pointer;
 }
 
 .galleri-grid img {
@@ -28,6 +30,7 @@
   object-fit: cover;
   border: 2px solid black;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .slideshow img {
