@@ -18,9 +18,7 @@ import Familj from "./pages/Familj";
 import Barn from "./pages/Barn";
 import Modell from "./pages/Modell";
 import Event from "./pages/Event";
-
-// Importera global CSS-fil
-import './index.css';  // Här säkerställer vi att global CSS är importerad för alla sidor
+import './index.css';  
 
 function App() {
   return (

@@ -7,32 +7,30 @@
     --error-color: #f44336;
   }
   
-  /* Kontakt-formulär container */
+
   .kontakt-container {
-    max-width: 900px;  /* Höjer max-bredden för att göra formuläret bredare */
+    max-width: 900px;  
     margin: 0 auto;
-    padding: 40px;  /* Ökar padding för att ge mer utrymme runt formuläret */
+    padding: 40px;  
     font-family: 'Silksemi';
   }
   
-  /* Rubrik för kontaktformuläret */
+
   .kontakt-heading {
     color: black;
     text-align: center;
     margin-bottom: 20px;
-    font-size: 2.5rem;  /* Större fontstorlek för rubriken */
+    font-size: 2.5rem;  
   }
-  
-  /* Beskrivningstext */
+
   .kontakt-description {
     text-align: center;
     margin-bottom: 30px;
     color: black;
-    font-size: 1rem;  /* Normal storlek på beskrivningstext */
+    font-size: 1rem;  
   }
   
 
-  /* Formulärgrupp */
   .kontakt-form-group {
     margin-bottom: 20px;
   }
@@ -45,11 +43,11 @@
     font-weight: bold;
   }
   
-  /* Inputfält och textområde */
+
   .kontakt-input,
   .kontakt-textarea {
     width: 100%;
-    padding: 20px;  /* Ökat padding för att ge mer utrymme i fälten */
+    padding: 20px;  
     border: 1px solid var(--border-color);
     border-radius: 4px;
     font-size: 16px;
@@ -60,24 +58,24 @@
     resize: vertical;
   }
   
-  /* Fältfokus (när användaren klickar på input) */
+
   .kontakt-input:focus,
   .kontakt-textarea:focus {
     border-color: #000000;
     outline: none;
   }
   
-  /* Skicka-knappen */
+
   .kontakt-button {
     background-color: var(--primary-color);
     color: white;
-    padding: 14px 20px;  /* Större padding för knappen */
+    padding: 14px 20px;  
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
-    width: 100%; /* Gör knappen lika bred som formuläret */
+    width: 100%; 
   }
   
   .kontakt-button:hover {
@@ -111,8 +109,7 @@
   
   
 
-  
-  /* Responsiv design */
+
   @media (max-width: 640px) {
     .kontakt-container {
       padding: 15px;
@@ -149,9 +146,9 @@
       padding: 40px;
     }
     .kontakt-container {
-      max-width: 1500px;  /* Höjer max-bredden för att göra formuläret bredare */
+      max-width: 1500px; 
       margin: 0 auto;
-      padding: 40px;  /* Ökar padding för att ge mer utrymme runt formuläret */
+      padding: 40px;  
       font-family: 'Silksemi';
     }
   }

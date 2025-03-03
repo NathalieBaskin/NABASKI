@@ -23,7 +23,6 @@ function Engagement() {
     <div className="forlovning-page">
       <h1 className="forlovning-title">FÖRLOVNING</h1>
 
-      {/* Knapp-länkar */}
       <div className="button-links">
         <a href="/portfolio" className="btn">PORTFOLIO</a>
         <a href="/priser?category=forlovning" className="btn">PRISER</a>
@@ -38,7 +37,7 @@ function Engagement() {
                    key={index} 
                    src={`http://localhost:8000${img.image_url}`} 
                    alt="Förlovning" 
-                   onClick={() => setSelectedIndex(index)} // 🔹 Nu kan man klicka på bilden
+                   onClick={() => setSelectedIndex(index)} 
                  />
                ))
              ) : (
@@ -46,7 +45,7 @@ function Engagement() {
              )}
            </div>
      
-           {/* 🔹 Flytta `ImageModal` inuti `return` */}
+     
            <ImageModal images={images} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
          </div>
        );

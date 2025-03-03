@@ -1,4 +1,4 @@
-/* Grundläggande styling */
+
 .checkout-page {
     width: 100%;
     max-width: 450px;
@@ -12,7 +12,7 @@
     align-items: center;
   }
   
-  /* Titel */
+
   .checkout-page h1 {
     text-align: center;
     color: #333;
@@ -20,14 +20,13 @@
     margin-bottom: 20px;
   }
   
-  /* Meddelande om tom varukorg */
+
   .checkout-page p {
     text-align: center;
     font-size: 18px;
     color: #888;
   }
-  
-  /* Orderöversikt */
+
   .checkout-item {
     display: flex;
     align-items: center;
@@ -43,8 +42,7 @@
   .checkout-item:hover {
     transform: scale(1.02);
   }
-  
-  /* Produktbild */
+
   .checkout-item img {
     width: 80px;
     height: 80px;
@@ -52,7 +50,7 @@
     border-radius: 8px;
   }
   
-  /* Produktinfo */
+
   .checkout-item div {
     flex: 1;
     margin-left: 15px;
@@ -60,14 +58,14 @@
     color: #333;
   }
   
-  /* Totalpris */
+
   .checkout-page h3 {
     text-align: center;
     font-size: 22px;
     margin-top: 20px;
   }
   
-  /* Formulär styling */
+
   .checkout-page div {
     width: 100%;
     max-width: 400px;
@@ -81,7 +79,7 @@
     margin-bottom: 5px;
   }
   
-  /* Inputfält */
+
   .checkout-page input,
   .checkout-page select {
     width: 100%;
@@ -98,7 +96,7 @@
     outline: none;
   }
   
-  /* Checkout-knapp */
+
   .checkout-page button {
     display: block;
     width: 100%;
@@ -118,8 +116,7 @@
   .checkout-page button:hover {
     background: #5e0404;
   }
-  
-  /* Anpassning för iPhone 14 Pro Max */
+
   @media (max-width: 430px) {
     .checkout-page {
       padding: 15px;

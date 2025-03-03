@@ -1,26 +1,24 @@
-/* Lägga till BebasNeue-Regular font för titlar */
+
 @font-face {
     font-family: 'Silksemi';
     src: url('/fonts/Silksemi.otf') format('opentype');
   }
   
-  /* Lägga till CaviarDreams font för all annan text */
+
   @font-face {
     font-family: 'Silkmedium';
     src: url('/fonts/Silkmedium.otf') format('opentype');
   }
   
-  /* Använda BebasNeue-Regular för alla titlar */
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Silksemi', sans-serif;
   }
-  
-  /* Använda CaviarDreams för all annan text */
+
   body, p, a, span, li {
     font-family: 'Silkmedium', sans-serif;
   }
-  
-  /* Andra globala stilar */
+
   body {
     margin: 0;
     padding: 0;

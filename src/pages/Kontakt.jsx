@@ -30,8 +30,8 @@ function Kontakt() {
           setShowPopup(true);
           setTimeout(() => {
             setShowPopup(false);
-            navigate('/'); // Omdirigerar till startsidan
-          }, 2000); // Popup visas i 2 sekunder
+            navigate('/'); 
+          }, 2000); 
         },
         (error) => {
           console.log('Fel:', error.text);
@@ -82,7 +82,7 @@ function Kontakt() {
         <button type="submit" className="kontakt-button">Skicka</button>
       </form>
 
-      {/* Popup */}
+
       {showPopup && <div className="popup">Meddelandet är skickat!</div>}
     </div>
   );

@@ -1,4 +1,4 @@
-/* Grundläggande styling för varukorgssidan */
+
 .cart-page {
   width: 100%;
   max-width: 100%;
@@ -9,10 +9,10 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centrera innehållet */
+  align-items: center; 
 }
 
-/* Titel */
+
 .cart-page h1 {
   text-align: center;
   color: #333;
@@ -20,7 +20,7 @@
   margin-bottom: 20px;
 }
 
-/* Varukorgsobjekt */
+
 .cart-item {
   display: flex;
   flex-direction: column;
@@ -32,17 +32,17 @@
   margin-bottom: 15px;
   transition: transform 0.2s ease-in-out;
   width: 95%;
-  max-width: 380px; /* Håller objekten centrerade och inte för breda */
+  max-width: 380px; 
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Hover-effekt */
+
 .cart-item:hover {
   transform: scale(1.02);
 }
 
-/* Produktbild */
+
 .cart-item img {
   width: 100%;
   max-width: 350px;
@@ -57,7 +57,7 @@
   transform: scale(1.1);
 }
 
-/* Produktinfo och pris */
+
 .cart-item div {
   font-size: 18px;
   color: #333;
@@ -65,7 +65,7 @@
   margin-top: 10px;
 }
 
-/* Antal & knappar */
+
 .cart-item div:nth-child(4) {
   display: flex;
   align-items: center;
@@ -74,7 +74,7 @@
   width: 100%;
 }
 
-/* Knappar */
+
 .cart-item button {
   background-color: #007aff;
   color: white;
@@ -87,7 +87,7 @@
   text-align: center;
 }
 
-/* Antaljusteringsknappar */
+
 .cart-item div:nth-child(4) button {
   width: 50px;
 }
@@ -96,7 +96,7 @@
   background-color: #005ecb;
 }
 
-/* Checkout-knapp */
+
 .cart-page button {
   display: block;
   width: 90%;
@@ -117,14 +117,12 @@
   background: #510713;
 }
 
-/* Totalpris */
 .cart-page h3 {
   text-align: center;
   font-size: 22px;
   margin-top: 20px;
 }
 
-/* Anpassning för iPhone 14 Pro Max */
 @media (max-width: 430px) {
   .cart-page {
     padding: 15px;

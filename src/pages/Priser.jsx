@@ -4,7 +4,7 @@ import "./Priser.css";
 function Priser() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const category = searchParams.get("category") || "brollop"; // Default till bröllop
+  const category = searchParams.get("category") || "brollop"; 
 
   const packages = {
     brollop: [
@@ -123,7 +123,7 @@ function Priser() {
     ]
   };
 
-  const selectedPackages = packages[category] || packages.brollop; // Välj rätt paket baserat på kategori
+  const selectedPackages = packages[category] || packages.brollop; 
   let categoryName = "Bröllop";
 
   if (category === "forlovning") {
@@ -163,4 +163,3 @@ function Priser() {
 }
 
 export default Priser;
-// TODO: Lägg in rätt priser på alla kategorier

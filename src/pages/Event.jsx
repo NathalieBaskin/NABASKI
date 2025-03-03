@@ -23,7 +23,7 @@ function Event() {
     <div className="event-page">
       <h1 className="event-title">EVENT</h1>
 
-      {/* Knapp-länkar */}
+
       <div className="button-links">
         <a href="/portfolio" className="btn">PORTFOLIO</a>
         <a href="/priser?category=event" className="btn">PRISER</a>
@@ -39,7 +39,7 @@ function Event() {
                         src={`http://localhost:8000${img.image_url}`} 
                         alt="
                         Event" 
-                        onClick={() => setSelectedIndex(index)} // 🔹 Nu kan man klicka på bilden
+                        onClick={() => setSelectedIndex(index)} 
                       />
                     ))
                   ) : (
@@ -47,7 +47,7 @@ function Event() {
                   )}
                 </div>
           
-                {/* 🔹 Flytta `ImageModal` inuti `return` */}
+            
                 <ImageModal images={images} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
               </div>
             );

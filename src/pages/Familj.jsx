@@ -24,7 +24,7 @@ function Familj() {
     <div className="familj-page">
       <h1 className="familj-title">FAMILJ</h1>
 
-      {/* Knapp-länkar */}
+
       <div className="button-links">
         <a href="/portfolio" className="btn">PORTFOLIO</a>
         <a href="/priser?category=familj" className="btn">PRISER</a>
@@ -39,7 +39,7 @@ function Familj() {
                    key={index} 
                    src={`http://localhost:8000${img.image_url}`} 
                    alt="Familj" 
-                   onClick={() => setSelectedIndex(index)} // 🔹 Nu kan man klicka på bilden
+                   onClick={() => setSelectedIndex(index)} 
                  />
                ))
              ) : (
@@ -47,7 +47,7 @@ function Familj() {
              )}
            </div>
      
-           {/* 🔹 Flytta `ImageModal` inuti `return` */}
+    
            <ImageModal images={images} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
          </div>
        );

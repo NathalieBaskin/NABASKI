@@ -4,66 +4,70 @@
 
 .portfolio h1 {
   font-size: 40px;
-  font-family: "Silksemi", sans-serif; /* Se till att detta är rätt */
+  font-family: "Silksemi", sans-serif;
   color: rgb(0, 0, 0);
 }
 
 .portfolio h3 {
   margin-bottom: 20px;
-  font-family: "Silksemi", sans-serif; /* Se till att detta är rätt */
+  font-family: "Silksemi", sans-serif; 
   color: rgb(0, 0, 0);
 }
 
 .portfolio-grid {
   display: grid;
- 
-  gap: 10px;
-  margin: 0 auto;
-  padding-top: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
 }
-
 .portfolio-item {
   position: relative;
   text-align: center;
+
 }
 
-
-  .portfolio-item img {
-    width: 100%;
-    height: 250px; /* Justera till en fast höjd */
-    object-fit: cover; /* Håller proportioner utan att skapa extra luft */
-    border-radius: 10px;
-  text-align: center;
-  margin-bottom: 2rem;
-  }
+.portfolio-item img {
+  width: 100%;
+  height: 250px; 
+  object-fit: cover; 
+  border-radius: 10px;
+}
 .portfolio-text {
   position: absolute;
-  top: 75%; /* Får texten att vara vertikalt centrerad */
+  top: 85%; 
   left: 50%;
-  transform: translate(-50%, -50%); /* Håller texten centrerad */
-  font-family: "Silksemi", sans-serif; /* Se till att detta är rätt */
+  transform: translate(-50%, -50%); 
+  font-family: "Silksemi", sans-serif; 
   color: rgb(0, 0, 0);
   text-transform: uppercase;
-  white-space: nowrap; /* 🔹 Gör att texten sticker ut på sidorna */
-  letter-spacing: 3px; /* 🔹 Ger mer mellanrum mellan bokstäverna */
-  margin-top: 5%;
-  z-index: 10 !important; /* 🔹 Se till att texten ligger över bilden */
+  white-space: nowrap; 
+  letter-spacing: 3px; 
+  z-index: 10 !important; 
 }
 /*mobil*/
 @media (max-width: 640px) {
   .portfolio-text {
     font-size: 30px!important;
-    margin-top: 40px;
+    margin-top: 4.2rem;
+    z-index: 1000;
+  
   }
   .portfolio-item img {
     width: 400px;
     height: auto;
     border-radius: 10px;
-
+margin-top: 1rem;
     text-align: center;
   }
   .portfolio-grid {
     grid-template-columns: repeat(1, 1fr);
+    padding: 1rem;
+    gap: 1rem;
+    margin-top: 1rem;
   }
 }
 /*ipad*/
@@ -72,7 +76,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .portfolio-text {
-    margin-top: 10%;
+    margin-top: 5rem;
     font-size: 40px !important;
   }
 }
@@ -80,7 +84,7 @@
 @media (min-width: 1024px) {
   .portfolio-text {
     margin-top: 2rem;
-    font-size: 30px; /* Större text på större skärmar */
+    font-size: 30px; 
   }
 
   .portfolio-item img {

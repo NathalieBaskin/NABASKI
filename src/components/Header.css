@@ -1,4 +1,3 @@
-/* Header.css */
 
 .header {
 
@@ -6,14 +5,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lätt skugga */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
   font-size: 1em;
 }
 
 .logo-container {
-  /* Justera storlek och marginaler efter behov */
-  width: 400px; /* Exempelstorlek */
-}
+
+  width: 400px; }
 
 .logo {
   width: 100%;
@@ -48,7 +46,7 @@ color: white;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: 1em; /* Justera storleken på ikonen */
+  font-size: 1em; 
   color: #333;
 
 }
@@ -66,7 +64,7 @@ color: white;
 }
 
 .nav-links li:first-child {
-  margin-left: 0; /* Ingen marginal på första länken */
+  margin-left: 0; 
 }
 
 .nav-links a {
@@ -76,11 +74,11 @@ color: white;
   font-size: 1em;
 }
 
-/* Media query för mindre skärmar (t.ex. mobiler) */
+
 @media (max-width: 640px) {
   .header {
     flex-direction: column;
-    align-items: center; /* Centrera innehållet horisontellt */
+    align-items: center; 
   }
 
   .logo-container {
@@ -108,7 +106,7 @@ color: white;
   }
   .search-bar {
    
-    width: 300px; /* Justera bredden efter behov */
+    width: 300px; 
   }
 
 }
