@@ -2,9 +2,12 @@
 .brollop-page {
     text-align: center;
     padding: 20px;
+    display: flex;
+  flex-direction: column;
+  flex-grow: 1; 
   }
   
-  /* 🔹 "BRÖLLOP" ligger under videon och har bra spacing */
+
   .brollop-title {
     font-size: 40px;
     margin: 20px 0; 

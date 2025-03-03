@@ -1,6 +1,9 @@
 .priser-page {
     text-align: center;
     padding: 20px;
+    display: flex;
+  flex-direction: column;
+  flex-grow: 1; 
   }
   
   .package-container {

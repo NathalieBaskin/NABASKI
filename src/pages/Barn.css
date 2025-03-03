@@ -2,7 +2,10 @@
 .barn-page {
     text-align: center;
     padding: 20px;
-  }
+display: flex;
+  flex-direction: column;
+  flex-grow: 1; 
+}
 
   .barn-title {
     font-size: 40px;
