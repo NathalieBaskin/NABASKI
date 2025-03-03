@@ -13,11 +13,11 @@ import Priser from "./pages/Priser";
 import Admin from "./pages/Admin";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
-import Engagement from "./pages/Engagement";
+
 import Familj from "./pages/Familj";
 import Barn from "./pages/Barn";
 import Modell from "./pages/Modell";
-import Event from "./pages/Event";
+
 import './index.css';  
 
 function App() {
@@ -45,11 +45,11 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/engagement" element={<Engagement />} />
+          
           <Route path="/familj" element={<Familj />} />
           <Route path="/barn" element={<Barn/>} />
           <Route path="/modell" element={<Modell/>} />
-          <Route path="/event" element={<Event/>} />
+       
         </Routes>
         <Footer />
       </div>

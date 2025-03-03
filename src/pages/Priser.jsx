@@ -27,34 +27,7 @@ function Priser() {
         photographyType: "Bröllop"
       }
     ],
-    forlovning: [
-      {
-        name: "Small",
-        description: "Upp till 2 timmar med 1-2 fotoplatser i näravstånd.",
-        price: "2 000 SEK",
-        photographyType: "Förlovning"
-      },
-      {
-        name: "Medium",
-        description: "Upp till 4 timmar med 2-4 fotoplatser i näravstånd.",
-        price: "3 500 SEK",
-        photographyType: "Förlovning"
-      }
-    ],
-    familj: [
-      {
-        name: "Small",
-        description: "Upp till 2 timmar. Passar för familj på 2-4 personer/gravidfoto med 1-2 fotoplatser i näravstånd.",
-        price: "3 000 SEK",
-        photographyType: "Familj"
-      },
-      {
-        name: "Medium",
-        description: "Upp till 4 timmar. Passar för familj på 4-6 med 2-4 fotoplatser i näravstånd.",
-        price: "4 500 SEK",
-        photographyType: "Familj"
-      }
-    ],
+
     barn: [
       {
         name: "barn",
@@ -101,41 +74,19 @@ function Priser() {
         photographyType: "Modell"
       }
     ],
-    event: [
-      {
-        name: "Event - Small",
-        description: "Upp till 3 timmar.",
-        price: "4 000 SEK",
-        photographyType: "Event"
-      },
-      {
-        name: "Event - Medium",
-        description: "Upp till 6 timmar",
-        price: "10 000 SEK",
-        photographyType: "Event"
-      },
-      {
-        name: "Event - Large",
-        description: "Upp till 8 timmar",
-        price: "13 000 SEK",
-        photographyType: "Event"
-      }
-    ]
+   
   };
 
   const selectedPackages = packages[category] || packages.brollop; 
   let categoryName = "Bröllop";
 
-  if (category === "forlovning") {
-    categoryName = "Förlovning";
-  } else if (category === "familj") {
+  if (category === "familj") {
     categoryName = "Familj";
   } else if (category === "barn") {
       categoryName = "Barn";
   } else if (category === "modell") {
       categoryName = "Modell";
-  } else if (category === "event") {
-      categoryName = "Event";
+
   }
 
   return (
