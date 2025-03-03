@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import "./Engagement.css"; // Se till att CSS-filen också har stor bokstav
+import "./Engagement.css"; 
+import ImageModal from "../components/ImageModal";
 
 function Engagement() {
   const [images, setImages] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -29,19 +31,26 @@ function Engagement() {
         <a href="/kundgalleri" className="btn">KUNDGALLERI</a>
       </div>
 
-      {/* Bildgalleri */}
       <div className="image-grid">
-        {images.length > 0 ? (
-          images.map((img, index) => (
-            <img key={index} src={`http://localhost:8000${img.image_url}`} alt="Förlovning" />
-          ))
-        ) : (
-          <p>Inga bilder tillgängliga för denna kategori.</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
-export default Engagement;
-//TODO: Fyll på med bilder
+             {images.length > 0 ? (
+               images.map((img, index) => (
+                 <img 
+                   key={index} 
+                   src={`http://localhost:8000${img.image_url}`} 
+                   alt="Förlovning" 
+                   onClick={() => setSelectedIndex(index)} // 🔹 Nu kan man klicka på bilden
+                 />
+               ))
+             ) : (
+               <p>Inga bilder tillgängliga för denna kategori.</p>
+             )}
+           </div>
+     
+           {/* 🔹 Flytta `ImageModal` inuti `return` */}
+           <ImageModal images={images} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
+         </div>
+       );
+     }
+     
+     export default Engagement;
+     

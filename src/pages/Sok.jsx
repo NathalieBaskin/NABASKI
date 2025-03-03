@@ -1,29 +1,28 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./Sok.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function Sok() {
   const location = useLocation();
-  const navigate = useNavigate();
-
-  const [images, setImages] = useState([]); // Håller dynamiskt laddade bilder
+  const [images, setImages] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get("q")?.toLowerCase() || "";
 
-  // Hämta bilder dynamiskt från vårt API
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        // Uppdatera här till rätt API-url
-        const response = await fetch(`http://localhost:8000/api/searchImages?q=${query}`); // Rätt endpoint
+        const response = await fetch(`http://localhost:8000/api/searchImages?q=${query}`);
         if (!response.ok) {
           throw new Error("Något gick fel vid hämtning av bilder.");
         }
         const data = await response.json();
-        setImages(data); // Sätter bilder från API
+        setImages(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -34,10 +33,13 @@ function Sok() {
     fetchImages();
   }, [query]);
 
-  // Filtrera bilder baserat på sökningen med "name"
-  const filteredImages = images.filter((img) =>
-    img.name.toLowerCase().includes(query)
-  );
+  const handleNext = () => {
+    setSelectedIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
+
+  const handlePrev = () => {
+    setSelectedIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  };
 
   return (
     <div className="sok-page">
@@ -48,20 +50,30 @@ function Sok() {
 
       {!loading && !error && (
         <div className="image-grid">
-          {filteredImages.length > 0 ? (
-            filteredImages.map((img, index) => (
-              <div key={index} className="image-item">
-                <img 
-                  src={`http://localhost:8000${img.image_url}`} // Använd korrekt URL för att visa bilder
-                  alt={img.name}
-                  onClick={() => navigate("/brollop")}
-                  style={{ cursor: "pointer" }}
-                />
+          {images.length > 0 ? (
+            images.map((img, index) => (
+              <div key={index} className="image-item" onClick={() => setSelectedIndex(index)}>
+                <img src={`http://localhost:8000${img.image_url}`} alt={img.name} />
               </div>
             ))
           ) : (
             <p>Inga resultat hittades.</p>
           )}
+        </div>
+      )}
+
+      {selectedIndex !== null && (
+        <div className="modal-overlay">
+          <button className="close-btn" onClick={() => setSelectedIndex(null)}>
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
+          <button className="prev-btn" onClick={handlePrev}>
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+          <img className="modal-image" src={`http://localhost:8000${images[selectedIndex].image_url}`} alt="Förstorad bild" />
+          <button className="next-btn" onClick={handleNext}>
+            <FontAwesomeIcon icon={faArrowRight} />
+          </button>
         </div>
       )}
     </div>

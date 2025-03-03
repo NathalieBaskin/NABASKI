@@ -14,6 +14,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 }
 
 
@@ -28,3 +29,62 @@
   font-weight: bold;
   text-align: center;
 }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-image {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+}
+
+.close-btn, .prev-btn, .next-btn {
+  position: absolute;
+  background: none;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.close-btn {
+  top: 20px;
+  right: 20px;
+}
+
+.prev-btn {
+  left: 20px;
+}
+
+.next-btn {
+  right: 20px;
+}
+@media (max-width: 640px) {
+  .close-btn {
+ margin-top: 19rem;
+
+  }
+     }
+ 
+@media (min-width: 640px) {
+.close-btn {
+margin-top: 22rem;
+margin-right:2rem;
+}
+  }
+  @media (min-width: 1094px) {
+      .close-btn {
+  margin-top: 0;
+     margin-right:15rem;
+      }
+         }
+      

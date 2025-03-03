@@ -43,6 +43,9 @@
   background-color: #444444;
 }
 
+.image-grid {
+  cursor: pointer;
+}
 /* För större skärmar */
 @media (min-width: 640px) {
   .image-grid {

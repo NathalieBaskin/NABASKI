@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import "./Brollop.css";
+import ImageModal from "../components/ImageModal";
 
 function Brollop() {
   const [images, setImages] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -28,15 +30,24 @@ function Brollop() {
         <a href="/kundgalleri" className="btn">KUNDGALLERI</a>
       </div>
 
-      <div className="image-grid">
+  
+       <div className="image-grid">
         {images.length > 0 ? (
           images.map((img, index) => (
-            <img key={index} src={`http://localhost:8000${img.image_url}`} alt="Bröllop" />
+            <img 
+              key={index} 
+              src={`http://localhost:8000${img.image_url}`} 
+              alt="Bröllop" 
+              onClick={() => setSelectedIndex(index)} // 🔹 Nu kan man klicka på bilden
+            />
           ))
         ) : (
           <p>Inga bilder tillgängliga för denna kategori.</p>
         )}
       </div>
+
+      {/* 🔹 Flytta `ImageModal` inuti `return` */}
+      <ImageModal images={images} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
     </div>
   );
 }

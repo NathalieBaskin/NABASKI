@@ -21,7 +21,6 @@
   
   .btn {
     padding: 5px 5px;
-
     text-transform: uppercase;
     font-family: 'Silkmedium', sans-serif; /* Se till att detta är rätt */
     text-decoration: none;
@@ -39,6 +38,7 @@
     gap: 10px;
     max-width: 900px;
     margin: 0 auto;
+    cursor: pointer;
   }
   
   .image-grid img {

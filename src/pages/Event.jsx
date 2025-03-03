@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import "./Event.css"; // Se till att CSS-filen också har stor bokstav
+import "./Event.css"; 
+import ImageModal from "../components/ImageModal";
 
 function Event() {
   const [images, setImages] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -29,19 +31,27 @@ function Event() {
         <a href="/kundgalleri" className="btn">KUNDGALLERI</a>
       </div>
 
-      {/* Bildgalleri */}
-      <div className="image-grid">
-        {images.length > 0 ? (
-          images.map((img, index) => (
-            <img key={index} src={`http://localhost:8000${img.image_url}`} alt="Event" />
-          ))
-        ) : (
-          <p>Inga bilder tillgängliga för denna kategori.</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
-export default Event;
-//TODO: Fyll på med bilder
+     <div className="image-grid">
+                  {images.length > 0 ? (
+                    images.map((img, index) => (
+                      <img 
+                        key={index} 
+                        src={`http://localhost:8000${img.image_url}`} 
+                        alt="
+                        Event" 
+                        onClick={() => setSelectedIndex(index)} // 🔹 Nu kan man klicka på bilden
+                      />
+                    ))
+                  ) : (
+                    <p>Inga bilder tillgängliga för denna kategori.</p>
+                  )}
+                </div>
+          
+                {/* 🔹 Flytta `ImageModal` inuti `return` */}
+                <ImageModal images={images} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
+              </div>
+            );
+          }
+          
+          export default Event;
+          

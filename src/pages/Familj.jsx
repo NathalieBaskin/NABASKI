@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
-import "./Familj.css"; // Se till att CSS-filen också har stor bokstav
+import "./Familj.css"; 
+import ImageModal from "../components/ImageModal";
 
 function Familj() {
   const [images, setImages] = useState([]);
-
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  
   useEffect(() => {
+
     const fetchImages = async () => {
       try {
         const response = await fetch("http://localhost:8000/api/portfolio/familj");
@@ -29,19 +32,26 @@ function Familj() {
         <a href="/kundgalleri" className="btn">KUNDGALLERI</a>
       </div>
 
-      {/* Bildgalleri */}
-      <div className="image-grid">
-        {images.length > 0 ? (
-          images.map((img, index) => (
-            <img key={index} src={`http://localhost:8000${img.image_url}`} alt="Familj" />
-          ))
-        ) : (
-          <p>Inga bilder tillgängliga för denna kategori.</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
-export default Familj;
-//TODO: Fyll på med bilder
+<div className="image-grid">
+             {images.length > 0 ? (
+               images.map((img, index) => (
+                 <img 
+                   key={index} 
+                   src={`http://localhost:8000${img.image_url}`} 
+                   alt="Familj" 
+                   onClick={() => setSelectedIndex(index)} // 🔹 Nu kan man klicka på bilden
+                 />
+               ))
+             ) : (
+               <p>Inga bilder tillgängliga för denna kategori.</p>
+             )}
+           </div>
+     
+           {/* 🔹 Flytta `ImageModal` inuti `return` */}
+           <ImageModal images={images} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
+         </div>
+       );
+     }
+     
+     export default Familj;
+     
