@@ -23,7 +23,7 @@
 .nav {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items:flex-end;
 
  
 }
@@ -39,8 +39,8 @@ color: white;
   padding: 10px 20px;
   border: 1px solid #ccc;
   border-radius: 15px;
-  margin-right: 10px;
-  width: 150px; /* Justera bredden efter behov */
+  margin-right: 1rem;
+  width: 200px;
   font-size: 0.9em;
 }
 
@@ -50,7 +50,6 @@ color: white;
   cursor: pointer;
   font-size: 1em; /* Justera storleken på ikonen */
   color: #333;
-  margin-left: 10px; /* Lägg till lite marginal på höger sida */
 
 }
 

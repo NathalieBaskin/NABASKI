@@ -110,7 +110,7 @@ function Priser() {
       },
       {
         name: "Event - Medium",
-        description: "Upp till 6",
+        description: "Upp till 6 timmar",
         price: "10 000 SEK",
         photographyType: "Event"
       },
