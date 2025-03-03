@@ -247,6 +247,26 @@ function Admin() {
         }
     };
 
+    const getImageSource = (img) => {
+        if (img instanceof File || img instanceof Blob) {
+            return URL.createObjectURL(img);
+        }
+
+        // Om img inte är en File eller Blob, anta att det är en sökväg eller URL (redan en sträng)
+        if (typeof img === 'string') {
+            // Kontrollera om img är en fullständig URL
+            if (img.startsWith('http://') || img.startsWith('https://')) {
+                return img; // Använd fullständig URL
+            } else {
+                return `http://localhost:5000/${img}`; // Lägg till bas-URL om det bara är en sökväg
+            }
+        }
+
+        console.error("Ogiltig bildtyp:", img);
+        return ""; // Returnera en tom sträng eller en platshållarbild
+    };
+
+
     return (
         <div className="admin-page">
             <h1>Admin</h1>
@@ -264,7 +284,6 @@ function Admin() {
                 ))}
                 <option value="new">Skapa nytt galleri</option>
             </select>
-
             {selectedGallery && (
                 <div className="gallery-editor">
                     <label>Galleri namn</label>
@@ -296,7 +315,7 @@ function Admin() {
                                 onDragOver={(e) => e.preventDefault()}
                             >
                                 <img
-                                    src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`}
+                                    src={getImageSource(img)}
                                     width="100"
                                     alt="Uppladdad bild"
                                 />
@@ -356,7 +375,7 @@ function Admin() {
                                 onDragOver={(e) => e.preventDefault()}
                             >
                                 <img
-                                    src={img instanceof File ? URL.createObjectURL(img) : `http://localhost:5000${img}`}
+                                    src={getImageSource(img)}
                                     width="100"
                                     alt="Preview"
                                 />
