@@ -14,33 +14,19 @@
 .footer-title{
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 0; 
+  margin-bottom: 0;
+  margin-top: 0; 
 }
 
 .footer-name{
   font-size: 16px;
   font-weight: normal;
   margin-top: 0; 
-  margin-bottom: 0;
+  margin-bottom: 1rem;
+
 }
 
 
-.footer-icons {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 0; 
-.footer-icons a {
-  color: black;
-  font-size: 24px; 
-  transition: color 0.3s ease;
-}
-
-.footer-icons a:hover {
-  color: rgb(94, 1, 1); 
-}
-}
 #root {
   display: flex;
   flex-direction: column;
