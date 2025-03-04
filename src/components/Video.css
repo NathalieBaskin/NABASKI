@@ -1,26 +1,30 @@
-
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; 
+.video-container {
   width: 100%;
-  
-}.video-container {
-  width: 100vw; 
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0;
-  padding: 0;
-
+  overflow: hidden;
+  position: relative;
+  height: 170px; /* Justera efter behov */
+  display: flex;
+  align-items: center;
 }
 
-  
-  .background-video {
-    width: 100%;
-    height: auto;
-    display: block;
-   
-    
+.video-carousel {
+  display: flex;
+  width: max-content;
+  animation: scrollVideos 60s linear infinite; /* Långsam rörelse */
+}
+
+.background-video {
+  width: 300px; /* Justera efter behov */
+  height: 100%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+@keyframes scrollVideos {
+  from {
+    transform: translateX(0);
   }
-  
+  to {
+    transform: translateX(-50%);
+  }
+}
