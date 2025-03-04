@@ -79,7 +79,7 @@ function Checkout() {
             <input
               type="text"
               name="eftername"
-              value={customerInfo.name}
+              value={customerInfo.lastname}
               onChange={handleInputChange}
             />
           </div>
@@ -106,7 +106,7 @@ function Checkout() {
             <input
               type="text"
               name="Postnr"
-              value={customerInfo.address}
+              value={customerInfo.postnr}
               onChange={handleInputChange}
             />
           </div>
@@ -115,7 +115,7 @@ function Checkout() {
             <input
               type="text"
               name="ort"
-              value={customerInfo.address}
+              value={customerInfo.ort}
               onChange={handleInputChange}
             />
           </div>

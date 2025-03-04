@@ -1,19 +1,30 @@
 {
   "/uploads/f24e39f882a28b19efec55a263424f20": {
-    "likes": 0,
+    "likes": 1,
     "comments": []
   },
   "/uploads/41e521c302be6159bc77745952f0e994": {
-    "likes": 0,
+    "likes": 1,
     "comments": [
+      {},
       {
-    
+        "name": "Natta",
+        "text": "fina ni är"
+      },
+      {
+        "name": "Nathalie",
+        "text": "Söta"
       }
     ]
   },
   "/uploads/3bc33968781425c3b3d973060c2c2ed6": {
-    "likes": 0,
-    "comments": []
+    "likes": 1,
+    "comments": [
+      {
+        "name": "Natta",
+        "text": "fina"
+      }
+    ]
   },
   "/uploads/1740478185713": {
     "likes": 0,

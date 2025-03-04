@@ -101,21 +101,48 @@
   left: 50px;
   top: 51%;
   transform: translateY(-50%);
+  background-color: none;
 }
 
 .slideshow .next-btn {
   right: 50px;
   top: 51%;
   transform: translateY(-50%);
+  background-color: none;
 }
 
 .slideshow .close-btn {
-  top: 10px;
-  right: 10px;
+  bottom: 500px;
+  right: 20px;
+  margin-top: 0;
+  background-color: none;
 }
 .slideshow-icons {
   padding: 20px;
   margin-left: 45%;
+}
+.slideshow button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: black;
+  position: absolute;
+  padding: 10px;
+  outline: none;
+}
+
+/* Ta bort hover-bakgrundsfärg */
+.slideshow button:hover {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+/* Ta bort eventuell fokus-stil på knapparna */
+.slideshow button:focus {
+  outline: none;
+  background: none !important;
+  box-shadow: none !important;
 }
 
 /*Kommentarsfält*/
@@ -152,7 +179,10 @@
 .comment-section button:hover {
   background: #7b0e0e;
 }
-
+.button .next-btn:hover, .button .prev-btn:hover, .button .close-btn:hover {
+color: none;
+  
+}
 .comments {
   max-height: 200px;
   overflow-y: auto;
@@ -245,9 +275,7 @@
   flex-direction: column;
   flex-grow: 1; 
 }
-.password-modal button:hover {
-  background: #555;
-}
+
 
 .password-modal .error {
   color: red;
@@ -367,6 +395,9 @@ button:hover {
   .image-icons {
     margin-left: auto;
     margin-right: auto;
+  }
+  .slideshow .close-btn {
+    margin-right:0;
   }
 }
 
