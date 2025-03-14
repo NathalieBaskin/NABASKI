@@ -10,7 +10,9 @@
   gap: 10px;
   padding: 10px;
 }
-
+.image-gallery {
+  margin-top: 2rem;
+}
 .image-gallery img {
   width: 400px;
   height: auto;
@@ -78,6 +80,8 @@
   max-width: 400px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.4);
   z-index: 1000;
+  overflow-y: auto; 
+    max-height: 80vh; 
 }
 
 .slideshow img {
@@ -150,7 +154,7 @@
 .comment-section {
   margin-top: 15px;
   padding: 10px;
-  background: #f5f5f5;
+
   border-radius: 8px;
   max-width: 350px;
   text-align: left;
@@ -218,7 +222,6 @@ color: none;
 
 .image-icons i, .slideshow-icons i {
   font-size: 20px;
-  margin-right: 5px;
 }
 
 
@@ -373,6 +376,20 @@ button:hover {
 .kundgalleri-page .cart-button {
   display: none;
 }
+@media (max-width:700px) {
+  .slideshow {
+    overflow-y: auto; 
+    max-height: 50vh; 
+  }
+.slideshow-icons {
+  margin-left: 40%;
+}
+ 
+}
+
+
+
+
 
 @media (min-width: 768px) {
   .galleri-grid {
@@ -383,15 +400,7 @@ button:hover {
 .image-gallery img {
   grid-template-columns: repeat(2, 1fr);
 }
-  .slideshow {
-    margin-left: 5%;
-    max-width: 500px;
-  }
-
-  .comment-section {
-    max-width: 500px;
-  }
-
+ 
   .image-icons {
     margin-left: auto;
     margin-right: auto;
@@ -407,12 +416,12 @@ button:hover {
     margin-right: auto !important;
   }
 .slideshow {
-  margin-left: 5%;
-  max-width: 300px;
+  overflow-y: auto; 
+  max-height: 40vh; 
 }
 
 .comment-section {
-  max-width: 300px;
+  max-width: 550px;
 }
 .comment-section button {
   width:30%;
@@ -427,6 +436,6 @@ button:hover {
 }
 .slideshow-icons {
   padding: 20px;
-  margin-left: 40%;
+  margin-left: 44%;
 }
 }

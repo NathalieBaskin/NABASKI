@@ -115,46 +115,25 @@
   
 
 
-  @media (max-width: 640px) {
+  @media (min-width: 1024px) {
     .kontakt-container {
-      padding: 15px;
-    }
-  
- 
-  
-    .kontakt-input,
-    .kontakt-textarea {
-      font-size: 14px;
-    }
-  
-    .kontakt-button {
-      width: 100%;
-    }
-  }
-  
-  @media (min-width: 641px) and (max-width: 1024px) {
-    .kontakt-container {
-      padding: 20px;
-    }
-  
-    .kontakt-form {
-      padding: 25px;
-    }
-  }
-  
-  @media (min-width: 1025px) {
-    .kontakt-container {
-      padding: 30px;
-    }
-  
-    .kontakt-form {
-      padding: 40px;
-    }
-    .kontakt-container {
-      max-width: 1500px; 
+      max-width: 2000px;  
       margin: 0 auto;
       padding: 40px;  
       font-family: 'Silksemi';
+      display: flex;
+    flex-direction: column;
+    flex-grow: 1; 
+  
     }
+    
+  .kontakt-form-group {
+    margin-top: 5rem;
+   width: 750px;
   }
+  
+  }
+
+  
+
   

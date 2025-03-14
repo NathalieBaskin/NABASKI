@@ -55,7 +55,8 @@
 @media (max-width: 640px) {
   .portfolio-text {
     font-size: 30px!important;
-    margin-top: 4.2rem;
+    margin-top: 2.6rem;
+    margin-bottom: 1rem;
     z-index: 1000;
   
   }
