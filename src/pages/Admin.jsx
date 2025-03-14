@@ -276,10 +276,10 @@ function Admin() {
    
     if (typeof img === "string") {
       
-      if (img.startsWith("http://") || img.startsWith("https://")) {
-        return img; 
-      } else {
-        return `http://localhost:5000/${img}`; 
+      if (typeof img === "string") {
+        // Se till att strängen börjar med exakt en slash
+        const sanitized = img.startsWith("/") ? img : `/${img}`;
+        return `http://localhost:5000${sanitized}`;
       }
     }
 

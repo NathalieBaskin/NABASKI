@@ -62,7 +62,8 @@ const saveComments = (comments) => {
 
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
-app.use("/uploads", express.static(uploadDir));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 
 const storage = multer.diskStorage({
