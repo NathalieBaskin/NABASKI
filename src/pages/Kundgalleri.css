@@ -54,16 +54,16 @@
 
 .image-icons {
   display: flex;
-  justify-content: center; /* Håller ikonerna centrerade horisontellt */
-  align-items: center; /* Håller ikonerna centrerade vertikalt */
-  gap: 25px; /* Avstånd mellan ikonerna */
+  justify-content: center; 
+  align-items: center; 
+  gap: 25px; 
   padding: 20px;
-  margin: 0 auto; /* Säkerställer att de centreras */
-  width: fit-content; /* Gör att de inte tar upp hela bredden */
+  margin: 0 auto; 
+  width: fit-content;
 }
 
 
-/*Slideshow */
+
 
 .slideshow {
   position: fixed;
@@ -132,20 +132,20 @@
   outline: none;
 }
 
-/* Ta bort hover-bakgrundsfärg */
+
 .slideshow button:hover {
   background: none !important;
   box-shadow: none !important;
 }
 
-/* Ta bort eventuell fokus-stil på knapparna */
+
 .slideshow button:focus {
   outline: none;
   background: none !important;
   box-shadow: none !important;
 }
 
-/*Kommentarsfält*/
+
 
 .comment-section {
   margin-top: 15px;
@@ -201,7 +201,7 @@ color: none;
 }
 
 
-/* Gilla och Kommentarikoner */
+
 
 .image-icons, .slideshow-icons {
   display: flex;
@@ -221,7 +221,7 @@ color: none;
   margin-right: 5px;
 }
 
-/*Lösenords-popup */
+
 
 .modal-overlay {
   position: fixed;

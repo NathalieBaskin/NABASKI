@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons"; // Sociala ikoner
+import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons"; 
 import "./Header.css";
 
 function Header() {
@@ -27,7 +27,7 @@ function Header() {
 
       <nav className="nav">
         <div className="nav-right">
-          {/* Sökfält */}
+       
           <form onSubmit={handleSearch}>
             <input
               type="text"
@@ -38,7 +38,7 @@ function Header() {
             />
           </form>
 
-          {/* Sociala medier + kundvagn */}
+         
           <div className="social-cart">
             <a href="https://www.facebook.com/namahka" className="social-icon" target="_blank" rel="noopener noreferrer">
               <FontAwesomeIcon icon={faFacebook} size="lg" />

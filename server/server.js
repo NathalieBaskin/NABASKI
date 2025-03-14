@@ -13,16 +13,14 @@ const PORT = 8000;
 app.use(cors());
 app.use(express.json());
 
-// Sätt upp __dirname för ES-moduler
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Servera statiska filer så att bilderna kan nås i frontend
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// ==========================
-// Bokningssystem (oförändrat)
-// ==========================
+
 const db = new sqlite3.Database("./nabaski.db", (err) => {
   if (err) {
     console.error("Error connecting to database:", err.message);
@@ -62,11 +60,7 @@ app.get("/api/bookings", (req, res) => {
   });
 });
 
-// ==========================
-// Portfolio-funktionalitet
-// ==========================
 
-// Skapa tabellen för portfolio_images om den inte finns
 db.run(`CREATE TABLE IF NOT EXISTS portfolio_images (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   category TEXT NOT NULL,
@@ -75,18 +69,17 @@ db.run(`CREATE TABLE IF NOT EXISTS portfolio_images (
   uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`);
 
-// Skapa mappen för portfolio-bilder om den inte finns
+
 const portfolioDir = path.join(__dirname, "uploads", "portfolio");
 if (!fs.existsSync(portfolioDir)) {
   fs.mkdirSync(portfolioDir, { recursive: true });
 }
 
-// Funktion för att normalisera kategorinamn (ersätter å, ä, ö med a, a, o)
+
 const normalizeCategory = (category) => {
   return category.toLowerCase().replace(/å/g, "a").replace(/ä/g, "a").replace(/ö/g, "o");
 };
 
-// Konfigurera multer för att hantera bilduppladdning
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, portfolioDir);
@@ -98,13 +91,13 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 200 * 1024 * 1024, // 200MB
+    fileSize: 200 * 1024 * 1024, 
   },
 });
 
-// POST: Ladda upp bilder till portfolio
+
 app.post("/api/addPortfolioImages", upload.array("images", 10), (req, res) => {
-  console.log("⚡ API-anrop mottaget: /api/addPortfolioImages");
+  console.log(" API-anrop mottaget: /api/addPortfolioImages");
   console.log("Kategori:", req.body.category);
   console.log("Namn:", req.body.name);
 
@@ -136,7 +129,6 @@ app.post("/api/addPortfolioImages", upload.array("images", 10), (req, res) => {
   });
 });
 
-// GET: Hämta bilder från en specifik portfolio-kategori
 app.get("/api/portfolio/:category", (req, res) => {
   let category = req.params.category.trim();
   category = normalizeCategory(category);
@@ -152,9 +144,7 @@ app.get("/api/portfolio/:category", (req, res) => {
   });
 });
 
-// =================================
-// SÖK: Hämta bilder baserat på namn
-// =================================
+
 app.get("/api/searchImages", (req, res) => {
   const query = req.query.q ? req.query.q.toLowerCase() : "";
   console.log("🔍 Söker efter bilder med namn:", query);
@@ -169,7 +159,7 @@ app.get("/api/searchImages", (req, res) => {
   });
 });
 
-// DELETE: Ta bort en bild från portfolio
+
 app.delete("/api/deletePortfolioImage/:imageId", (req, res) => {
   const { imageId } = req.params;
   const sql = "SELECT image_url FROM portfolio_images WHERE id = ?";
@@ -195,9 +185,7 @@ app.delete("/api/deletePortfolioImage/:imageId", (req, res) => {
   });
 });
 
-// ==========================
-// Starta servern
-// ==========================
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

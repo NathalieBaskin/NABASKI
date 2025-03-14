@@ -51,7 +51,7 @@
   letter-spacing: 3px; 
   z-index: 10 !important; 
 }
-/*mobil*/
+
 @media (max-width: 640px) {
   .portfolio-text {
     font-size: 30px!important;
@@ -73,7 +73,7 @@ margin-top: 1rem;
     margin-top: 1rem;
   }
 }
-/*ipad*/
+
 @media (min-width: 640px) {
   .portfolio-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -83,7 +83,7 @@ margin-top: 1rem;
     font-size: 40px !important;
   }
 }
-/*desktop*/
+
 @media (min-width: 1024px) {
   .portfolio-text {
     margin-top: 2rem;

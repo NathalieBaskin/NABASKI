@@ -2,7 +2,7 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  height: 170px; /* Justera efter behov */
+  height: 170px;
   display: flex;
   align-items: center;
 }
@@ -10,11 +10,11 @@
 .video-carousel {
   display: flex;
   width: max-content;
-  animation: scrollVideos 60s linear infinite; /* Långsam rörelse */
+  animation: scrollVideos 60s linear infinite; 
 }
 
 .background-video {
-  width: 300px; /* Justera efter behov */
+  width: 300px; 
   height: 100%;
   object-fit: cover;
   margin-right: 10px;

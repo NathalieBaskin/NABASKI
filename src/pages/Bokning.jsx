@@ -9,11 +9,11 @@ function Bokning() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  // Hämta fotograferingstyp, paket, pris och kategori från URL
+
   const initialType = searchParams.get("typ") || "";
   const initialPackage = searchParams.get("paket") || "";
   const initialPrice = searchParams.get("pris") || "";
-  const initialCategory = searchParams.get("category") || "brollop"; // Default till bröllop
+  const initialCategory = searchParams.get("category") || "brollop"; 
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [formData, setFormData] = useState({
@@ -23,21 +23,21 @@ function Bokning() {
     message: "",
   });
 
-  const [bookedDates, setBookedDates] = useState([]); // Håller koll på bokade datum
+  const [bookedDates, setBookedDates] = useState([]); 
 
-  // Vi behöver inte längre "set" funktionerna för type, paket och pris
-  const [selectedType] = useState(initialType); // Fotograferingstyp
-  const [selectedPackage] = useState(initialPackage); // Paket
-  const [price] = useState(initialPrice); // Pris
-  const [selectedCategory] = useState(initialCategory); //Kategori
+  
+  const [selectedType] = useState(initialType); 
+  const [selectedPackage] = useState(initialPackage); 
+  const [price] = useState(initialPrice); 
+  const [selectedCategory] = useState(initialCategory); 
 
-  // Hämta bokade datum från backend när komponenten laddas
+
   useEffect(() => {
     const fetchBookedDates = async () => {
       try {
         const response = await fetch("http://localhost:8000/api/bookings");
         const data = await response.json();
-        // Extrahera datum från API-responsen och spara dem i state
+        
         const dates = data.map(booking => booking.date);
         setBookedDates(dates);
       } catch (error) {
@@ -46,7 +46,7 @@ function Bokning() {
     };
 
     fetchBookedDates();
-  }, []); // Tom array säkerställer att detta körs en gång när komponenten monteras
+  }, []); 
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -67,7 +67,7 @@ function Bokning() {
       price,
       date: format(selectedDate, "yyyy-MM-dd"),
       message: formData.message,
-      category: selectedCategory // Inkludera kategorin i bokningsdatan
+      category: selectedCategory 
     };
 
     console.log("Skickar bokning:", bookingData);
@@ -84,9 +84,9 @@ function Bokning() {
       const result = await response.json();
       if (response.ok) {
         alert("Bokning genomförd!");
-        setBookedDates([...bookedDates, format(selectedDate, "yyyy-MM-dd")]); // Lägg till datumet i listan över bokningar
-        setSelectedDate(null); // Rensa valt datum
-        setFormData({ firstName: "", lastName: "", email: "", message: "" }); // Rensa formuläret
+        setBookedDates([...bookedDates, format(selectedDate, "yyyy-MM-dd")]); 
+        setSelectedDate(null); 
+        setFormData({ firstName: "", lastName: "", email: "", message: "" }); 
       } else {
         alert("Bokningen misslyckades: " + result.error);
       }
@@ -96,7 +96,7 @@ function Bokning() {
     }
   };
 
-  // Inaktivera redan bokade datum
+
   const isDateBooked = (date) => {
     return bookedDates.includes(format(date, "yyyy-MM-dd"));
   };
@@ -105,7 +105,7 @@ function Bokning() {
     <div className="bokning-page">
       <h1>BOKNING</h1>
 
-      {/* Kalender */}
+ 
       <div className="calendar">
         <DatePicker
           selected={selectedDate}
@@ -114,11 +114,11 @@ function Bokning() {
           maxDate={new Date().setFullYear(new Date().getFullYear() + 1)}
           dateFormat="yyyy-MM-dd"
           inline
-          dayClassName={(date) => isDateBooked(date) ? "booked-date" : undefined} // Använd isDateBooked för att rödmarkera datum
+          dayClassName={(date) => isDateBooked(date) ? "booked-date" : undefined} 
         />
       </div>
 
-      {/* Bokningsformulär */}
+     
       <form className="booking-form">
         <label>Datum</label>
         <input type="text" value={selectedDate ? format(selectedDate, "yyyy-MM-dd") : 'Datum inte valt'} readOnly />

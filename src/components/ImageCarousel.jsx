@@ -15,7 +15,7 @@ for (let i = 0; i < images.length; i += 3) {
   slides.push(images.slice(i, i + 3));
 }
 
-// Skapa loop genom att duplicera första och sista sliden
+
 const extendedSlides = [slides[slides.length - 1], ...slides, slides[0]];
 
 function ImageCarousel() {

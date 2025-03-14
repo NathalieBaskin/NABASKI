@@ -58,7 +58,7 @@
   margin-left: 0;
 }
 
-/* Gör alla ikoner visuellt lika */
+
 .social-icon svg,
 .cart svg {
   width: 24px;
@@ -126,6 +126,6 @@
   }
 
   .search-bar {
-    width: 300px;
+    width: 200px;
   }
 }

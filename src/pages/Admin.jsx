@@ -4,7 +4,7 @@ import "./Admin.css";
 import imageCompression from "browser-image-compression";
 
 function Admin() {
-  // Kundgalleri-relaterade state
+
   const [galleries, setGalleries] = useState([]);
   const [selectedGallery, setSelectedGallery] = useState("");
   const [galleryName, setGalleryName] = useState("");
@@ -13,7 +13,7 @@ function Admin() {
   const [newImages, setNewImages] = useState([]);
   const [error, setError] = useState("");
 
-  // Portfolio-relaterade state
+
   const [portfolioCategories] = useState([
     "Bröllop",
     "Förlovning",
@@ -25,7 +25,7 @@ function Admin() {
   const [selectedPortfolioCategory, setSelectedPortfolioCategory] =
     useState("");
   const [portfolioImages, setPortfolioImages] = useState([]);
-  const [imageCategory, setImageCategory] = useState(""); // Här deklareras och används setImageCategory
+  const [imageCategory, setImageCategory] = useState(""); 
 
   const navigate = useNavigate();
 
@@ -65,7 +65,7 @@ function Admin() {
     }
   };
 
-  // Kundgalleri-bilduppladdning
+
   const handleImageUpload = async (e) => {
     const uploadedImages = Array.from(e.target.files);
     const compressedImages = [];
@@ -174,7 +174,7 @@ function Admin() {
     }
   };
 
-  // Komprimeringsfunktion
+
   const compressImage = async (imageFile) => {
     console.log("Komprimerar", imageFile.name);
     const options = {
@@ -196,7 +196,7 @@ function Admin() {
     }
   };
 
-  // --- Portfolio-funktionalitet ---
+
   const handlePortfolioImageUpload = async (e) => {
     const uploadedImages = Array.from(e.target.files);
     const compressedImages = [];
@@ -235,13 +235,12 @@ function Admin() {
 
     const formData = new FormData();
 
-    // Skicka kategorin i normaliserad form
-    formData.append("category", normalizeCategory(selectedPortfolioCategory)); // t.ex. "brollop" för "Bröllop"
 
-    // Skicka namnet på kategorin i exakt format
-    formData.append("name", selectedPortfolioCategory); // t.ex. "Bröllop"
+    formData.append("category", normalizeCategory(selectedPortfolioCategory));
 
-    // Lägg till alla bilder
+    formData.append("name", selectedPortfolioCategory);
+
+
     portfolioImages.forEach((image) => {
       formData.append("images", image);
     });
@@ -258,7 +257,7 @@ function Admin() {
 
       if (response.ok) {
         alert("Bilder uppladdade till portfolio!");
-        setPortfolioImages([]); // Töm fältet efter uppladdning
+        setPortfolioImages([]); 
       } else {
         const errorData = await response.json();
         setError(errorData.error || "Något gick fel vid uppladdning.");
@@ -274,18 +273,18 @@ function Admin() {
       return URL.createObjectURL(img);
     }
 
-    // Om img inte är en File eller Blob, anta att det är en sökväg eller URL (redan en sträng)
+   
     if (typeof img === "string") {
-      // Kontrollera om img är en fullständig URL
+      
       if (img.startsWith("http://") || img.startsWith("https://")) {
-        return img; // Använd fullständig URL
+        return img; 
       } else {
-        return `http://localhost:5000/${img}`; // Lägg till bas-URL om det bara är en sökväg
+        return `http://localhost:5000/${img}`; 
       }
     }
 
     console.error("Ogiltig bildtyp:", img);
-    return ""; // Returnera en tom sträng eller en platshållarbild
+    return ""; 
   };
 
   return (
@@ -294,7 +293,7 @@ function Admin() {
       <div>
         <h3>Kundgalleri</h3>
       </div>
-      {/* Kundgalleri-sektionen */}
+     
       <select onChange={handleGallerySelect} value={selectedGallery}>
         <option value="">Välj ett galleri</option>
         {galleries.map((gallery) => (
@@ -372,7 +371,7 @@ function Admin() {
         </div>
       )}
 
-      {/* Portfolio-sektionen */}
+
       <h3>Portfolio</h3>
       <select
         onChange={(e) => setSelectedPortfolioCategory(e.target.value)}
@@ -387,7 +386,7 @@ function Admin() {
       </select>
 
       <select
-        onChange={(e) => setImageCategory(e.target.value)} // Används för att sätta kategori för uppladdning i backend
+        onChange={(e) => setImageCategory(e.target.value)} 
         value={imageCategory}
       >
         <option value="">Välj Namn</option>

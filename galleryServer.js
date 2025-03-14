@@ -4,27 +4,24 @@ import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
-import imageCompression from 'browser-image-compression'; // Importera biblioteket
-import { Buffer } from 'node:buffer'; // Importera Buffer från Node.js
+import imageCompression from 'browser-image-compression'; 
+import { Buffer } from 'node:buffer'; 
 
-// Hantera __dirname i ES-moduler
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 5000;
 
-// Filvägar
+
 const uploadDir = path.join(__dirname, 'uploads');
 const dbFile = path.resolve(__dirname, 'galleries.json');
 const commentsFile = path.resolve(__dirname, 'comments.json');
 
-// Skapa mappar och filer om de inte finns
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 if (!fs.existsSync(dbFile)) fs.writeFileSync(dbFile, JSON.stringify([]));
 if (!fs.existsSync(commentsFile)) fs.writeFileSync(commentsFile, JSON.stringify({}));
 
-// Ladda gallerier från JSON-fil
 const loadGalleries = () => {
   try {
     const data = fs.readFileSync(dbFile);
@@ -35,7 +32,7 @@ const loadGalleries = () => {
   }
 };
 
-// Spara gallerier till JSON-fil
+
 const saveGalleries = (galleries) => {
   try {
     fs.writeFileSync(dbFile, JSON.stringify(galleries, null, 2));
@@ -44,7 +41,7 @@ const saveGalleries = (galleries) => {
   }
 };
 
-// Ladda kommentarer och likes från JSON
+
 const loadComments = () => {
   try {
     return JSON.parse(fs.readFileSync(commentsFile));
@@ -54,7 +51,7 @@ const loadComments = () => {
   }
 };
 
-// Spara kommentarer och likes till JSON
+
 const saveComments = (comments) => {
   try {
     fs.writeFileSync(commentsFile, JSON.stringify(comments, null, 2));
@@ -63,12 +60,11 @@ const saveComments = (comments) => {
   }
 };
 
-// Middleware
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use("/uploads", express.static(uploadDir));
 
-// Konfigurera Multer för filuppladdning
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, uploadDir);
@@ -81,11 +77,11 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 200 * 1024 * 1024, // 200MB
+    fileSize: 200 * 1024 * 1024, 
   }
 });
 
-// Komprimeringsfunktion (kan anpassas)
+
 const compressImage = async (imagePath) => {
     try {
         const imageFile = fs.readFileSync(imagePath);
@@ -96,24 +92,20 @@ const compressImage = async (imagePath) => {
         };
 
         const compressedFile = await imageCompression(new File([imageFile], "compressed.jpg"), options);
-        const buffer = Buffer.from(await compressedFile.arrayBuffer()); // Skapa en Buffer från ArrayBuffer
-        fs.writeFileSync(imagePath, buffer); // Ersätt originalfilen med den komprimerade filen
+        const buffer = Buffer.from(await compressedFile.arrayBuffer()); 
+        fs.writeFileSync(imagePath, buffer); 
     } catch (error) {
         console.error("Fel vid komprimering av bild:", error);
     }
 };
 
-/* ============================================= */
-/* 📷 Hämta alla gallerier */
-/* ============================================= */
+
 app.get('/api/galleries', (req, res) => {
   const galleries = loadGalleries();
   res.json({ galleries });
 });
 
-/* ============================================= */
-/* 📂 Lägg till nytt galleri */
-/* ============================================= */
+
 app.post('/api/addGallery', upload.fields([
   { name: "representativeImage", maxCount: 1 },
   { name: "images", maxCount: 10 }
@@ -134,7 +126,7 @@ app.post('/api/addGallery', upload.fields([
     ? `/uploads/${req.files["representativeImage"][0].filename}`
     : images[0];
 
-  // Komprimera bilderna asynkront
+
   for (const file of req.files["images"]) {
     await compressImage(path.join(uploadDir, file.filename));
   }
@@ -157,9 +149,9 @@ app.post('/api/addGallery', upload.fields([
 app.get("/api/getUniqueNames", async (req, res) => {
   console.log("GET /api/getUniqueNames called");
   try {
-      const galleries = loadGalleries(); // Hämta gallerier
-      const names = galleries.map(g => g.name); // Plocka ut namnen
-      const uniqueNames = [...new Set(names)]; // Ta bort dubbletter
+      const galleries = loadGalleries();
+      const names = galleries.map(g => g.name); 
+      const uniqueNames = [...new Set(names)]; 
       console.log("Fetched unique names:", uniqueNames);
       res.json({ names: uniqueNames });
   } catch (error) {
@@ -201,9 +193,7 @@ app.put("/api/updateGallery/:id", upload.fields([
 });
 
 
-/* ============================================= */
-/* 🗑 Radera galleri */
-/* ============================================= */
+
 app.delete('/api/deleteGallery/:id', (req, res) => {
   let galleries = loadGalleries();
   const { id } = req.params;
@@ -218,17 +208,12 @@ app.delete('/api/deleteGallery/:id', (req, res) => {
   }
 });
 
-/* ============================================= */
-/* 💬 Hämta kommentarer och likes för en bild */
-/* ============================================= */
+
 app.get('/api/comments/:image', (req, res) => {
   const comments = loadComments();
   res.json(comments[req.params.image] || { likes: 0, comments: [] });
 });
 
-/* ============================================= */
-/* ❤️ Gilla en bild */
-/* ============================================= */
 app.post('/api/like/:image', (req, res) => {
   const comments = loadComments();
   if (!comments[req.params.image]) {
@@ -239,9 +224,7 @@ app.post('/api/like/:image', (req, res) => {
   res.json(comments[req.params.image]);
 });
 
-/* ============================================= */
-/* 📝 Lägg till en kommentar */
-/* ============================================= */
+
 app.post('/api/comment/:image', (req, res) => {
   const { name, text } = req.body;
   if (!name || !text) {
@@ -257,14 +240,14 @@ app.post('/api/comment/:image', (req, res) => {
   saveComments(comments);
   res.json(comments[req.params.image]);
 });
-// Ta bort en kommentar för en specifik bild
+
 app.delete('/api/deleteComment/:image', (req, res) => {
   const { image } = req.params;
-  const { commentIndex } = req.body;  // Ta emot index för kommentaren som ska tas bort
+  const { commentIndex } = req.body;  
 
   const comments = loadComments();
   if (comments[image] && comments[image].comments[commentIndex]) {
-    comments[image].comments.splice(commentIndex, 1);  // Ta bort kommentaren från arrayen
+    comments[image].comments.splice(commentIndex, 1);  
     saveComments(comments);
     return res.json({ message: "Kommentar raderad!" });
   } else {
