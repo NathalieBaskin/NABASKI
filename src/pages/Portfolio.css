@@ -41,7 +41,7 @@
 }
 .portfolio-text {
   position: absolute;
-  top: 85%; 
+  top: 60%; 
   left: 50%;
   transform: translate(-50%, -50%); 
   font-family: "Silksemi", sans-serif; 
@@ -54,8 +54,8 @@
 
 @media (max-width: 640px) {
   .portfolio-text {
-    font-size: 30px!important;
-    margin-top: 2.6rem;
+    font-size: 40px!important;
+    margin-top: 6rem;
     margin-bottom: 1rem;
     z-index: 1000;
   
@@ -87,7 +87,7 @@ margin-top: 1rem;
 
 @media (min-width: 1024px) {
   .portfolio-text {
-    margin-top: 2rem;
+    margin-top: 1rem;
     font-size: 30px; 
   }
 

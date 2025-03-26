@@ -16,7 +16,7 @@ function ImageModal({ images, selectedIndex, setSelectedIndex }) {
 
   return (
     <div className="modal-overlay">
-      <button className="close-btn" onClick={() => setSelectedIndex(null)}>
+      <button className="close-knapp" onClick={() => setSelectedIndex(null)}>
         <FontAwesomeIcon icon={faTimes} />
       </button>
       <button className="prev-btn" onClick={handlePrev}>

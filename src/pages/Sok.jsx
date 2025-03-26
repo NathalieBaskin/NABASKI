@@ -64,7 +64,7 @@ function Sok() {
 
       {selectedIndex !== null && (
         <div className="modal-overlay">
-          <button className="close-btn" onClick={() => setSelectedIndex(null)}>
+          <button className="stang-knapp" onClick={() => setSelectedIndex(null)}>
             <FontAwesomeIcon icon={faTimes} />
           </button>
           <button className="prev-btn" onClick={handlePrev}>
