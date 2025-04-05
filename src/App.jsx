@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Video from "./components/Video";
-import Testimonials from "./components/Testimonials";
+import Startsida from "./pages/Startsida"; 
 import Portfolio from "./pages/Portfolio";
 import Brollop from "./pages/Brollop";
 import Bokning from "./pages/Bokning";
@@ -13,12 +12,9 @@ import Priser from "./pages/Priser";
 import Admin from "./pages/Admin";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
-
 import Familj from "./pages/Familj";
 import Barn from "./pages/Barn";
 import Modell from "./pages/Modell";
-
-import './index.css';  
 
 function App() {
   return (
@@ -26,15 +22,7 @@ function App() {
       <div className="app-container">
         <Header />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Video />
-                <Testimonials />
-              </>
-            }
-          />
+          <Route path="/" element={<Startsida />} /> {/* Nu laddas Startsida.jsx */}
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/brollop" element={<Brollop />} />
           <Route path="/bokning" element={<Bokning />} />
@@ -45,11 +33,9 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-          
           <Route path="/familj" element={<Familj />} />
-          <Route path="/barn" element={<Barn/>} />
-          <Route path="/modell" element={<Modell/>} />
-       
+          <Route path="/barn" element={<Barn />} />
+          <Route path="/modell" element={<Modell />} />
         </Routes>
         <Footer />
       </div>
