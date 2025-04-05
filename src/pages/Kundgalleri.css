@@ -115,11 +115,11 @@
   background-color: none;
 }
 
-.slideshow .close-btn {
-  bottom: 500px;
-  right: 20px;
-  margin-top: 0;
-  background-color: none;
+.slideshow.close-btn {
+  bottom: 420px;
+margin-left:330px;
+
+  cursor: pointer;
 }
 .slideshow-icons {
   padding: 20px;
@@ -384,7 +384,11 @@ button:hover {
 .slideshow-icons {
   margin-left: 40%;
 }
- 
+.slideshow .close-btn {
+  margin-bottom: 440px;
+  margin-left:310px;
+  color: rgb(117, 6, 6);
+}
 }
 
 
@@ -406,7 +410,9 @@ button:hover {
     margin-right: auto;
   }
   .slideshow .close-btn {
-    margin-right:0;
+    margin-bottom: 40px;
+    margin-left:340px;
+    color: rgb(117, 6, 6);
   }
 }
 
@@ -417,9 +423,12 @@ button:hover {
   }
 .slideshow {
   overflow-y: auto; 
-  max-height: 40vh; 
+  max-height: 100vh; 
 }
-
+.slideshow .close-btn {
+ 
+  margin-left:340px;
+}
 .comment-section {
   max-width: 550px;
 }

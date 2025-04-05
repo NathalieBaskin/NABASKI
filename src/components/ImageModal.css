@@ -52,15 +52,15 @@
        }
        @media (min-width: 640px) {
         .close-knapp{
-       margin-bottom: 22rem;
-       margin-left: 32rem;
+       margin-bottom: 25rem;
+       margin-left: 40rem;
       
         }
            }
            @media (min-width: 2000px) {
             .close-knapp{
            margin-bottom: 25rem;
-           margin-left: 30rem;
+           margin-left: 35rem;
           
             }
                }
