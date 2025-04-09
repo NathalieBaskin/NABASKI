@@ -87,7 +87,7 @@ margin-top: 1rem;
 
 @media (min-width: 1024px) {
   .portfolio-text {
-    margin-top: 1rem;
+    margin-bottom: 0rem;
     font-size: 30px; 
   }
 
