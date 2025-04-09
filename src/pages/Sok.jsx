@@ -1,8 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Sok.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight, faTimes } from "@fortawesome/free-solid-svg-icons";
+import ImageModal from "../components/ImageModal"; // <-- Här importeras ImageModal
 
 function Sok() {
   const location = useLocation();
@@ -33,14 +32,6 @@ function Sok() {
     fetchImages();
   }, [query]);
 
-  const handleNext = () => {
-    setSelectedIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
-
-  const handlePrev = () => {
-    setSelectedIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-  };
-
   return (
     <div className="sok-page">
       <h1 className='soktitel'>Sökresultat för {query}</h1>
@@ -62,20 +53,12 @@ function Sok() {
         </div>
       )}
 
-      {selectedIndex !== null && (
-        <div className="modal-overlay">
-          <button className="stang-knapp" onClick={() => setSelectedIndex(null)}>
-            <FontAwesomeIcon icon={faTimes} />
-          </button>
-          <button className="prev-btn" onClick={handlePrev}>
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </button>
-          <img className="modal-image" src={`http://localhost:8000${images[selectedIndex].image_url}`} alt="Förstorad bild" />
-          <button className="next-btn" onClick={handleNext}>
-            <FontAwesomeIcon icon={faArrowRight} />
-          </button>
-        </div>
-      )}
+      {/* Här används nu ImageModal */}
+      <ImageModal
+        images={images}
+        selectedIndex={selectedIndex}
+        setSelectedIndex={setSelectedIndex}
+      />
     </div>
   );
 }
