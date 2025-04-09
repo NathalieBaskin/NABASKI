@@ -53,7 +53,6 @@ function Sok() {
         </div>
       )}
 
-      {/* Här används nu ImageModal */}
       <ImageModal
         images={images}
         selectedIndex={selectedIndex}
