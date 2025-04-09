@@ -16,11 +16,9 @@ function Admin() {
 
   const [portfolioCategories] = useState([
     "Bröllop",
-    "Förlovning",
     "Familj",
     "Barn",
     "Modell",
-    "Event",
   ]);
   const [selectedPortfolioCategory, setSelectedPortfolioCategory] =
     useState("");

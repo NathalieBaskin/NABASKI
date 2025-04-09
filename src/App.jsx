@@ -22,7 +22,7 @@ function App() {
       <div className="app-container">
         <Header />
         <Routes>
-          <Route path="/" element={<Startsida />} /> {/* Nu laddas Startsida.jsx */}
+          <Route path="/" element={<Startsida />} /> 
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/brollop" element={<Brollop />} />
           <Route path="/bokning" element={<Bokning />} />

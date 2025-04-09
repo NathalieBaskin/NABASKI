@@ -11,7 +11,7 @@ function Priser() {
       {
         name: "Small",
         description: "Förberedelser, vigsel, porträtt, gästfotografering, mingel, middag och fest, upp till 10 timmar. Vad ingår? Upp till 500st redigerade bilder levererade via wetransfer och USB, kortare video, lösenordsskyddat galleri att dela med nära och kära, 10st utskrivna bilder (10x13) och 1st inramad förstoring (40x60)",
-        price: "18 000 SEK",
+        price: "5000 SEK",
         photographyType: "Bröllop"
       },
       {
@@ -23,7 +23,7 @@ function Priser() {
       {
         name: "Large",
         description: "Vigsel & porträtt, upp till 2 timmar. Vad ingår? Upp till 50st redigerade bilder levererade via wetransfer och ett lösenordsskyddat galleri att dela med nära och kära",
-        price: "5000 SEK",
+        price: "18 000 SEK",
         photographyType: "Bröllop"
       }
     ],
